@@ -1,0 +1,9 @@
+curl -X  http://localhost:11434/api/chat -d '{
+    "model":"llama3",
+    "stream":flase,
+    "messages":[
+        {
+            "role":"user","content":"Che cos è la vita"
+        }
+    ]
+}'

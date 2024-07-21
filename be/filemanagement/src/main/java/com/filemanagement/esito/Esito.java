@@ -1,6 +1,6 @@
-package com.chatbot.pal.esito;
+package com.filemanagement.esito;
 
-import com.chatbot.pal.esito.constants.EsitoOperazioneEnum;
+import com.filemanagement.esito.constants.EsitoOperazioneEnum;
 import lombok.Data;
 
 import java.util.List;
