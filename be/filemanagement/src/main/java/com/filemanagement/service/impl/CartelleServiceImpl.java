@@ -8,6 +8,7 @@ import com.filemanagement.mapper.cartelle.CartelleEntityMapper;
 import com.filemanagement.repository.CartelleRepository;
 import com.filemanagement.service.CartelleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.util.Optional;
@@ -46,12 +47,13 @@ public class CartelleServiceImpl implements CartelleService {
     }
 
     @Override
+    @Transactional
     public String eliminaCartella(CartellaParams cartellaParams) {
         String messg = checkParams(cartellaParams);
 
         if(cartellaParams.getPath()!=null && cartellaParams.getNomeCartella()!=null){
             deleteFiles(cartellaParams);
-            cartelleRepository.deleteBy
+            cartelleRepository.deleteCartelleByNomeCartella(cartellaParams.getNomeCartella());
             messg = "File eliminati";
         }if(cartellaParams.getPath()!=null && cartellaParams.getNomeCartella()==null){
             return "Specificare sia il path sia il nome della cartella";
