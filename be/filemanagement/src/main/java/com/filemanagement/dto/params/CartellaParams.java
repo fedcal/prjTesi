@@ -7,13 +7,9 @@ import lombok.Data;
 
 @Data
 public class CartellaParams {
-    @NotNull(message = "Il nome della cartella non può essere vuoto")
-    @NotEmpty(message = "Il nome della cartella non può essere vuoto")
     @Schema(description = "Nome della cartella",type = "string")
     private String nomeCartella;
 
-    @NotNull(message = "Il nome della cartella non può essere vuoto")
-    @NotEmpty(message = "Il nome della cartella non può essere vuoto")
     @Schema(description = "Path delle cartella",type = "string")
     private String path;
 }

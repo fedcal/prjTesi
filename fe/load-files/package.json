@@ -30,7 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "types:openapi-gateway": "openapi-generator-cli generate -i openapi/gateway.yaml -g typescript-axios -o src/openapicode/gateway --skip-validate-spec --additional-properties=useSingleRequestParameter=true,apiPackage=api,modelPackage=model,withSeparateModelsAndApi=true"
+    "types:openapi-gateway": "openapi-generator-cli generate -i openapi/ms-filemanagement.yaml -g typescript-axios -o src/openapicode/filemanagement --skip-validate-spec --additional-properties=useSingleRequestParameter=true,apiPackage=api,modelPackage=model,withSeparateModelsAndApi=true"
   },
   "eslintConfig": {
     "extends": [

@@ -1,0 +1,179 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8082
+    description: Generated server url
+paths:
+  /cartelle/crea:
+    put:
+      tags:
+        - cartelle-controller
+      operationId: aggiungiCartella
+      parameters:
+        - name: nomeCartella
+          in: query
+          description: Nome della cartella
+          required: true
+          schema:
+            type: string
+            description: Nome della cartella
+        - name: path
+          in: query
+          description: Path delle cartella
+          required: true
+          schema:
+            type: string
+            description: Path delle cartella
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /documenti/upload:
+    post:
+      tags:
+        - documenti-controller
+      operationId: uploadFile
+      parameters:
+        - name: uploadDir
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /cartelle/rinomina:
+    post:
+      tags:
+        - cartelle-controller
+      operationId: rinominaCartella
+      parameters:
+        - name: nuovoPath
+          in: query
+          description: Nome della cartella
+          required: true
+          schema:
+            type: string
+            description: Nome della cartella
+        - name: nuovoNomeCartella
+          in: query
+          description: Nome della cartella
+          required: true
+          schema:
+            type: string
+            description: Nome della cartella
+        - name: nomeCartella
+          in: query
+          description: Nome della cartella
+          required: true
+          schema:
+            type: string
+            description: Nome della cartella
+        - name: path
+          in: query
+          description: Path delle cartella
+          required: true
+          schema:
+            type: string
+            description: Path delle cartella
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /cartelle/elimina:
+    delete:
+      tags:
+        - cartelle-controller
+      operationId: eliminaCartella
+      parameters:
+        - name: nomeCartella
+          in: query
+          description: Nome della cartella
+          required: true
+          schema:
+            type: string
+            description: Nome della cartella
+        - name: path
+          in: query
+          description: Path delle cartella
+          required: true
+          schema:
+            type: string
+            description: Path delle cartella
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+components:
+  schemas:
+    Esito:
+      type: object
+      properties:
+        codRet:
+          type: string
+          enum:
+            - OK
+            - WARNING
+            - KO
+        operationId:
+          type: string
+        messaggi:
+          type: array
+          items:
+            $ref: '#/components/schemas/Messaggio'
+    GenericResponseDtoString:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: string
+    Messaggio:
+      type: object
+      properties:
+        severita:
+          type: string
+          enum:
+            - INFO
+            - WARNING
+            - ERROR
+            - PROPAGATED
+        codMsg:
+          type: string
+        parametri:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parametro'
+    Parametro:
+      type: object
+      properties:
+        nome:
+          type: string
+        valore:
+          type: string

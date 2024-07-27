@@ -1,0 +1,16 @@
+.gitignore
+.npmignore
+.openapi-generator-ignore
+api.ts
+api/cartelle-controller-api.ts
+api/documenti-controller-api.ts
+base.ts
+common.ts
+configuration.ts
+git_push.sh
+index.ts
+model/esito.ts
+model/generic-response-dto-string.ts
+model/index.ts
+model/messaggio.ts
+model/parametro.ts
