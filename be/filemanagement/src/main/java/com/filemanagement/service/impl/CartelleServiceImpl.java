@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
+import org.apache.commons.io.FileUtils;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Optional;
@@ -37,8 +38,20 @@ public class CartelleServiceImpl implements CartelleService {
             esitoMessaggiRequestContextHolder.setOperationId("Cartella già presente");
             throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }else {
-            boolean cartellaCreata = new File(cartellaParams.getPath() + "\\" + cartellaParams.getNomeCartella()).mkdirs();
-            //TODO Implementare check cartella creata
+            String path = "";
+            String osName = System.getProperty("os.name");
+            if(osName.contains("wind")){
+                path = cartellaParams.getPath() + "\\" + cartellaParams.getNomeCartella();
+            } else {
+                path = cartellaParams.getPath() + "/" + cartellaParams.getNomeCartella();
+            }
+            boolean cartellaCreata = new File(path).mkdirs();
+
+            if(!cartellaCreata){
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+                esitoMessaggiRequestContextHolder.setOperationId("Non è stato possibile creare la nuova cartella nel percorso indicato");
+                throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+            }
 
             CartelleDto cartelleDto = new CartelleDto();
             cartelleDto.setNomeCartella(cartellaParams.getNomeCartella());
@@ -90,7 +103,14 @@ public class CartelleServiceImpl implements CartelleService {
                 deleteFilesRecursive(file);
             }
         }
-        new File(cartellaParams.getPath()+"\\"+cartellaParams.getNomeCartella()).delete();
+        String path = "";
+        String osName = System.getProperty("os.name");
+        if(osName.contains("wind")){
+            path = cartellaParams.getPath()+"\\"+cartellaParams.getNomeCartella();
+        } else {
+            path = cartellaParams.getPath()+"/"+cartellaParams.getNomeCartella();
+        }
+        new File(path).delete();
     }
 
     private boolean deleteFilesRecursive(File files) {
@@ -105,20 +125,26 @@ public class CartelleServiceImpl implements CartelleService {
     }
 
     @Override
+    @Transactional
     public String rinominaCartella(ModificaCartellaParams cartellaParams) {
         String messaggio = "Cartella rinominata correttamente";
 
         checkFolderAlreadyExists(cartellaParams.getNuovoNomeCartella(),cartellaParams.getNuovoPath());
         checkOldFolderDoesntExist(cartellaParams.getNomeCartella(),cartellaParams.getPath());
 
-        String vecchioPath = cartellaParams.getPath() + "/" + cartellaParams.getNomeCartella();
-        String nuovoPath = cartellaParams.getNuovoPath() + "/" + cartellaParams.getNuovoNomeCartella();
-
-        Path sourceDir = Paths.get(vecchioPath);
-        Path targetDir = Paths.get(nuovoPath);
+        String vecchioPath = "";
+        String nuovoPath = "";
+        String osName = System.getProperty("os.name");
+        if(osName.contains("wind")){
+            vecchioPath = cartellaParams.getPath() + "\\" + cartellaParams.getNomeCartella();
+            nuovoPath = cartellaParams.getNuovoPath() + "\\" + cartellaParams.getNuovoNomeCartella();
+        } else {
+            vecchioPath = cartellaParams.getPath() + "/" + cartellaParams.getNomeCartella();
+            nuovoPath = cartellaParams.getNuovoPath() + "/" + cartellaParams.getNuovoNomeCartella();
+        }
 
         //Creazione della nuova cartella
-        boolean nuovaCartella = new File(cartellaParams.getPath() + "\\" + cartellaParams.getNomeCartella()).mkdirs();
+        boolean nuovaCartella = new File(nuovoPath).mkdirs();
         if(!nuovaCartella){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.setOperationId("Non è stato possibile creare la nuova cartella nel percorso indicato");
@@ -140,25 +166,7 @@ public class CartelleServiceImpl implements CartelleService {
 
         //Copia dei file nella nuova cartella
         try {
-            Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                    Path targetDir = null;
-
-                    targetDir = targetDir.resolve(sourceDir.relativize(dir));
-
-                    if (!Files.exists(targetDir)) {
-                        Files.createDirectory(targetDir);
-                    }
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    Files.copy(file, targetDir.resolve(sourceDir.relativize(file)), StandardCopyOption.REPLACE_EXISTING);
-                    return FileVisitResult.CONTINUE;
-                }
-            });
+            FileUtils.copyDirectory(new File(vecchioPath), new File(nuovoPath));
         }catch (IOException e){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.setOperationId("Non è stato possibile copiare i file dalla vecchia cartella a quella nuova");
@@ -168,19 +176,7 @@ public class CartelleServiceImpl implements CartelleService {
 
         //Eliminare la vecchia cartella
         try {
-            Files.walkFileTree(sourceDir, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    Files.delete(file);
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                    Files.delete(dir);
-                    return FileVisitResult.CONTINUE;
-                }
-            });
+            FileUtils.deleteDirectory(new File(vecchioPath));
         }catch (IOException e){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.setOperationId("Non è stato possibile eliminare la vecchia cartella");
@@ -190,7 +186,7 @@ public class CartelleServiceImpl implements CartelleService {
 
         //Eliminare la vecchia cartella dal db
         try {
-            cartelleRepository.deleteCartelleByNomeCartellaAndPath(cartellaParams.getNomeCartella(),cartellaParams.getNuovoPath());
+            cartelleRepository.deleteCartelleByNomeCartellaAndPath(cartellaParams.getNomeCartella(),cartellaParams.getPath());
         }catch (Exception e){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.setOperationId("Non è stato possibile eliminare la vecchia cartella nel db");

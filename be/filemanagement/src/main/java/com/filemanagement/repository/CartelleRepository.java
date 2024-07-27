@@ -19,5 +19,6 @@ public interface CartelleRepository extends JpaRepository<Cartelle,Long> {
 
     @Modifying
     @Query("DELETE FROM Cartelle c WHERE c.nomeCartella = :nomeCartella AND c.path = :path")
-    void deleteCartelleByNomeCartellaAndPath(@Param("nomeCartella") String nomeCartella,@Param("path") String path);
+    void deleteCartelleByNomeCartellaAndPath(@Param("nomeCartella") String nomeCartella,
+                                             @Param("path") String path);
 }
