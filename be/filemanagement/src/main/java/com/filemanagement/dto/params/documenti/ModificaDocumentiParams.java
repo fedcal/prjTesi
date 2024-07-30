@@ -6,12 +6,15 @@ import lombok.Data;
 @Data
 @Schema(description = "ModificaDocumentiParams")
 public class ModificaDocumentiParams {
-    @Schema(description = "Nome della cartella", type="string")
+    @Schema(description = "Nome del file", type="string")
     private String nomeFile;
-    @Schema(description = "Nome della cartella", type="string")
+
+    @Schema(description = "Path del file", type="string")
     private String pathFile;
-    @Schema(description = "Nome della cartella", type="string")
+
+    @Schema(description = "Nuovo nome del file", type="string")
     private String nuovoNome;
-    @Schema(description = "Nome della cartella", type="string")
+
+    @Schema(description = "Nuovo path", type="string")
     private String nuovoPath;
 }

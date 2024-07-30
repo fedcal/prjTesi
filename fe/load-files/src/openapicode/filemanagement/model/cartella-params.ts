@@ -14,6 +14,23 @@
 
 
 
-export * from './api/cartelle-controller-api';
-export * from './api/documenti-controller-api';
+/**
+ * CartellaParams
+ * @export
+ * @interface CartellaParams
+ */
+export interface CartellaParams {
+    /**
+     * Nome della cartella
+     * @type {string}
+     * @memberof CartellaParams
+     */
+    'nomeCartella'?: string;
+    /**
+     * Path delle cartella
+     * @type {string}
+     * @memberof CartellaParams
+     */
+    'path'?: string;
+}
 

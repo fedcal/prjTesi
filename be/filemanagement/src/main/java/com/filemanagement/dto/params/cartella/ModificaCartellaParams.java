@@ -9,10 +9,10 @@ import lombok.Data;
 @Schema(description = "ModificaCartellaParams")
 public class ModificaCartellaParams {
 
-    @Schema(description = "Nome della cartella",type = "string")
+    @Schema(description = "Nuovo path della cartella",type = "string")
     private String nuovoPath;
 
-    @Schema(description = "Nome della cartella",type = "string")
+    @Schema(description = "Nuovo nome della cartella",type = "string")
     private String nuovoNomeCartella;
 
     @Schema(description = "Nome della cartella",type = "string")

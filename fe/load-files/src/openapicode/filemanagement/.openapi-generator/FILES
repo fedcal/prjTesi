@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 api.ts
 api/cartelle-controller-api.ts
 api/documenti-controller-api.ts
@@ -9,8 +8,12 @@ common.ts
 configuration.ts
 git_push.sh
 index.ts
+model/cartella-params.ts
+model/elimina-documento.ts
 model/esito.ts
 model/generic-response-dto-string.ts
 model/index.ts
 model/messaggio.ts
+model/modifica-cartella-params.ts
+model/modifica-documenti-params.ts
 model/parametro.ts

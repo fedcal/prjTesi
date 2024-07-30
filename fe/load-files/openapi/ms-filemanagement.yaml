@@ -1,42 +1,51 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: MS File Management
+  description: Microservizio dedicato alla gestione dei documenti e delle cartelle per l'addestramento dei bot
+  contact:
+    name: Federico Calò (matricola 678191)
+    url: https://www.federicocalo.dev
+    email: f.calo29@studenti.uniba.it
+  version: 1.0.0
 servers:
   - url: http://localhost:8082
-    description: Generated server url
+    description: Ambiente locale
+tags:
+  - name: Cartelle Controller
+    description: Gestione delle cartelle
+  - name: Documenti Controller
+    description: Gestione dei documenti
 paths:
   /cartelle/crea:
     put:
       tags:
-        - cartelle-controller
+        - Cartelle Controller
+      summary: Creazione della cartella
+      description: Creazione della cartella dove storicizzare i file e aggiornamento db
       operationId: aggiungiCartella
-      parameters:
-        - name: nomeCartella
-          in: query
-          description: Nome della cartella
-          required: true
-          schema:
-            type: string
-            description: Nome della cartella
-        - name: path
-          in: query
-          description: Path delle cartella
-          required: true
-          schema:
-            type: string
-            description: Path delle cartella
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartellaParams'
+        required: true
       responses:
         '200':
-          description: OK
+          description: Operazione andata a buon fine
           content:
-            '*/*':
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
               schema:
                 $ref: '#/components/schemas/GenericResponseDtoString'
   /documenti/upload:
     post:
       tags:
-        - documenti-controller
+        - Documenti Controller
       operationId: uploadFile
       parameters:
         - name: uploadDir
@@ -62,40 +71,79 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/GenericResponseDtoString'
+  /documenti/sposta:
+    post:
+      tags:
+        - Documenti Controller
+      operationId: spostaFile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModificaDocumentiParams'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /documenti/rinomina:
+    post:
+      tags:
+        - Documenti Controller
+      operationId: rinominaFile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModificaDocumentiParams'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
   /cartelle/rinomina:
     post:
       tags:
-        - cartelle-controller
+        - Cartelle Controller
+      summary: Rinominare una cartella cartella
+      description: Rinominare una cartella cartella e aggiornare i path dei file contenuti in essa
       operationId: rinominaCartella
-      parameters:
-        - name: nuovoPath
-          in: query
-          description: Nome della cartella
-          required: true
-          schema:
-            type: string
-            description: Nome della cartella
-        - name: nuovoNomeCartella
-          in: query
-          description: Nome della cartella
-          required: true
-          schema:
-            type: string
-            description: Nome della cartella
-        - name: nomeCartella
-          in: query
-          description: Nome della cartella
-          required: true
-          schema:
-            type: string
-            description: Nome della cartella
-        - name: path
-          in: query
-          description: Path delle cartella
-          required: true
-          schema:
-            type: string
-            description: Path delle cartella
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModificaCartellaParams'
+        required: true
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /documenti/elimina:
+    delete:
+      tags:
+        - Documenti Controller
+      operationId: eliminaFile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EliminaDocumento'
+        required: true
       responses:
         '200':
           description: OK
@@ -106,32 +154,41 @@ paths:
   /cartelle/elimina:
     delete:
       tags:
-        - cartelle-controller
+        - Cartelle Controller
+      summary: Eliminare una cartella cartella
+      description: Eliminare una cartella cartella e i file contenuti in essa
       operationId: eliminaCartella
-      parameters:
-        - name: nomeCartella
-          in: query
-          description: Nome della cartella
-          required: true
-          schema:
-            type: string
-            description: Nome della cartella
-        - name: path
-          in: query
-          description: Path delle cartella
-          required: true
-          schema:
-            type: string
-            description: Path delle cartella
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartellaParams'
+        required: true
       responses:
         '200':
-          description: OK
+          description: Operazione andata a buon fine
           content:
-            '*/*':
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
               schema:
                 $ref: '#/components/schemas/GenericResponseDtoString'
 components:
   schemas:
+    CartellaParams:
+      type: object
+      properties:
+        nomeCartella:
+          type: string
+          description: Nome della cartella
+        path:
+          type: string
+          description: Path delle cartella
+      description: CartellaParams
     Esito:
       type: object
       properties:
@@ -177,3 +234,45 @@ components:
           type: string
         valore:
           type: string
+    ModificaDocumentiParams:
+      type: object
+      properties:
+        nomeFile:
+          type: string
+          description: Nome del file
+        pathFile:
+          type: string
+          description: Path del file
+        nuovoNome:
+          type: string
+          description: Nuovo nome del file
+        nuovoPath:
+          type: string
+          description: Nuovo path
+      description: ModificaDocumentiParams
+    ModificaCartellaParams:
+      type: object
+      properties:
+        nuovoPath:
+          type: string
+          description: Nuovo path della cartella
+        nuovoNomeCartella:
+          type: string
+          description: Nuovo nome della cartella
+        nomeCartella:
+          type: string
+          description: Nome della cartella
+        path:
+          type: string
+          description: Path delle cartella
+      description: ModificaCartellaParams
+    EliminaDocumento:
+      type: object
+      properties:
+        nomeFile:
+          type: string
+          description: Nome del file
+        pathFile:
+          type: string
+          description: Path file
+      description: EliminaDocumento

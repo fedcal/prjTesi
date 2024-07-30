@@ -14,6 +14,23 @@
 
 
 
-export * from './api/cartelle-controller-api';
-export * from './api/documenti-controller-api';
+/**
+ * EliminaDocumento
+ * @export
+ * @interface EliminaDocumento
+ */
+export interface EliminaDocumento {
+    /**
+     * Nome del file
+     * @type {string}
+     * @memberof EliminaDocumento
+     */
+    'nomeFile'?: string;
+    /**
+     * Path file
+     * @type {string}
+     * @memberof EliminaDocumento
+     */
+    'pathFile'?: string;
+}
 

@@ -5,6 +5,7 @@ import com.filemanagement.dto.params.documenti.ModificaDocumentiParams;
 import com.filemanagement.esito.EsitoMessaggiRequestContextHolder;
 import com.filemanagement.esito.GenericResponseDto;
 import com.filemanagement.service.DocumentiService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @Validated
 @RequestMapping("/documenti")
+@Tag(name = "Documenti Controller",
+        description = "Gestione dei documenti")
 public class DocumentiController {
 
     @Autowired

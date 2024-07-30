@@ -6,8 +6,9 @@ import lombok.Data;
 @Data
 @Schema(description = "EliminaDocumento")
 public class EliminaDocumento {
-    @Schema(description = "Nome della cartella", type="string")
+    @Schema(description = "Nome del file", type="string")
     private String nomeFile;
-    @Schema(description = "Nome della cartella", type="string")
+
+    @Schema(description = "Path file", type="string")
     private String pathFile;
 }
