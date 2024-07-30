@@ -1,7 +1,7 @@
 package com.filemanagement.controller;
 
-import com.filemanagement.dto.params.CartellaParams;
-import com.filemanagement.dto.params.ModificaCartellaParams;
+import com.filemanagement.dto.params.cartella.CartellaParams;
+import com.filemanagement.dto.params.cartella.ModificaCartellaParams;
 import com.filemanagement.esito.EsitoMessaggiRequestContextHolder;
 import com.filemanagement.esito.GenericResponseDto;
 import com.filemanagement.service.CartelleService;
@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +32,8 @@ public class CartelleController {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @PutMapping(value = "/crea", consumes = MediaType.ALL_VALUE)
-    public ResponseEntity<GenericResponseDto<String>> aggiungiCartella(@Valid @ParameterObject CartellaParams cartellaParams) {
+    @PutMapping(value = "/crea", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<String>> aggiungiCartella(@Valid @RequestBody CartellaParams cartellaParams) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(cartelleService.aggiungiCartella(cartellaParams)));
     }
 
@@ -44,8 +43,8 @@ public class CartelleController {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @PostMapping(value = "/rinomina", consumes = MediaType.ALL_VALUE)
-    public ResponseEntity<GenericResponseDto<String>> rinominaCartella(@Valid @ParameterObject ModificaCartellaParams cartellaParams) {
+    @PostMapping(value = "/rinomina", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<String>> rinominaCartella(@Valid @RequestBody ModificaCartellaParams cartellaParams) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(cartelleService.rinominaCartella(cartellaParams)));
     }
 
@@ -55,8 +54,9 @@ public class CartelleController {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @DeleteMapping(value = "/elimina", consumes = MediaType.ALL_VALUE)
-    public ResponseEntity<GenericResponseDto<String>> eliminaCartella(@Valid @ParameterObject CartellaParams cartellaParams) {
+    @DeleteMapping(value = "/elimina", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<String>> eliminaCartella(@Valid @RequestBody
+                                                                          CartellaParams cartellaParams) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(cartelleService.eliminaCartella(cartellaParams)));
     }
 }

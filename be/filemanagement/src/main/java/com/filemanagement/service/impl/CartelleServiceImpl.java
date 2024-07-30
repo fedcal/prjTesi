@@ -1,8 +1,8 @@
 package com.filemanagement.service.impl;
 
 import com.filemanagement.dto.CartelleDto;
-import com.filemanagement.dto.params.CartellaParams;
-import com.filemanagement.dto.params.ModificaCartellaParams;
+import com.filemanagement.dto.params.cartella.CartellaParams;
+import com.filemanagement.dto.params.cartella.ModificaCartellaParams;
 import com.filemanagement.entity.Cartelle;
 import com.filemanagement.esito.EsitoMessaggiRequestContextHolder;
 import com.filemanagement.esito.constants.EsitoOperazioneEnum;
@@ -41,7 +41,8 @@ public class CartelleServiceImpl implements CartelleService {
         }else {
             String path = "";
             String osName = System.getProperty("os.name");
-            if(osName.contains("wind")){
+            if(osName.contains("Wind") || osName.contains("wind")){
+                cartellaParams.setPath(cartellaParams.getPath().replace("\\\\","\\"));
                 path = cartellaParams.getPath() + "\\" + cartellaParams.getNomeCartella();
             } else {
                 path = cartellaParams.getPath() + "/" + cartellaParams.getNomeCartella();
@@ -106,7 +107,7 @@ public class CartelleServiceImpl implements CartelleService {
         }
         String path = "";
         String osName = System.getProperty("os.name");
-        if(osName.contains("wind")){
+        if(osName.contains("Wind") || osName.contains("wind")){
             path = cartellaParams.getPath()+"\\"+cartellaParams.getNomeCartella();
         } else {
             path = cartellaParams.getPath()+"/"+cartellaParams.getNomeCartella();
@@ -136,7 +137,7 @@ public class CartelleServiceImpl implements CartelleService {
         String vecchioPath = "";
         String nuovoPath = "";
         String osName = System.getProperty("os.name");
-        if(osName.contains("wind")){
+        if(osName.contains("Wind") || osName.contains("wind")){
             vecchioPath = cartellaParams.getPath() + "\\" + cartellaParams.getNomeCartella();
             nuovoPath = cartellaParams.getNuovoPath() + "\\" + cartellaParams.getNuovoNomeCartella();
         } else {

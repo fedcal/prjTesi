@@ -1,10 +1,10 @@
 package com.filemanagement.service;
 
-import com.filemanagement.dto.params.CartellaParams;
-import com.filemanagement.dto.params.ModificaCartellaParams;
+import com.filemanagement.dto.params.cartella.CartellaParams;
+import com.filemanagement.dto.params.cartella.ModificaCartellaParams;
 
 public interface CartelleService {
-    public String aggiungiCartella(CartellaParams cartellaParams);
-    public String eliminaCartella(CartellaParams cartellaParams);
-    public String rinominaCartella(ModificaCartellaParams cartellaParams);
+    String aggiungiCartella(CartellaParams cartellaParams);
+    String eliminaCartella(CartellaParams cartellaParams);
+    String rinominaCartella(ModificaCartellaParams cartellaParams);
 }

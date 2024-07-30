@@ -14,12 +14,12 @@ public class Documenti {
     @Column(name = "id_documento", columnDefinition = "INT")
     private Long idDocumento;
 
-    @Column(name = "nome_documento", columnDefinition = "VARCHAR(500)",unique=true)
+    @Column(name = "nome_documento", columnDefinition = "VARCHAR(500)")
     private String nomeDocumento;
 
-    @Column(name = "estensione_documento", columnDefinition = "VARCHAR(5)",unique=true)
+    @Column(name = "estensione_documento", columnDefinition = "VARCHAR(5)")
     private String estensioneDocumento;
 
-    @Column(name = "path", columnDefinition = "VARCHAR(8000)",unique=true)
+    @Column(name = "path", columnDefinition = "VARCHAR(8000)")
     private String path;
 }
