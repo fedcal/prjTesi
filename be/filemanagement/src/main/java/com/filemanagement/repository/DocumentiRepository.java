@@ -17,4 +17,10 @@ public interface DocumentiRepository extends JpaRepository<Documenti,Long> {
     void rinominaFile(@Param("nuovoNome") String nuovoNome,
                       @Param("nomeFile") String nomeFile,
                       @Param("pathFile") String pathFile);
+
+    @Modifying
+    @Query(value = "UPDATE documenti dc SET dc.path = :nuovoPath WHERE dc.nome_documento = :nomeFile AND dc.path = :pathFile",nativeQuery = true)
+    void updatePathDoc(@Param("nomeFile") String nomeFile,
+                       @Param("pathFile") String pathFile,
+                       @Param("nuovoPath") String nuovoPath);
 }

@@ -1,5 +1,6 @@
 package com.filemanagement.service.impl;
 
+import com.filemanagement.dto.params.documenti.EliminaDocumento;
 import com.filemanagement.dto.params.documenti.ModificaDocumentiParams;
 import com.filemanagement.entity.Documenti;
 import com.filemanagement.esito.EsitoMessaggiRequestContextHolder;
@@ -8,6 +9,8 @@ import com.filemanagement.exception.EsitoRuntimeException;
 import com.filemanagement.repository.DocumentiRepository;
 import com.filemanagement.service.DocumentiService;
 import lombok.AllArgsConstructor;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,19 +70,13 @@ public class DocumentiServiceImpl implements DocumentiService {
     }
 
     @Override
-    public String deleteFile(String nameFile, String uploadDir) {
-        return null;
-    }
-
-    @Override
     @Transactional
     public String rinominaFile(ModificaDocumentiParams modificaDocumenti) {
         esitoMessaggiRequestContextHolder.setOperationId("rinominaFile");
 
         checkParams(modificaDocumenti);
-        Documenti documentoDb = checkEsistenzaFile(modificaDocumenti);
+        Documenti documentoDb = checkEsistenzaFile(modificaDocumenti.getNomeFile(), modificaDocumenti.getPathFile());
 
-        //TODO rinominare file su file system
         File originalFile = null;
         File renameFile = null;
         String osName = System.getProperty("os.name");
@@ -97,17 +94,20 @@ public class DocumentiServiceImpl implements DocumentiService {
             esitoMessaggiRequestContextHolder.setOperationId("Il file non è stato rinominato correttamente.");
             throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
         }
-
-        //TODO rinominare file su db
-        documentiRepository.rinominaFile(modificaDocumenti.getNuovoNome(),modificaDocumenti.getNomeFile(),modificaDocumenti.getPathFile());
-
+        try{
+            documentiRepository.rinominaFile(modificaDocumenti.getNuovoNome(),modificaDocumenti.getNomeFile(),modificaDocumenti.getPathFile());
+        }catch (Exception e){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.setOperationId("Il file non è stato rinominato nel db.");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
 
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-        return null;
+        return "Documento rinominato";
     }
 
-    private Documenti checkEsistenzaFile(ModificaDocumentiParams modificaDocumenti) {
-        Optional<Documenti> documentoFind = documentiRepository.findDocumentiByNomeDocumentoAndPath(modificaDocumenti.getNomeFile(), modificaDocumenti.getPathFile());
+    private Documenti checkEsistenzaFile(String nomeFile, String path) {
+        Optional<Documenti> documentoFind = documentiRepository.findDocumentiByNomeDocumentoAndPath(nomeFile, path);
         if(!documentoFind.isPresent()){
             esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
             esitoMessaggiRequestContextHolder.setOperationId("Non è stato possibile recuperare il file dal db.");
@@ -117,9 +117,9 @@ public class DocumentiServiceImpl implements DocumentiService {
         File originalFile = null;
         String osName = System.getProperty("os.name");
         if(osName.contains("Wind") || osName.contains("wind")){
-            originalFile = new File(modificaDocumenti.getPathFile()+"\\"+modificaDocumenti.getNomeFile()+"."+documentoFind.get().getEstensioneDocumento());
+            originalFile = new File(path+"\\"+nomeFile+"."+documentoFind.get().getEstensioneDocumento());
         }else{
-            originalFile = new File(modificaDocumenti.getPathFile()+"/"+modificaDocumenti.getNomeFile()+"."+documentoFind.get().getEstensioneDocumento());
+            originalFile = new File(path+"/"+nomeFile+"."+documentoFind.get().getEstensioneDocumento());
         }
 
         if(!originalFile.exists()) {
@@ -132,6 +132,115 @@ public class DocumentiServiceImpl implements DocumentiService {
     }
 
     private void checkParams(ModificaDocumentiParams modificaDocumenti) {
-        //TODO CHECK PARAMS
+        boolean pathFile = StringUtils.isBlank(modificaDocumenti.getPathFile());
+        boolean nomeFile = StringUtils.isBlank(modificaDocumenti.getNomeFile());
+        boolean nuovoNomeFile = StringUtils.isBlank(modificaDocumenti.getNuovoNome());
+
+        if((pathFile || nomeFile || nuovoNomeFile) || (pathFile && nomeFile && nuovoNomeFile)){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.setOperationId("Inserire il path del file da modificare, il suo nome e il nuovo nome.");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
     }
+
+    @Override
+    @Transactional
+    public String spostaFile(ModificaDocumentiParams modificaDocumenti) {
+        //TODO CHECK PARAMS
+        checkSpstaFileParams(modificaDocumenti);
+
+        //TODO VERIFICARE ESISTENZA FILE
+        Documenti documentoDb = checkEsistenzaFile(modificaDocumenti.getNomeFile(), modificaDocumenti.getPathFile());
+
+        //TODO SPOSTARE IL FILE DAL FILE SYSTEM
+        File originalFile = null;
+        File moveFile = null;
+        String osName = System.getProperty("os.name");
+
+        if(osName.contains("Wind") || osName.contains("wind")){
+            originalFile = new File(modificaDocumenti.getPathFile()+"\\"+modificaDocumenti.getNomeFile()+"."+documentoDb.getEstensioneDocumento());
+            moveFile = new File(modificaDocumenti.getNuovoPath()+"\\"+modificaDocumenti.getNomeFile()+"."+documentoDb.getEstensioneDocumento());
+        }else{
+            originalFile = new File(modificaDocumenti.getPathFile()+"/"+modificaDocumenti.getNomeFile()+"."+documentoDb.getEstensioneDocumento());
+            moveFile = new File(modificaDocumenti.getNuovoPath()+"/"+modificaDocumenti.getNomeFile()+"."+documentoDb.getEstensioneDocumento());
+        }
+        try {
+            FileUtils.moveFile(FileUtils.getFile(originalFile), FileUtils.getFile(moveFile));
+        } catch (IOException e) {
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.setOperationId("Non è stato possibile spostare il file.");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        try{
+            documentiRepository.updatePathDoc(modificaDocumenti.getNomeFile(),modificaDocumenti.getPathFile(),modificaDocumenti.getNuovoPath());
+        }catch(Exception e){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.setOperationId("Non è stato possibile aggiornare il path del documento nel db.");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+        return "Documento spostato";
+    }
+
+    private void checkSpstaFileParams(ModificaDocumentiParams modificaDocumenti) {
+        boolean pathFile = StringUtils.isBlank(modificaDocumenti.getPathFile());
+        boolean nomeFile = StringUtils.isBlank(modificaDocumenti.getNomeFile());
+        boolean nuovoNomeFile = StringUtils.isBlank(modificaDocumenti.getNuovoNome());
+        boolean nuovoPath = StringUtils.isBlank(modificaDocumenti.getNuovoPath());
+
+        if((pathFile || nomeFile || nuovoNomeFile || nuovoPath) || (pathFile && nomeFile && nuovoNomeFile && nuovoPath)){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.setOperationId("Inserire il path del file da modificare, il suo nome, il nuovo nome e il nuovo path.");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    @Transactional
+    public String eliminaFile(EliminaDocumento eliminaDocumento) {
+        checkDeleteFileParams(eliminaDocumento);
+
+        Documenti documentoDb =  checkEsistenzaFile(eliminaDocumento.getNomeFile(), eliminaDocumento.getPathFile());
+
+        File originalFile = null;
+        String osName = System.getProperty("os.name");
+        if(osName.contains("Wind") || osName.contains("wind")){
+            originalFile = new File(eliminaDocumento.getPathFile()+"\\"+eliminaDocumento.getNomeFile()+"."+documentoDb.getEstensioneDocumento());
+        }else{
+            originalFile = new File(eliminaDocumento.getPathFile()+"/"+eliminaDocumento.getNomeFile()+"."+documentoDb.getEstensioneDocumento());
+        }
+
+        boolean deleteFile = originalFile.delete();
+
+        if(!deleteFile){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.setOperationId("Il file non è stato eliminato correttamente.");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        try{
+            documentiRepository.deleteById(documentoDb.getIdDocumento());
+        }catch(Exception e){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.setOperationId("Il file non è stato eliminato dal db.");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+
+        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+        return "Documento eliminato";
+    }
+
+    private void checkDeleteFileParams(EliminaDocumento eliminaDocumento) {
+        boolean pathFile = StringUtils.isBlank(eliminaDocumento.getPathFile());
+        boolean nomeFile = StringUtils.isBlank(eliminaDocumento.getNomeFile());
+
+        if((pathFile || nomeFile) || (pathFile && nomeFile)){
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            esitoMessaggiRequestContextHolder.setOperationId("Inserire il path del file da eliminare e il suo nome.");
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

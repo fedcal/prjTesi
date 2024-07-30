@@ -1,5 +1,6 @@
 package com.filemanagement.controller;
 
+import com.filemanagement.dto.params.documenti.EliminaDocumento;
 import com.filemanagement.dto.params.documenti.ModificaDocumentiParams;
 import com.filemanagement.esito.EsitoMessaggiRequestContextHolder;
 import com.filemanagement.esito.GenericResponseDto;
@@ -30,5 +31,15 @@ public class DocumentiController {
     @PostMapping(value = "/rinomina", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<String>> rinominaFile(@RequestBody ModificaDocumentiParams modificaDocumenti) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(fileService.rinominaFile(modificaDocumenti)));
+    }
+
+    @PostMapping(value = "/sposta", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<String>> spostaFile(@RequestBody ModificaDocumentiParams modificaDocumenti) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(fileService.spostaFile(modificaDocumenti)));
+    }
+
+    @DeleteMapping(value = "/elimina", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<String>> eliminaFile(@RequestBody EliminaDocumento eliminaDocumento) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(fileService.eliminaFile(eliminaDocumento)));
     }
 }
