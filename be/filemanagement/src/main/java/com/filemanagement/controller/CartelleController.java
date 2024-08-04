@@ -4,6 +4,7 @@ import com.filemanagement.dto.params.cartella.CartellaParams;
 import com.filemanagement.dto.params.cartella.ModificaCartellaParams;
 import com.filemanagement.esito.EsitoMessaggiRequestContextHolder;
 import com.filemanagement.esito.GenericResponseDto;
+import com.filemanagement.esito.constants.EsitoOperazioneEnum;
 import com.filemanagement.service.CartelleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 @Tag(name = "Cartelle Controller",
         description = "Gestione delle cartelle")
+@CrossOrigin
 public class CartelleController {
 
     @Autowired
@@ -28,6 +30,20 @@ public class CartelleController {
 
     @Autowired
     private CartelleService cartelleService;
+
+    @Operation(summary = "Creazione della cartella",
+            description = "Creazione della cartella dove storicizzare i file e aggiornamento db")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @PutMapping(value = "/prova", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<String>> provaReactEndpoint(@Valid @RequestBody String messaggio) {
+        String resultMessaggio = "Hai inserito: " + messaggio;
+        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+        esitoMessaggiRequestContextHolder.setOperationId("provaReactEndpoint");
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(resultMessaggio));
+    }
 
     @Operation(summary = "Creazione della cartella",
             description = "Creazione della cartella dove storicizzare i file e aggiornamento db")

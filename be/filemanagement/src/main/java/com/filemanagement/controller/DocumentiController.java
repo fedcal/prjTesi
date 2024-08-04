@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/documenti")
 @Tag(name = "Documenti Controller",
         description = "Gestione dei documenti")
+@CrossOrigin
 public class DocumentiController {
 
     @Autowired

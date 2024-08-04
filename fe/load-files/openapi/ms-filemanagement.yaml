@@ -16,6 +16,32 @@ tags:
   - name: Documenti Controller
     description: Gestione dei documenti
 paths:
+  /cartelle/prova:
+    put:
+      tags:
+        - Cartelle Controller
+      summary: Creazione della cartella
+      description: Creazione della cartella dove storicizzare i file e aggiornamento db
+      operationId: provaReactEndpoint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
   /cartelle/crea:
     put:
       tags:
@@ -179,16 +205,6 @@ paths:
                 $ref: '#/components/schemas/GenericResponseDtoString'
 components:
   schemas:
-    CartellaParams:
-      type: object
-      properties:
-        nomeCartella:
-          type: string
-          description: Nome della cartella
-        path:
-          type: string
-          description: Path delle cartella
-      description: CartellaParams
     Esito:
       type: object
       properties:
@@ -234,6 +250,16 @@ components:
           type: string
         valore:
           type: string
+    CartellaParams:
+      type: object
+      properties:
+        nomeCartella:
+          type: string
+          description: Nome della cartella
+        path:
+          type: string
+          description: Path delle cartella
+      description: CartellaParams
     ModificaDocumentiParams:
       type: object
       properties:
