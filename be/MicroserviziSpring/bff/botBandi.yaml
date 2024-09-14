@@ -1,0 +1,133 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8082
+    description: Generated server url
+tags:
+  - name: Bot Bandi Chat Controller
+    description: Gestione della chat
+paths:
+  /bot-bandi-chat/normal-chat:
+    get:
+      tags:
+        - Bot Bandi Chat Controller
+      summary: Invio messaggio chat normale
+      description: Invio di un messaggio al bot ai
+      operationId: normalChat
+      parameters:
+        - name: messagge
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /bot-bandi-chat/chat-addestrata:
+    get:
+      tags:
+        - Bot Bandi Chat Controller
+      summary: Invio messaggio chat addestrata
+      description: Messaggio e risposta alla chat addestrata per chiedere informazioni relative ai file su cui è addestrato il bot
+      operationId: chatAddestrata
+      parameters:
+        - name: messagge
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoResponseMessagePdfDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoResponseMessagePdfDto'
+components:
+  schemas:
+    Esito:
+      type: object
+      properties:
+        codRet:
+          type: string
+          enum:
+            - OK
+            - WARNING
+            - KO
+        operationId:
+          type: string
+        messaggi:
+          type: array
+          items:
+            $ref: '#/components/schemas/Messaggio'
+    GenericResponseDtoString:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: string
+    Messaggio:
+      type: object
+      properties:
+        severita:
+          type: string
+          enum:
+            - INFO
+            - WARNING
+            - ERROR
+            - PROPAGATED
+        codMsg:
+          type: string
+        parametri:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parametro'
+    Parametro:
+      type: object
+      properties:
+        nome:
+          type: string
+        valore:
+          type: string
+    GenericResponseDtoResponseMessagePdfDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/ResponseMessagePdfDto'
+    ResponseMessagePdfDto:
+      type: object
+      properties:
+        answer:
+          type: string
+        sourceDtos:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceDto'
+    SourceDto:
+      type: object
+      properties:
+        pageContent:
+          type: string
+        source:
+          type: string

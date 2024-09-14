@@ -1,0 +1,68 @@
+.lisft-folder{
+    margin: 0 30px 30px 30px;
+}
+
+.line-separator{
+    display: inline-block;
+    content: "";
+    border-top: .1rem solid rgb(0, 102, 255);
+    width: 100%;
+    transform: translateY(-1rem);
+}
+
+.info-cartelle-section{
+    margin: 15px 0 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.seleziona-cartella {
+    flex: 1;
+    margin: 0 10px 0 10px;
+}
+
+.table-info {
+    flex: 2;
+    width: auto;
+}
+
+/* Stile generale per la tabella */
+.table-info {
+    width: 100%;
+    border-collapse: collapse; /* Elimina lo spazio tra i bordi delle celle */
+    background-color: #f8f8f8; /* Colore di sfondo leggero */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Leggera ombra per la tabella */
+}
+
+/* Stile per l'intestazione della tabella */
+.table-info thead th {
+    background-color: rgb(91, 109, 167); /* Colore di sfondo dell'intestazione */
+    color: white; /* Colore del testo bianco */
+    text-align: center; /* Allineamento a sinistra */
+    padding: 8px; /* Spaziatura interna */
+    text-transform: uppercase; /* Testo in maiuscolo */
+    border-bottom: 2px solid #ddd; /* Bordi inferiori */
+}
+
+/* Stile per le righe della tabella */
+.table-info tbody tr {
+    border-bottom: 1px solid #ddd; /* Bordi inferiori */
+}
+
+/* Stile per le celle della tabella */
+.table-info tbody td {
+    padding: 8px; /* Spaziatura interna */
+    text-align: center; /* Allineamento a sinistra */
+}
+
+/* Colore di sfondo alternato per le righe */
+.table-info tbody tr{
+    background-color: #f2f2f2;
+}
+
+/* Evidenziazione della riga al passaggio del mouse */
+.table-info tbody tr:hover {
+    background-color: rgb(191, 201, 236); /* Leggera evidenziazione */
+}
+

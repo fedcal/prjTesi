@@ -1,0 +1,415 @@
+openapi: 3.0.1
+info:
+  title: MS File Management
+  description: Microservizio dedicato alla gestione dei documenti e delle cartelle per l'addestramento dei bot
+  contact:
+    name: Federico Calò (matricola 678191)
+    url: https://www.federicocalo.dev
+    email: f.calo29@studenti.uniba.it
+  version: 1.0.0
+servers:
+  - url: http://localhost:8082
+    description: Ambiente locale
+tags:
+  - name: Cartelle Controller
+    description: Gestione delle cartelle
+  - name: Documenti Controller
+    description: Gestione dei documenti
+paths:
+  /cartelle/crea:
+    put:
+      tags:
+        - Cartelle Controller
+      summary: Creazione della cartella
+      description: Creazione della cartella dove storicizzare i file e aggiornamento db
+      operationId: aggiungiCartella
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartellaParams'
+        required: true
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartelleDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartelleDto'
+  /documenti/upload:
+    post:
+      tags:
+        - Documenti Controller
+      operationId: uploadFile
+      parameters:
+        - name: uploadDir
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /documenti/sposta:
+    post:
+      tags:
+        - Documenti Controller
+      operationId: spostaFile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModificaDocumentiParams'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /documenti/rinomina:
+    post:
+      tags:
+        - Documenti Controller
+      operationId: rinominaFile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModificaDocumentiParams'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /cartelle/rinomina:
+    post:
+      tags:
+        - Cartelle Controller
+      summary: Rinominare una cartella cartella
+      description: Rinominare una cartella cartella e aggiornare i path dei file contenuti in essa
+      operationId: rinominaCartella
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModificaCartellaParams'
+        required: true
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartelleDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartelleDto'
+  /documenti/find:
+    get:
+      tags:
+        - Documenti Controller
+      operationId: findFile
+      parameters:
+        - name: findDocumentoParams
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/FindDocumentoParams'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoDocumentiDto'
+  /documenti/elenco:
+    get:
+      tags:
+        - Documenti Controller
+      operationId: elencoFile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListDocumentiDto'
+  /cartelle/find:
+    get:
+      tags:
+        - Cartelle Controller
+      summary: Eliminare una cartella cartella
+      description: Eliminare una cartella cartella e i file contenuti in essa
+      operationId: findCartella
+      parameters:
+        - name: cartellaParams
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/CartellaParams'
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartelleDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartelleDto'
+  /cartelle/elenco:
+    get:
+      tags:
+        - Cartelle Controller
+      summary: Eliminare una cartella cartella
+      description: Eliminare una cartella cartella e i file contenuti in essa
+      operationId: elencoCartelle
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListCartelleDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListCartelleDto'
+  /documenti/elimina:
+    delete:
+      tags:
+        - Documenti Controller
+      operationId: eliminaFile
+      parameters:
+        - name: eliminaDocumento
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/EliminaDocumento'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /cartelle/elimina:
+    delete:
+      tags:
+        - Cartelle Controller
+      summary: Eliminare una cartella cartella
+      description: Eliminare una cartella cartella e i file contenuti in essa
+      operationId: eliminaCartella
+      parameters:
+        - name: cartellaParams
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/CartellaParams'
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+components:
+  schemas:
+    CartellaParams:
+      type: object
+      properties:
+        nomeCartella:
+          type: string
+          description: Nome della cartella
+        path:
+          type: string
+          description: Path delle cartella
+      description: CartellaParams
+    CartelleDto:
+      type: object
+      properties:
+        idCartella:
+          type: integer
+          format: int64
+        nomeCartella:
+          type: string
+        path:
+          type: string
+    Esito:
+      type: object
+      properties:
+        codRet:
+          type: string
+          enum:
+            - OK
+            - WARNING
+            - KO
+        operationId:
+          type: string
+        messaggi:
+          type: array
+          items:
+            $ref: '#/components/schemas/Messaggio'
+    GenericResponseDtoCartelleDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/CartelleDto'
+    Messaggio:
+      type: object
+      properties:
+        severita:
+          type: string
+          enum:
+            - INFO
+            - WARNING
+            - ERROR
+            - PROPAGATED
+        codMsg:
+          type: string
+        parametri:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parametro'
+    Parametro:
+      type: object
+      properties:
+        nome:
+          type: string
+        valore:
+          type: string
+    GenericResponseDtoString:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: string
+    ModificaDocumentiParams:
+      type: object
+      properties:
+        nomeFile:
+          type: string
+          description: Nome del file
+        pathFile:
+          type: string
+          description: Path del file
+        nuovoNome:
+          type: string
+          description: Nuovo nome del file
+        nuovoPath:
+          type: string
+          description: Nuovo path
+      description: ModificaDocumentiParams
+    ModificaCartellaParams:
+      type: object
+      properties:
+        nuovoPath:
+          type: string
+          description: Nuovo path della cartella
+        nuovoNomeCartella:
+          type: string
+          description: Nuovo nome della cartella
+        nomeCartella:
+          type: string
+          description: Nome della cartella
+        path:
+          type: string
+          description: Path delle cartella
+      description: ModificaCartellaParams
+    FindDocumentoParams:
+      type: object
+      properties:
+        titoloDocumento:
+          type: string
+        pathDocumento:
+          type: string
+    DocumentiDto:
+      type: object
+      properties:
+        idDocumento:
+          type: integer
+          format: int64
+        nomeDocumento:
+          type: string
+        estensioneDocumento:
+          type: string
+        path:
+          type: string
+    GenericResponseDtoDocumentiDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/DocumentiDto'
+    GenericResponseDtoListDocumentiDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentiDto'
+    GenericResponseDtoListCartelleDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/CartelleDto'
+    EliminaDocumento:
+      type: object
+      properties:
+        nomeFile:
+          type: string
+          description: Nome del file
+        pathFile:
+          type: string
+          description: Path file
+      description: EliminaDocumento

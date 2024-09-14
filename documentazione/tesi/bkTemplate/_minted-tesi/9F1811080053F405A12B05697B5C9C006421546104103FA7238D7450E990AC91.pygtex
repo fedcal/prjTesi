@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{x} \PYG{o}{=} \PYG{l+m+mi}{1}
+\PYG{k}{if} \PYG{n}{x} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{:}
+    \PYG{c+c1}{\PYGZsh{} indented four spaces}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}x is 1.\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}
