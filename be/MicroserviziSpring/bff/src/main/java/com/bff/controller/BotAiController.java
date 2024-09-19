@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,12 +19,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/bot-ai-chat")
 @Validated
 @Tag(name = "Bot Ai Chat Controller",
-        description = "Gestione della chat")
+        description = "Gestione della chat ai")
 @CrossOrigin
 @AllArgsConstructor
 public class BotAiController {
-    private final EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
-    private final BotAiService botAiService;
+    @Autowired
+    private EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
+    @Autowired
+    private BotAiService botAiService;
 
     @Operation(summary = "Invio messaggio chat normale",
             description = "Invio di un messaggio al bot ai")

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.5</version>
+		<version>3.3.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bff</groupId>
@@ -95,18 +95,26 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<image>
-						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
-					</image>
-					<excludes>
-						<exclude>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<annotationProcessorPaths>
+						<!-- IMPORTANTE AVERE LOMBOK PER PRIMO-->
+						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
+							<version>${lombok.version}</version>
+						</path>
+
+
+					</annotationProcessorPaths>
+					<compilerArgs>
+						<compilerArg>
+							-Amapstruct.defaultComponentModel=spring
+						</compilerArg>
+					</compilerArgs>
 				</configuration>
 			</plugin>
 
@@ -145,20 +153,49 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>generate-client-bot-bandi</id>
+						<id>generate-client-bot-offerte-bandi</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
 							<inputSpec>
-								${project.basedir}/botBandi.yaml
+								${project.basedir}/botOfferteBandi.yaml
 							</inputSpec>
 							<language>java</language>
 							<library>resttemplate</library>
-							<modelPackage>com.bff.botbandi.model</modelPackage>
-							<apiPackage>com.bff.botbandi.api</apiPackage>
-							<invokerPackage>com.bff.botbandi.invoker</invokerPackage>
+							<modelPackage>com.bff.botoffertebandi.model</modelPackage>
+							<apiPackage>com.bff.botoffertebandi.api</apiPackage>
+							<invokerPackage>com.bff.botoffertebandi.invoker</invokerPackage>
+							<output>${project.build.directory}/generated-sources</output>
+							<generateApiTests>false</generateApiTests>
+							<configOptions>
+								<dateLibrary>custom</dateLibrary>
+								<java8>true</java8>
+							</configOptions>
+							<typeMappings>
+								<typeMapping>DateTime=Instant</typeMapping>
+							</typeMappings>
+							<importMappings>
+								<importMapping>Instant=java.time.Instant</importMapping>
+							</importMappings>
+						</configuration>
+					</execution>
+					<execution>
+						<id>generate-client-file-management</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>
+								${project.basedir}/fileManagement.yaml
+							</inputSpec>
+							<language>java</language>
+							<library>resttemplate</library>
+							<modelPackage>com.bff.filemanagement.model</modelPackage>
+							<apiPackage>com.bff.filemanagement.api</apiPackage>
+							<invokerPackage>com.bff.filemanagement.invoker</invokerPackage>
 							<output>${project.build.directory}/generated-sources</output>
 							<generateApiTests>false</generateApiTests>
 							<configOptions>

@@ -1,7 +1,6 @@
 package com.bff.service.impl;
 
 import com.bff.botai.api.BotAiChatControllerApi;
-import com.bff.botai.model.GenericResponseDtoString;
 import com.bff.dto.botpy.responseRequest.ResponseMessagePdfDto;
 import com.bff.esito.*;
 import com.bff.service.BotAiService;
