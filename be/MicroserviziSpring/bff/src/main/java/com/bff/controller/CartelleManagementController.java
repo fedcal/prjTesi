@@ -21,11 +21,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/file-management")
+@RequestMapping("/cartelle-management")
 @Validated
-@Tag(name = "Gestione file Controller",
-        description = "Gestione dei file")
-@CrossOrigin
+@Tag(name = "Gestione delle cartelle",
+        description = "Controller dedicato alla gestione delle cartelle dei bot")
 @AllArgsConstructor
 public class CartelleManagementController {
     @Autowired
@@ -33,28 +32,8 @@ public class CartelleManagementController {
     @Autowired
     private CartelleManagementService fileManagementService;
 
-
-    /*@PostMapping(value = "/upload", consumes = {"multipart/form-data"})
-    public ResponseEntity<GenericResponseDto<String>> handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("uploadDir") String uploadDir) {
-        if (file.isEmpty()) {
-            return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse("Please select a file to upload."));
-        }
-
-        try {
-            // Get the file and save it somewhere
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(uploadDir + File.separator + file.getOriginalFilename());
-            Files.write(path, bytes);
-
-            return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse("You successfully uploaded '" + file.getOriginalFilename() + "'"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse("Failed to upload '" + file.getOriginalFilename() + "'"));
-        }
-    }*/
     @Operation(summary = "Creazione della cartella",
-            description = "Creazione della cartella dove storicizzare i file e aggiornamento db")
+            description = "Creazione delle cartelle di addestramento dei relativi bot")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -65,7 +44,7 @@ public class CartelleManagementController {
     }
 
     @Operation(summary = "Aggiunta di una cartella nel db già creata",
-            description = "Aggiunta di una cartella nel db già creata")
+            description = "Se la cartella esiste già, questo endpoint si occupa del salvataggio nel db.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -97,8 +76,8 @@ public class CartelleManagementController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(fileManagementService.eliminaCartella(cartellaParams)));
     }
 
-    @Operation(summary = "Eliminare una cartella cartella",
-            description = "Eliminare una cartella cartella e i file contenuti in essa")
+    @Operation(summary = "Elenco cartelle",
+            description = "Elenco delle cartelle presenti nel db")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -108,8 +87,8 @@ public class CartelleManagementController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(fileManagementService.elencoCartelle()));
     }
 
-    @Operation(summary = "Eliminare una cartella cartella",
-            description = "Eliminare una cartella cartella e i file contenuti in essa")
+    @Operation(summary = "Ritrovamento di una cartella",
+            description = "Filtrare una cartella nel db")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")

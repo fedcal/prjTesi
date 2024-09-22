@@ -25,7 +25,6 @@ import java.util.List;
 @Validated
 @Tag(name = "Cartelle Controller",
         description = "Gestione delle cartelle")
-@CrossOrigin
 @AllArgsConstructor
 public class CartelleController {
 
@@ -33,7 +32,7 @@ public class CartelleController {
     private final CartelleService cartelleService;
 
     @Operation(summary = "Creazione della cartella",
-            description = "Creazione della cartella dove storicizzare i file e aggiornamento db")
+            description = "Creazione delle cartelle di addestramento dei relativi bot")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -44,7 +43,7 @@ public class CartelleController {
     }
 
     @Operation(summary = "Aggiunta di una cartella nel db già creata",
-            description = "Aggiunta di una cartella nel db già creata")
+            description = "Se la cartella esiste già, questo endpoint si occupa del salvataggio nel db.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -76,8 +75,8 @@ public class CartelleController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(cartelleService.eliminaCartella(cartellaParams)));
     }
 
-    @Operation(summary = "Eliminare una cartella cartella",
-            description = "Eliminare una cartella cartella e i file contenuti in essa")
+    @Operation(summary = "Elenco cartelle",
+            description = "Elenco delle cartelle presenti nel db")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -87,8 +86,8 @@ public class CartelleController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(cartelleService.elencoCartelle()));
     }
 
-    @Operation(summary = "Eliminare una cartella cartella",
-            description = "Eliminare una cartella cartella e i file contenuti in essa")
+    @Operation(summary = "Ritrovamento di una cartella",
+            description = "Filtrare una cartella nel db")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")

@@ -36,7 +36,10 @@ public class DocumentiManagementServiceImpl implements DocumentiManagementServic
 
         File fileFromMultipart = null;
         try {
-            fileFromMultipart = File.createTempFile("temp", file.getOriginalFilename());
+            fileFromMultipart = new File(System.getProperty("java.io.tmpdir"), file.getOriginalFilename());
+            if (fileFromMultipart.exists()) {
+                fileFromMultipart.delete();
+            }
             file.transferTo(fileFromMultipart);
         } catch (IOException e) {
             throw new RuntimeException(e);

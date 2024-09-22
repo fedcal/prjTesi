@@ -16,7 +16,7 @@ import java.io.IOException;
 public class ExternalApiClientConfig {
     private final RestTemplate restTemplate;
 
-   /* @Primary
+   @Primary
     @Bean
     public com.bff.botoffertebandi.invoker.ApiClient botOfferteBandiApiClient() {
         com.bff.botoffertebandi.invoker.ApiClient apiClient = new com.bff.botoffertebandi.invoker.ApiClient(restTemplate);
@@ -38,6 +38,6 @@ public class ExternalApiClientConfig {
         com.bff.filemanagement.invoker.ApiClient apiClient = new com.bff.filemanagement.invoker.ApiClient(restTemplate);
         apiClient.setBasePath("http://localhost:8081");
         return apiClient;
-    }*/
+    }
 
 }

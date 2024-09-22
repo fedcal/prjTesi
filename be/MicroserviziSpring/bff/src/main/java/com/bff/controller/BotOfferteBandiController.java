@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/bot-offerte-bandi-chat")
 @Validated
 @Tag(name = "Bot Offerte Bandi Chat Controller",
-        description = "Gestione della chat offerte bandi")
-@CrossOrigin
+        description = "Gestione della chat relativa al bot addestrato sulle offerte relative ai bandi")
 @AllArgsConstructor
 public class BotOfferteBandiController {
     @Autowired
@@ -28,8 +27,8 @@ public class BotOfferteBandiController {
     @Autowired
     private BotOfferteBandiService botOfferteBandiService;
 
-    @Operation(summary = "Invio messaggio chat normale",
-            description = "Invio di un messaggio al bot ai")
+    @Operation(summary = "Chat normale",
+            description = "Invio di un messaggio al bot OfferteBandi sfruttando l'LLM non addestrato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -39,8 +38,8 @@ public class BotOfferteBandiController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(botOfferteBandiService.normalChat(messagge)));
     }
 
-    @Operation(summary = "Invio messaggio chat addestrata",
-            description = "Messaggio e risposta alla chat addestrata per chiedere informazioni relative ai file su cui è addestrato il bot")
+    @Operation(summary = "Chat normale",
+            description = "Invio di un messaggio al bot OfferteBandi sfruttando l'LLM addestrato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")

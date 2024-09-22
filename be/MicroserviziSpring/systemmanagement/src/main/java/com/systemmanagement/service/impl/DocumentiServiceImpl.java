@@ -24,6 +24,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.*;
 import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Service;
@@ -362,7 +363,7 @@ public class DocumentiServiceImpl implements DocumentiService {
 
         try {
             MultipartBodyBuilder builder = new MultipartBodyBuilder();
-            builder.part("file", new ByteArrayResource(file.getBytes()))
+            builder.part("file", new InputStreamResource(file.getInputStream()))
                     .header("Content-Disposition", "form-data; name=file; filename=" + file.getOriginalFilename());
 
             MultiValueMap<String, HttpEntity<?>> multipartRequest = builder.build();

@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/bot-ai-chat")
 @Validated
 @Tag(name = "Bot Ai Chat Controller",
-        description = "Gestione della chat ai")
-@CrossOrigin
+        description = "Gestione della chat relativa al bot sull'argomento ai")
 @AllArgsConstructor
 public class BotAiController {
     @Autowired
@@ -28,8 +27,8 @@ public class BotAiController {
     @Autowired
     private BotAiService botAiService;
 
-    @Operation(summary = "Invio messaggio chat normale",
-            description = "Invio di un messaggio al bot ai")
+    @Operation(summary = "Chat normale",
+            description = "Invio di un messaggio al bot AI sfruttando l'LLM non addestrato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -39,8 +38,8 @@ public class BotAiController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(botAiService.normalChat(messagge)));
     }
 
-    @Operation(summary = "Invio messaggio chat addestrata",
-            description = "Messaggio e risposta alla chat addestrata per chiedere informazioni relative ai file su cui è addestrato il bot")
+    @Operation(summary = "Chat addestrata",
+            description = "Invio di un messaggio al bot AI sfruttando l'LLM addestrato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")

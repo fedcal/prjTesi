@@ -30,7 +30,11 @@ logger.addHandler(handler)
 
 app = Flask(__name__)
 
-llm = Ollama(model="llama3")
+llm = Ollama(model="llama3") #8b
+#llm = Ollama(model="llama3:70b") #70b
+#llm = Ollama(model="gemma2") #9b
+#llm = Ollama(model="mistral-large") #123b
+
 embedding = FastEmbedEmbeddings()
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=1024,

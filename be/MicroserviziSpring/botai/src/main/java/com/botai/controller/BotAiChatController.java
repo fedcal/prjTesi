@@ -25,8 +25,8 @@ public class BotAiChatController {
     private final EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
     private final ChatService chatService;
 
-    @Operation(summary = "Invio messaggio chat normale",
-            description = "Invio di un messaggio al bot ai")
+    @Operation(summary = "Chat normale",
+            description = "Invio di un messaggio al bot AI sfruttando l'LLM non addestrato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -36,8 +36,8 @@ public class BotAiChatController {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.normalChat(messagge)));
     }
 
-    @Operation(summary = "Invio messaggio chat addestrata",
-            description = "Messaggio e risposta alla chat addestrata per chiedere informazioni relative ai file su cui è addestrato il bot")
+    @Operation(summary = "Chat addestrata",
+            description = "Invio di un messaggio al bot AI sfruttando l'LLM addestrato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")

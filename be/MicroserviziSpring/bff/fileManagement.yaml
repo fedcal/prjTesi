@@ -23,7 +23,7 @@ paths:
       tags:
         - Cartelle Controller
       summary: Creazione della cartella
-      description: Creazione della cartella dove storicizzare i file e aggiornamento db
+      description: Creazione delle cartelle di addestramento dei relativi bot
       operationId: creaCartella
       requestBody:
         content:
@@ -49,7 +49,7 @@ paths:
       tags:
         - Cartelle Controller
       summary: Aggiunta di una cartella nel db già creata
-      description: Aggiunta di una cartella nel db già creata
+      description: Se la cartella esiste già, questo endpoint si occupa del salvataggio nel db.
       operationId: aggiungiCartella
       requestBody:
         content:
@@ -74,6 +74,8 @@ paths:
     post:
       tags:
         - Rag bot Controller
+      summary: Registra bot
+      description: Registrazione di un bot all'interno del database
       operationId: registraBot
       requestBody:
         content:
@@ -83,7 +85,13 @@ paths:
         required: true
       responses:
         '200':
-          description: OK
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRagBotPdfDto'
+        '500':
+          description: Errore di sistema
           content:
             application/json:
               schema:
@@ -92,6 +100,8 @@ paths:
     post:
       tags:
         - Rag bot Controller
+      summary: Modifica bot
+      description: Modifica le informazioni del bot registrate nel database
       operationId: modificaBot
       requestBody:
         content:
@@ -101,7 +111,13 @@ paths:
         required: true
       responses:
         '200':
-          description: OK
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRagBotPdfDto'
+        '500':
+          description: Errore di sistema
           content:
             application/json:
               schema:
@@ -110,6 +126,8 @@ paths:
     post:
       tags:
         - Documenti Controller
+      summary: Addestamento bot singolo file
+      description: Specificando il nome del bot e caricando un file, si avvia l'addestramento per il singolo file
       operationId: addestramentoSingolo
       parameters:
         - name: nomeBot
@@ -130,7 +148,13 @@ paths:
                   format: binary
       responses:
         '200':
-          description: OK
+          description: Operazione andata a buon fine
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
           content:
             '*/*':
               schema:
@@ -139,6 +163,8 @@ paths:
     post:
       tags:
         - Documenti Controller
+      summary: Addestamento massivo bot
+      description: Specificando il nome del bot, si avvia l'addestramento massivo
       operationId: addestramentoMassivo
       parameters:
         - name: nomeBot
@@ -148,7 +174,13 @@ paths:
             type: string
       responses:
         '200':
-          description: OK
+          description: Operazione andata a buon fine
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
           content:
             '*/*':
               schema:
@@ -183,10 +215,18 @@ paths:
     get:
       tags:
         - Rag bot Controller
+      summary: Elenco bot
+      description: Elenco dei bot registrati nel database
       operationId: elencoBot
       responses:
         '200':
-          description: OK
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListRagBotPdfDto'
+        '500':
+          description: Errore di sistema
           content:
             application/json:
               schema:
@@ -195,8 +235,8 @@ paths:
     get:
       tags:
         - Cartelle Controller
-      summary: Eliminare una cartella cartella
-      description: Eliminare una cartella cartella e i file contenuti in essa
+      summary: Ritrovamento di una cartella
+      description: Filtrare una cartella nel db
       operationId: findCartella
       parameters:
         - name: cartellaParams
@@ -221,8 +261,8 @@ paths:
     get:
       tags:
         - Cartelle Controller
-      summary: Eliminare una cartella cartella
-      description: Eliminare una cartella cartella e i file contenuti in essa
+      summary: Elenco cartelle
+      description: Elenco delle cartelle presenti nel db
       operationId: elencoCartelle
       responses:
         '200':
@@ -241,6 +281,8 @@ paths:
     delete:
       tags:
         - Rag bot Controller
+      summary: Elemina bot
+      description: Elimina un bot nel database
       operationId: eliminaBot
       parameters:
         - name: nomeBot
@@ -250,7 +292,13 @@ paths:
             type: string
       responses:
         '200':
-          description: OK
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
           content:
             application/json:
               schema:
