@@ -422,6 +422,21 @@ public class DocumentiServiceImpl implements DocumentiService {
         File[] files = folder.listFiles();
 
         if(files!=null && files.length>0){
+            for(File file : files) {
+                if (file.getName().contains(" ")) {
+
+                    if (osName.contains("Wind") || osName.contains("wind")) {
+                        file.renameTo(new File(folder.getAbsolutePath() + "\\" + file.getName().replace(" ", "_")));
+                    } else {
+                        file.renameTo(new File(folder.getAbsolutePath() + "/" + file.getName().replace(" ", "_")));
+                    }
+                }
+            }
+        }
+
+        files = folder.listFiles();
+
+        if(files!=null && files.length>0){
             List<ResponseEntity<LoadFileResponse>> responsesFileUpload = new ArrayList<>();
             for(File file : files){
                 if (!file.exists() || file.length() == 0) {
@@ -440,6 +455,9 @@ public class DocumentiServiceImpl implements DocumentiService {
                 } catch (IOException e) {
                     System.out.println("Errore durante la lettura del PDF: " + e.getMessage());
                 }
+            }
+            for(File file : files){
+
                 try {
                     MultipartFile multipartFile = new CustomMultipartFile(file);
 
@@ -457,6 +475,10 @@ public class DocumentiServiceImpl implements DocumentiService {
                     RestTemplate restTemplate = new RestTemplate();
                     ResponseEntity<LoadFileResponse> response;
                     response = restTemplate.exchange(ragBotPdf.get().getUrlPython()+"load-pdf", HttpMethod.POST, requestEntity, LoadFileResponse.class);
+
+                    if(response.getBody().getStatus().equals("failed")){
+                        
+                    }
 
                     //Salvare file su db
                     String[] fileNameSplit = multipartFile.getOriginalFilename().split("\\.");

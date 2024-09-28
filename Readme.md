@@ -20,3 +20,9 @@ systemctl start ollama.service
 
 ## Attivazione venv ubuntu
 source venv/bin/activate
+
+
+dbmdz/bert-base-italian-cased: Un modello BERT addestrato su un corpus italiano.
+Musixmatch/umberto-commoncrawl-cased-v1: Modello BERT ottimizzato per l'italiano.
+sentence-transformers/all-MiniLM-L6-v2: Modello di embeddings versatile che funziona bene con lingue diverse, inclusa l'italiano.
+xlm-roberta-base: Modello multilingue che funziona bene con diverse lingue, tra cui l'italiano.

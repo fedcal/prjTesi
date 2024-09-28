@@ -12,6 +12,10 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 
+from langdetect import detect
+from deep_translator import GoogleTranslator
+import re
+
 pathAddestramento = ""
 connectionDB = None
 
@@ -30,22 +34,27 @@ logger.addHandler(handler)
 
 app = Flask(__name__)
 
-llm = Ollama(model="llama3")
+llm = Ollama(model="llama3") #8b
+#llm = Ollama(model="llama3:70b") #70b
+#llm = Ollama(model="gemma2") #9b
+#llm = Ollama(model="mistral-large") #123b
+
 embedding = FastEmbedEmbeddings()
+
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=1024,
-    chunk_overlap=20,
+    chunk_size=3796,
+    chunk_overlap=100,
     length_function=len,
-    is_separator_regex=False
+    separators=[r"\n\n", r"\n", r"(?<=\.\s)", " ", ""]
 )
 
+
 rawPrompt = PromptTemplate.from_template(""" 
-    <s>[INST] Sei un assistente abile nella ricerca di informazioni all''interno dei documenti. Se non hai una 
-    risposta non fare nulla. [/INST]</s>
+    <s>[INST] Sei un assistente esperto nella ricerca di informazioni nei documenti PDF. Le tue risposte devono essere precise e basate esclusivamente sul contesto fornito. Assicurati di rispondere in italiano e di non fare supposizioni. Indica chiaramente la fonte da cui hai estratto l'informazione se disponibile. [/INST]</s>
 
     [INST] {input}
             Context: {context}
-            Answer: 
+            Risposta in italiano: 
     [/INST]
 """)
 
@@ -65,22 +74,30 @@ def botAiMessage():
 def loadPdf():
     file = request.files['file']
     fileName = file.filename
-    saveFile = pathFolder + "\\" + fileName
+    saveFile = ""
+    if os.name == 'nt':
+        saveFile = pathAddestramento + "\\" + fileName
+    else:
+        saveFile = pathAddestramento + "/" + fileName
     file.save(saveFile)
     print(f"File salvato: {saveFile}")
 
-    loadPdf = PDFPlumberLoader(saveFile)
-    docs = loadPdf.load_and_split()
+    if not fileName[-4:] == ".pdf":
+        response = {
+            "status": "success",
+            "fileName": fileName,
+            "docLen": 0,
+            "chunks": 0
+        }
+        return response
 
+    loadPdf = PDFPlumberLoader(saveFile)
+
+    docs = loadPdf.load_and_split()
     print(f"Doc len: {len(docs)}")
 
     chunks = text_splitter.split_documents(docs)
     print(f"Doc len: {len(chunks)}")
-
-    vectorStore = Chroma.from_documents(documents=chunks,
-                                        embedding=embedding,
-                                        persist_directory=pathFolder)
-    vectorStore.persist()
 
     response = {
         "status": "success",
@@ -88,6 +105,16 @@ def loadPdf():
         "docLen": len(docs),
         "chunks": len(chunks)
     }
+    if(len(docs)==0 or len(chunks)==0 ):
+        response = {
+            "status": "failed",
+            "fileName": fileName,
+            "docLen": len(docs),
+            "chunks": len(chunks)
+        }
+    else:
+        vectorStore = Chroma.from_documents(documents=chunks, embedding=embedding, persist_directory=pathAddestramento)
+        vectorStore.persist()
     return response
 
 
@@ -98,7 +125,7 @@ def askPdf():
     print(f"Query: {query}")
 
     print(f"Carico il VectorStore")
-    vectorStore = Chroma(persist_directory=pathFolder,
+    vectorStore = Chroma(persist_directory=pathAddestramento,
                          embedding_function=embedding)
 
     print(f"Creo la chain")
@@ -106,14 +133,14 @@ def askPdf():
         search_type="similarity_score_threshold",
         search_kwargs={
             "k": 20,
-            "score_threshold": 0.1,
+            "score_threshold": 0.3,
         },
     )
 
     document_chain = create_stuff_documents_chain(llm, rawPrompt)
     chain = create_retrieval_chain(retriever, document_chain)
 
-    result = chain.invoke({"input": query})
+    result = chain.invoke({"input": f"Rispondi in italiano: {query}"})
 
     print(result)
 
@@ -123,48 +150,76 @@ def askPdf():
             {"source": doc.metadata["source"], "pageContent": doc.page_content}
         )
 
-    responseAnswer = {"answer": result["answer"], "sources": sources}
+    responseAnswer = {"answer": check_and_translate(result["answer"]), "sources": sources}
 
     return responseAnswer
+
 
 def connessioneDb():
     global connectionDB
     try:
-            connectionDB = connect(
-                host="localhost",
-                user="root",
-                password="root",
-                database = "botrag",
-            )
-            app.logger.info('Connessione db.')
+        connectionDB = connect(
+            host="localhost",
+            user="root",
+            password="root",
+            database="botrag",
+        )
+        app.logger.info('Connessione db.')
     except Error as e:
         app.logger.info(e)
+
 
 def recuperoPathAddestramento():
     global connectionDB
     global pathAddestramento
-    query = "SELECT path_cartella, nome_cartella FROM cartelle AS cart LEFT JOIN rag_bot_pdf AS ragbot ON cart.id_cartella = ragbot.id_cartella_addestramento WHERE nome_bot = 'botAi' AND cart.is_cartella_addestramento = 1"
+    query = "SELECT path_cartella, nome_cartella FROM cartelle AS cart LEFT JOIN rag_bot_pdf AS ragbot ON cart.id_cartella = ragbot.id_cartella_addestramento WHERE nome_bot = 'botOfferteBandi' AND cart.is_cartella_addestramento = 1"
     try:
         with connectionDB.cursor() as cursor:
             cursor.execute(query)
             for folder in cursor.fetchall():
                 app.logger.info(folder)
                 for field in folder:
-                   if pathAddestramento == "":
-                       pathAddestramento = field
-                   else:
-                       if os.name == 'nt':
-                           pathAddestramento = pathAddestramento + "\\" + field
-                       else:
-                           pathAddestramento = pathAddestramento + "/" + field
+                    if pathAddestramento == "":
+                        pathAddestramento = field
+                    else:
+                        if os.name == 'nt':
+                            pathAddestramento = pathAddestramento + "\\" + field
+                        else:
+                            pathAddestramento = pathAddestramento + "/" + field
     except Error as e:
         app.logger.info(e)
+    finally:
+        connectionDB.close()
+
 
 def startApplication():
     connessioneDb()
     recuperoPathAddestramento()
     app.run(host='127.0.0.1', port=5001, debug=True)
 
+# Funzione per verificare se il testo contiene parole in inglese
+def contains_english_words(text):
+    english_words = r'\b[a-zA-Z]+\b'
+    return re.search(english_words, text) is not None
+
+
+# Funzione per rilevare la lingua e tradurre se necessario
+def check_and_translate(text):
+    # Rileva la lingua del testo
+    detected_language = detect(text)
+    print(f"Lingua rilevata: {detected_language}")
+
+    # Se la lingua è inglese, traduci in italiano
+    if detected_language == 'en':
+        translated_text = GoogleTranslator(source='en', target='it').translate(text)
+        return translated_text
+    # Se il testo è in italiano e contiene parole inglesi, restituisci il testo originale
+    elif detected_language == 'it' and contains_english_words(text):
+        print("Il testo contiene parole in inglese, non viene tradotto.")
+        return text
+    # Se il testo è in italiano senza parole inglesi, può essere restituito direttamente
+    elif detected_language == 'it':
+        return text
 
 if __name__ == '__main__':
     startApplication()

@@ -12,6 +12,10 @@ from langchain.prompts import PromptTemplate
 from mysql.connector import connect, Error
 import os
 
+from langdetect import detect
+from deep_translator import GoogleTranslator
+import re
+
 pathAddestramento = ""
 connectionDB = None
 
@@ -36,20 +40,20 @@ llm = Ollama(model="llama3") #8b
 #llm = Ollama(model="mistral-large") #123b
 
 embedding = FastEmbedEmbeddings()
+
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=1024,
-    chunk_overlap=20,
+    chunk_size=3796,
+    chunk_overlap=100,
     length_function=len,
-    is_separator_regex=False
+    separators=[r"\n\n", r"\n", r"(?<=\.\s)", " ", ""]
 )
 
 rawPrompt = PromptTemplate.from_template(""" 
-    <s>[INST] Sei un assistente abile nella ricerca di informazioni all''interno dei documenti. Se non hai una 
-    risposta non fare nulla. [/INST]</s>
+    <s>[INST] Sei un assistente esperto nella ricerca di informazioni nei documenti PDF. Le tue risposte devono essere precise e basate esclusivamente sul contesto fornito. Assicurati di rispondere in italiano e di non fare supposizioni. Indica chiaramente la fonte da cui hai estratto l'informazione se disponibile. [/INST]</s>
 
     [INST] {input}
             Context: {context}
-            Answer: 
+            Risposta in italiano: 
     [/INST]
 """)
 
@@ -78,18 +82,22 @@ def loadPdf():
     file.save(saveFile)
     print(f"File salvato: {saveFile}")
 
+    if not fileName[-4:] == ".pdf":
+        response = {
+            "status": "success",
+            "fileName": fileName,
+            "docLen": 0,
+            "chunks": 0
+        }
+        return response
+
     loadPdf = PDFPlumberLoader(saveFile)
+
     docs = loadPdf.load_and_split()
     print(f"Doc len: {len(docs)}")
 
     chunks = text_splitter.split_documents(docs)
     print(f"Doc len: {len(chunks)}")
-
-    #vectorStore = Chroma.from_documents(documents=chunks,
-     #                                   embedding=embedding,
-      #                                  persist_directory=pathAddestramento)
-    vectorStore = Chroma.from_documents(documents=chunks, embedding=embedding, persist_directory=pathAddestramento)
-    #vectorStore.persist()
 
     response = {
         "status": "success",
@@ -97,6 +105,16 @@ def loadPdf():
         "docLen": len(docs),
         "chunks": len(chunks)
     }
+    if(len(docs)==0 or len(chunks)==0 ):
+        response = {
+            "status": "failed",
+            "fileName": fileName,
+            "docLen": len(docs),
+            "chunks": len(chunks)
+        }
+    else:
+        vectorStore = Chroma.from_documents(documents=chunks, embedding=embedding, persist_directory=pathAddestramento)
+    #vectorStore.persist()
     return response
 
 
@@ -115,14 +133,14 @@ def askPdf():
         search_type="similarity_score_threshold",
         search_kwargs={
             "k": 20,
-            "score_threshold": 0.1,
+            "score_threshold": 0.3,
         },
     )
 
     document_chain = create_stuff_documents_chain(llm, rawPrompt)
     chain = create_retrieval_chain(retriever, document_chain)
 
-    result = chain.invoke({"input": query})
+    result = chain.invoke({"input": f"Rispondi in italiano: {query}"})
 
     print(result)
 
@@ -132,7 +150,7 @@ def askPdf():
             {"source": doc.metadata["source"], "pageContent": doc.page_content}
         )
 
-    responseAnswer = {"answer": result["answer"], "sources": sources}
+    responseAnswer = {"answer": check_and_translate(result["answer"]), "sources": sources}
     
     return responseAnswer
 
@@ -168,6 +186,8 @@ def recuperoPathAddestramento():
                            pathAddestramento = pathAddestramento + "/" + field
     except Error as e:
         app.logger.info(e)
+    finally:
+        connectionDB.close()
 
 
 def startApplication():
@@ -176,6 +196,23 @@ def startApplication():
     app.run(host='127.0.0.1', port=5000, debug=True)
 
 
+def contains_english_words(text):
+    english_words = r'\b[a-zA-Z]+\b'
+    return re.search(english_words, text) is not None
+
+
+def check_and_translate(text):
+    detected_language = detect(text)
+    print(f"Lingua rilevata: {detected_language}")
+
+    if detected_language == 'en':
+        translated_text = GoogleTranslator(source='en', target='it').translate(text)
+        return translated_text
+    elif detected_language == 'it' and contains_english_words(text):
+        print("Il testo contiene parole in inglese, non viene tradotto.")
+        return text
+    elif detected_language == 'it':
+        return text
 
 if __name__ == '__main__':
     startApplication()
