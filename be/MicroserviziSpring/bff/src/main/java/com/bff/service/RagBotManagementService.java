@@ -3,6 +3,7 @@ package com.bff.service;
 import com.bff.dto.RagBotPdfDto;
 import com.bff.dto.params.ragbotpdf.ModificaBotParams;
 import com.bff.dto.params.ragbotpdf.RegistraBotParams;
+import com.bff.dto.params.ragbotpdf.TrovaBotParams;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface RagBotManagementService {
     RagBotPdfDto modificaBot(ModificaBotParams modificaBotParams);
 
     String eliminaBot(String nomeBot);
+
+    RagBotPdfDto trovaBot(TrovaBotParams trovaBotParam);
 }

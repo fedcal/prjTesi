@@ -4,6 +4,7 @@ import com.bff.dto.params.cartella.CartellaParams;
 import com.bff.dto.params.cartella.ModificaCartellaParams;
 import com.bff.dto.params.ragbotpdf.RegistraBotParams;
 import com.bff.dto.params.ragbotpdf.ModificaBotParams;
+import com.bff.dto.params.ragbotpdf.TrovaBotParams;
 
 
 public final class ConverterObjectParameter {
@@ -55,5 +56,14 @@ public final class ConverterObjectParameter {
         modificaBotParamsConvert.setNuovoNomeCartellaCaricamentoMassivo(modificaBotParams.getNuovoNomeCartellaCaricamentoMassivo());
 
         return modificaBotParamsConvert;
+    }
+
+    public static com.bff.filemanagement.model.TrovaBotParams convertTrovaBot(TrovaBotParams trovaBotParams) {
+        com.bff.filemanagement.model.TrovaBotParams trovaBotParamsConvert = new com.bff.filemanagement.model.TrovaBotParams();
+
+        trovaBotParamsConvert.setNomeBot(trovaBotParams.getNomeBot());
+        trovaBotParamsConvert.setIdBot(trovaBotParams.getIdBot());
+
+        return trovaBotParamsConvert;
     }
 }

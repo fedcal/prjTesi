@@ -1,7 +1,5 @@
 from flask import Flask, request
-import logging
-from logging.handlers import RotatingFileHandler
-from langchain_chroma import Chroma
+from langchain_community.vectorstores import Chroma
 from langchain_community.llms import Ollama
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
@@ -11,6 +9,8 @@ from langchain.chains import create_retrieval_chain
 from langchain.prompts import PromptTemplate
 from mysql.connector import connect, Error
 import os
+import logging
+from logging.handlers import RotatingFileHandler
 
 from langdetect import detect
 from deep_translator import GoogleTranslator
@@ -48,6 +48,7 @@ text_splitter = RecursiveCharacterTextSplitter(
     separators=[r"\n\n", r"\n", r"(?<=\.\s)", " ", ""]
 )
 
+
 rawPrompt = PromptTemplate.from_template(""" 
     <s>[INST] Sei un assistente esperto nella ricerca di informazioni nei documenti PDF. Le tue risposte devono essere precise e basate esclusivamente sul contesto fornito. Assicurati di rispondere in italiano e di non fare supposizioni. Indica chiaramente la fonte da cui hai estratto l'informazione se disponibile. [/INST]</s>
 
@@ -56,7 +57,6 @@ rawPrompt = PromptTemplate.from_template("""
             Risposta in italiano: 
     [/INST]
 """)
-
 
 @app.route('/message', methods=['POST'])
 def botAiMessage():
@@ -114,7 +114,7 @@ def loadPdf():
         }
     else:
         vectorStore = Chroma.from_documents(documents=chunks, embedding=embedding, persist_directory=pathAddestramento)
-    #vectorStore.persist()
+        vectorStore.persist()
     return response
 
 
@@ -151,39 +151,41 @@ def askPdf():
         )
 
     responseAnswer = {"answer": check_and_translate(result["answer"]), "sources": sources}
-    
+
     return responseAnswer
+
 
 def connessioneDb():
     global connectionDB
     try:
-            connectionDB = connect(
-                host="localhost",
-                user="root",
-                password="root",
-                database = "botrag",
-            )
-            app.logger.info('Connessione db.')
+        connectionDB = connect(
+            host="localhost",
+            user="root",
+            password="root",
+            database="botrag",
+        )
+        app.logger.info('Connessione db.')
     except Error as e:
         app.logger.info(e)
+
 
 def recuperoPathAddestramento():
     global connectionDB
     global pathAddestramento
-    query = "SELECT path_cartella, nome_cartella FROM cartelle AS cart LEFT JOIN rag_bot_pdf AS ragbot ON cart.id_cartella = ragbot.id_cartella_addestramento WHERE nome_bot = 'botAi' AND cart.is_cartella_addestramento = 1"
+    query = "SELECT path_cartella, nome_cartella FROM cartelle AS cart LEFT JOIN rag_bot_pdf AS ragbot ON cart.id_cartella = ragbot.id_cartella_addestramento WHERE nome_bot = 'botOfferteBandi' AND cart.is_cartella_addestramento = 1"
     try:
         with connectionDB.cursor() as cursor:
             cursor.execute(query)
             for folder in cursor.fetchall():
                 app.logger.info(folder)
                 for field in folder:
-                   if pathAddestramento == "":
-                       pathAddestramento = field
-                   else:
-                       if os.name == 'nt':
-                           pathAddestramento = pathAddestramento + "\\" + field
-                       else:
-                           pathAddestramento = pathAddestramento + "/" + field
+                    if pathAddestramento == "":
+                        pathAddestramento = field
+                    else:
+                        if os.name == 'nt':
+                            pathAddestramento = pathAddestramento + "\\" + field
+                        else:
+                            pathAddestramento = pathAddestramento + "/" + field
     except Error as e:
         app.logger.info(e)
     finally:
@@ -194,7 +196,6 @@ def startApplication():
     connessioneDb()
     recuperoPathAddestramento()
     app.run(host='127.0.0.1', port=5000, debug=True)
-
 
 def contains_english_words(text):
     english_words = r'\b[a-zA-Z]+\b'

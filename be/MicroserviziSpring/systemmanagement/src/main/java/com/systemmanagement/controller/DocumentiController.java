@@ -1,6 +1,7 @@
 package com.systemmanagement.controller;
 
 import com.systemmanagement.dto.DocumentiDto;
+import com.systemmanagement.dto.PdfAddestratiDto;
 import com.systemmanagement.dto.params.documenti.EliminaDocumento;
 import com.systemmanagement.dto.params.documenti.FindDocumentoParams;
 import com.systemmanagement.dto.params.documenti.ModificaDocumentiParams;
@@ -69,7 +70,7 @@ public class DocumentiController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @PostMapping(value = "/addestramento-massivo")
-    public ResponseEntity<GenericResponseDto<String>> addestramentoMassivo(@RequestParam("nomeBot") String nomeBot) {
+    public ResponseEntity<GenericResponseDto<List<PdfAddestratiDto>>> addestramentoMassivo(@RequestParam("nomeBot") String nomeBot) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(fileService.addestramentoMassivo(nomeBot)));
     }
 

@@ -3,6 +3,7 @@ package com.systemmanagement.service.impl;
 import com.itextpdf.text.pdf.PdfReader;
 import com.systemmanagement.dto.CustomMultipartFile;
 import com.systemmanagement.dto.DocumentiDto;
+import com.systemmanagement.dto.PdfAddestratiDto;
 import com.systemmanagement.dto.params.documenti.EliminaDocumento;
 import com.systemmanagement.dto.params.documenti.FindDocumentoParams;
 import com.systemmanagement.dto.params.documenti.ModificaDocumentiParams;
@@ -399,8 +400,9 @@ public class DocumentiServiceImpl implements DocumentiService {
     }
 
     @Override
-    public String addestramentoMassivo(String nomeBot) {
+    public List<PdfAddestratiDto> addestramentoMassivo(String nomeBot) {
         esitoMessaggiRequestContextHolder.setOperationId("addestramentoMassivo");
+        List<PdfAddestratiDto> addestramentoPdf = new ArrayList<>();
 
         Optional<RagBotPdf> ragBotPdf = ragBotPdfRepository.findByNomeBot(nomeBot);
 
@@ -476,9 +478,9 @@ public class DocumentiServiceImpl implements DocumentiService {
                     ResponseEntity<LoadFileResponse> response;
                     response = restTemplate.exchange(ragBotPdf.get().getUrlPython()+"load-pdf", HttpMethod.POST, requestEntity, LoadFileResponse.class);
 
-                    if(response.getBody().getStatus().equals("failed")){
-                        
-                    }
+
+                    addestramentoPdf.add(new PdfAddestratiDto(response.getBody().getFileName(), response.getBody().getStatus()));
+
 
                     //Salvare file su db
                     String[] fileNameSplit = multipartFile.getOriginalFilename().split("\\.");
@@ -500,7 +502,7 @@ public class DocumentiServiceImpl implements DocumentiService {
         }
 
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-        return "Addestramento massivo del bot "+nomeBot+" completato";
+        return addestramentoPdf;
     }
 
 }

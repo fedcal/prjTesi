@@ -1,5 +1,6 @@
 package com.bff.controller;
 
+import com.bff.dto.PdfAddestratiDto;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseDto;
 import com.bff.service.DocumentiManagementService;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/documenti-management")
@@ -34,7 +37,7 @@ public class DocumentiManagementController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @PostMapping(value = "/addestramento-massivo")
-    public ResponseEntity<GenericResponseDto<String>> addestramentoMassivo(@RequestParam("nomeBot") String nomeBot) {
+    public ResponseEntity<GenericResponseDto<List<PdfAddestratiDto>>> addestramentoMassivo(@RequestParam("nomeBot") String nomeBot) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(documentiManagementService.addestramentoMassivo(nomeBot)));
     }
 

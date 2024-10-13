@@ -3,6 +3,7 @@ package com.bff.service.impl;
 import com.bff.dto.RagBotPdfDto;
 import com.bff.dto.params.ragbotpdf.RegistraBotParams;
 import com.bff.dto.params.ragbotpdf.ModificaBotParams;
+import com.bff.dto.params.ragbotpdf.TrovaBotParams;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseConverter;
 import com.bff.esito.GenericResponseDto;
@@ -48,6 +49,15 @@ public class RagBotManagementServiceImpl implements RagBotManagementService {
 
     @Override
     public String eliminaBot(String nomeBot) {
-        return "";
+        GenericResponseDto<String> botResponse = genericResponseConverter.convertGenericResponse(
+                ragBotControllerApi.eliminaBot(nomeBot), String.class);
+        return botResponse.getPayload();
+    }
+
+    @Override
+    public RagBotPdfDto trovaBot(TrovaBotParams trovaBotParam) {
+        GenericResponseDto<RagBotPdfDto> botResponse = genericResponseConverter.convertGenericResponse(
+                ragBotControllerApi.trovaBot(ConverterObjectParameter.convertTrovaBot(trovaBotParam)), RagBotPdfDto.class);
+        return botResponse.getPayload();
     }
 }

@@ -4,6 +4,7 @@ package com.systemmanagement.controller;
 import com.systemmanagement.dto.RagBotPdfDto;
 import com.systemmanagement.dto.params.ragbotpdf.ModificaBotParams;
 import com.systemmanagement.dto.params.ragbotpdf.RegistraBotParams;
+import com.systemmanagement.dto.params.ragbotpdf.TrovaBotParams;
 import com.systemmanagement.esito.EsitoMessaggiRequestContextHolder;
 import com.systemmanagement.esito.GenericResponseDto;
 import com.systemmanagement.service.RagBotPdfService;
@@ -40,6 +41,17 @@ public class RagBotController {
     @GetMapping(value = "/visualizza", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<RagBotPdfDto>>> elencoBot() {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(ragBotPdfService.elencoBot()));
+    }
+
+    @Operation(summary = "Trova bot",
+            description = "Trova un bot nel database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value = "/cerca", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<RagBotPdfDto>> trovaBot(TrovaBotParams trovaBotParam) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(ragBotPdfService.trovaBot(trovaBotParam)));
     }
 
     @Operation(summary = "Registra bot",

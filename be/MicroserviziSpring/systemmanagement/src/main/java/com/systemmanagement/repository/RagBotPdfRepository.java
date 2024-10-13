@@ -14,4 +14,10 @@ public interface RagBotPdfRepository extends JpaRepository<RagBotPdf,Integer> {
     void deleteBotRagByName(@Param("nomeBot") String nomeBot);
 
     Optional<RagBotPdf> findByNomeBot(String nomeBot);
+
+    @Query("DELETE FROM RagBotPdf bot WHERE bot.idBot = :idBot")
+    Optional<RagBotPdf> findById(@Param("idBot") Long idBot);
+
+    @Query("DELETE FROM RagBotPdf bot WHERE bot.nomeBot = :nomeBot AND bot.idBot = :idBot")
+    Optional<RagBotPdf> findByIdAndNomeBot(@Param("nomeBot") String nomeBot, @Param("idBot") Long idBot);
 }

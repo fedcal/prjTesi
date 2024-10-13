@@ -3,6 +3,7 @@ package com.systemmanagement.service;
 import com.systemmanagement.dto.RagBotPdfDto;
 import com.systemmanagement.dto.params.ragbotpdf.ModificaBotParams;
 import com.systemmanagement.dto.params.ragbotpdf.RegistraBotParams;
+import com.systemmanagement.dto.params.ragbotpdf.TrovaBotParams;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface RagBotPdfService {
     RagBotPdfDto modificaBot(ModificaBotParams modificaBotParams);
 
     String eliminaBot(String nomeBot);
+
+    RagBotPdfDto trovaBot(TrovaBotParams trovaBotParam);
 }

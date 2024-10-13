@@ -1,6 +1,7 @@
 package com.bff.controller;
 
 import com.bff.dto.RagBotPdfDto;
+import com.bff.dto.params.ragbotpdf.TrovaBotParams;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseDto;
 import com.bff.service.RagBotManagementService;
@@ -42,6 +43,17 @@ public class RagBotManagementController {
     @GetMapping(value = "/visualizza", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<RagBotPdfDto>>> elencoBot() {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(ragBotManagementService.elencoBot()));
+    }
+
+    @Operation(summary = "Trova bot",
+            description = "Trova un bot nel database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value = "/cerca", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<RagBotPdfDto>> trovaBot(TrovaBotParams trovaBotParam) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(ragBotManagementService.trovaBot(trovaBotParam)));
     }
 
     @Operation(summary = "Registra bot",

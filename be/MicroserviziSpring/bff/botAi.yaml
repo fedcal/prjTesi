@@ -1,10 +1,15 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: Bot Offerte Bandi
+  description: Microservizio dedicato alla gestione della chat relativa al bot sull'intelligenza artificiale dei bot
+  contact:
+    name: Federico Calò (matricola 678191)
+    url: https://www.federicocalo.dev
+    email: f.calo29@studenti.uniba.it
+  version: 1.0.0
 servers:
-  - url: http://localhost:8083
-    description: Generated server url
+  - url: http://localhost:8082
+    description: Ambiente locale
 tags:
   - name: Bot Ai Chat Controller
     description: Gestione della chat

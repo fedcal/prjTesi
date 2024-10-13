@@ -1,17 +1,18 @@
 package com.bff.service.impl;
 
+import com.bff.dto.PdfAddestratiDto;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseConverter;
 import com.bff.esito.GenericResponseDto;
 import com.bff.filemanagement.api.DocumentiControllerApi;
 import com.bff.service.DocumentiManagementService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,9 +25,9 @@ public class DocumentiManagementServiceImpl implements DocumentiManagementServic
     private final DocumentiControllerApi documentiControllerApi;
 
     @Override
-    public String addestramentoMassivo(String nomeBot) {
-        GenericResponseDto<String> addestramentoMassivoResponse = genericResponseConverter.convertGenericResponse(
-                documentiControllerApi.addestramentoMassivo(nomeBot), String.class);
+    public List<PdfAddestratiDto> addestramentoMassivo(String nomeBot) {
+        GenericResponseDto<List<PdfAddestratiDto>> addestramentoMassivoResponse = genericResponseConverter.convertGenericResponseList(
+                documentiControllerApi.addestramentoMassivo(nomeBot), PdfAddestratiDto.class);
         return addestramentoMassivoResponse.getPayload();
     }
 

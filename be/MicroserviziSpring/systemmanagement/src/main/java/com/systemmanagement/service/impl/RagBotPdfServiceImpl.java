@@ -3,6 +3,7 @@ package com.systemmanagement.service.impl;
 import com.systemmanagement.dto.RagBotPdfDto;
 import com.systemmanagement.dto.params.ragbotpdf.ModificaBotParams;
 import com.systemmanagement.dto.params.ragbotpdf.RegistraBotParams;
+import com.systemmanagement.dto.params.ragbotpdf.TrovaBotParams;
 import com.systemmanagement.entity.Cartelle;
 import com.systemmanagement.entity.RagBotPdf;
 import com.systemmanagement.esito.EsitoMessaggiRequestContextHolder;
@@ -235,5 +236,37 @@ public class RagBotPdfServiceImpl implements RagBotPdfService {
 
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
         return eliminato;
+    }
+
+    @Override
+    public RagBotPdfDto trovaBot(TrovaBotParams trovaBotParam) {
+        checkParams(trovaBotParam);
+        Optional<RagBotPdf> findBot = Optional.empty();
+        if(trovaBotParam.getIdBot() != 0 && !StringUtils.isBlank(trovaBotParam.getNomeBot())){
+            findBot = ragBotPdfRepository.findByIdAndNomeBot(trovaBotParam.getNomeBot().trim(), Long.valueOf(trovaBotParam.getIdBot()));
+        } else if (trovaBotParam.getIdBot() != 0 && StringUtils.isBlank(trovaBotParam.getNomeBot())) {
+            findBot = ragBotPdfRepository.findById(trovaBotParam.getIdBot());
+        } else if (trovaBotParam.getIdBot() == 0 && !StringUtils.isBlank(trovaBotParam.getNomeBot())) {
+            findBot = ragBotPdfRepository.findByNomeBot(trovaBotParam.getNomeBot().trim());
+        }
+
+        if(findBot.isEmpty()){
+            Messaggio messaggio = Messaggio.builder().severita(SeveritaMessaggioEnum.INFO).codMsg("Bot non trovato.").build();
+            esitoMessaggiRequestContextHolder.getMessaggi().add(messaggio);
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            throw new EsitoRuntimeException(HttpStatus.NOT_FOUND);
+        }
+
+
+        return RagBotPdfDtoMapper.INSTANCE.toDto(findBot.get());
+    }
+
+    private void checkParams(TrovaBotParams trovaBotParam) {
+        if(trovaBotParam.getIdBot() == 0 && StringUtils.isBlank(trovaBotParam.getNomeBot())){
+            Messaggio messaggio = Messaggio.builder().severita(SeveritaMessaggioEnum.INFO).codMsg("Inserire un elemento di ricerca.").build();
+            esitoMessaggiRequestContextHolder.getMessaggi().add(messaggio);
+            esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+            throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+        }
     }
 }

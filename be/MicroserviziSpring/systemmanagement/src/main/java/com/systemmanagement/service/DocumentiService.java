@@ -1,6 +1,7 @@
 package com.systemmanagement.service;
 
 import com.systemmanagement.dto.DocumentiDto;
+import com.systemmanagement.dto.PdfAddestratiDto;
 import com.systemmanagement.dto.params.documenti.EliminaDocumento;
 import com.systemmanagement.dto.params.documenti.FindDocumentoParams;
 import com.systemmanagement.dto.params.documenti.ModificaDocumentiParams;
@@ -23,5 +24,5 @@ public interface DocumentiService {
 
     String addestramentoSingolo(MultipartFile file, String nomeBot);
 
-    String addestramentoMassivo(String nomeBot);
+    List<PdfAddestratiDto> addestramentoMassivo(String nomeBot);
 }

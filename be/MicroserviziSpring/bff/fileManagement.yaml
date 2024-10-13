@@ -178,13 +178,13 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
+                $ref: '#/components/schemas/GenericResponseDtoListPdfAddestratiDto'
         '500':
           description: Errore di sistema
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
+                $ref: '#/components/schemas/GenericResponseDtoListPdfAddestratiDto'
   /cartelle/rinomina:
     post:
       tags:
@@ -231,6 +231,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericResponseDtoListRagBotPdfDto'
+  /ragbot/cerca:
+    get:
+      tags:
+        - Rag bot Controller
+      summary: Trova bot
+      description: Trova un bot nel database
+      operationId: trovaBot
+      parameters:
+        - name: trovaBotParam
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/TrovaBotParams'
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRagBotPdfDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoRagBotPdfDto'
   /cartelle/find:
     get:
       tags:
@@ -478,6 +504,22 @@ components:
           $ref: '#/components/schemas/Esito'
         payload:
           type: string
+    GenericResponseDtoListPdfAddestratiDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/PdfAddestratiDto'
+    PdfAddestratiDto:
+      type: object
+      properties:
+        nomeFile:
+          type: string
+        addestrato:
+          type: string
     ModificaCartellaParams:
       type: object
       properties:
@@ -506,6 +548,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RagBotPdfDto'
+    TrovaBotParams:
+      type: object
+      properties:
+        nomeBot:
+          type: string
+          description: Path delle cartella
+        idBot:
+          type: integer
+          description: Path delle cartella
+          format: int32
     GenericResponseDtoListCartelleDto:
       type: object
       properties:
