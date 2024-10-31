@@ -1,4 +1,15 @@
-.navbar-button{
+.navbar-button.MuiButton-root{
     color: black;
     font-weight: 500;
+}
+
+.navbar-button.MuiButton-root:hover{
+    color: rgb(57, 85, 179);
+    background-color: rgba(255, 255, 255, 0.61);
+}
+
+.logo-navbar.MuiButton-root{
+    color: rgb(57, 85, 179);
+    font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.61);
 }

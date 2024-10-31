@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 		servers = {
 				@Server(
 						description = "Ambiente locale",
-						url = "http://localhost:8082"
+						url = "http://localhost:8083"
 				)
 		}
 )

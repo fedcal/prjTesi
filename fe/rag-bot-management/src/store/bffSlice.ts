@@ -2,24 +2,23 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {  CartelleDto } from "../openapicode/ragbotmanagement";
 
 export interface Response{
-    aggiungiCartellaResult: CartelleDto | null,
-    rinominaCartellaResult: CartelleDto | null,
-    eliminaCartellaResult: String | null,
-    listaCartelle: Array<CartelleDto> | null,
-    findCartella: CartelleDto | null,
-    statusResponse: String | null,
-    messaggiResponse: String | null,
+    //ChatBotAi
+    botAiChatNormaleResult: String | null,
+    botAiChatAddestrataResult: String | null,
+
 }
 
 const initialState: Response = {
-    aggiungiCartellaResult: null,
-    rinominaCartellaResult: null,
-    eliminaCartellaResult: '',
-    listaCartelle: [],
-    findCartella: null,
-    statusResponse: '',
-    messaggiResponse: '',
+    botAiChatNormaleResult: '',
+    botAiChatAddestrataResult: ''
 }
+
+export const botAiChatNormale = createAsyncThunk(
+    '/bot-ai-chat/normal-chat',
+    async(body:)=>{
+        
+    }
+)
 
 
 

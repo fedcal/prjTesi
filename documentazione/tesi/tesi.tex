@@ -10,6 +10,8 @@
 \usepackage[newfloat]{minted}
 \usepackage[font=small,skip=1pt]{caption}
 \usepackage{minted}
+\usepackage{listings}
+\usepackage{xcolor}
 \captionsetup[listing]{position=top}
 \usepackage{subcaption}
 \pgfplotsset{compat=1.18}
@@ -49,6 +51,31 @@
     \if@twocolumn\hbox{}\newpage\fi\fi\fi}
 \makeatother
 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.19, 0.55, 0.91}
+\definecolor{backcolour}{rgb}{1.0, 0.98, 0.98}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codepurple},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
 
 \begin{document}
 
@@ -96,15 +123,15 @@
 \chapter*{Introduzione}
 Nel contesto odierno, caratterizzato da una crescente interazione tra utenti e sistemi digitali, i chatbot stanno emergendo come strumenti fondamentali per migliorare l'esperienza dell'utente e ottimizzare i processi aziendali. Tuttavia, la creazione e gestione di chatbot avanzati richiede un approccio integrato che sfrutti le migliori tecniche di addestramento e architetture software.
 
-Questa tesi si propone di affrontare tale sfida attraverso la progettazione e realizzazione di un ecosistema avanzato per la creazione e gestione di chatbot. L'obiettivo principale del progetto è sviluppare una piattaforma che consenta la creazione di diversi chatbot addestrati utilizzando la metodologia Retrieval-Augmented Generation (RAG). Questa tecnica, che combina la capacità di generazione di testo con la capacità di recupero di informazioni, permette di creare chatbot più intelligenti e contestualmente pertinenti.
+Questa tesi si propone di affrontare tale sfida attraverso la progettazione e realizzazione di un ecosistema avanzato per la creazione e gestione di chatbot. L'obiettivo principale del progetto è sviluppare una piattaforma che consenta la creazione di diversi chatbot addestrati utilizzando la metodologia Retrieval-Augmented Generation (RAG), i quali possono interfaccirsi tra loro e con l'utente attraverso servizi REST.
 
 Per garantire una fruizione ottimale e una gestione efficiente dei chatbot, è stata progettata una soluzione integrata che comprende:
 \begin{itemize}
 \item \textbf{Frontend in ReactJS}: Un'interfaccia utente interattiva e dinamica che facilita l'interazione degli utenti con i chatbot. ReactJS è stato scelto per la sua capacità di creare applicazioni web veloci e reattive.
 
-\item \textbf{Servizi REST API}: Interfacce di programmazione che permettono la comunicazione tra il frontend e i servizi backend. Le API sono state sviluppate utilizzando due tecnologie complementari: Spring Boot e Python. Spring Boot è stato utilizzato per costruire servizi backend robusti e scalabili, mentre Python è stato impiegato per implementare logiche specifiche e processi di machine learning legati ai chatbot.
+\item \textbf{Servizi REST}: Interfacce di programmazione che permettono la comunicazione tra il frontend, i servizi backend e i vari bot. Le API sono state sviluppate utilizzando due tecnologie complementari: Spring Boot e Python.
 
-\item \textbf{Metodologia RAG}: L'approccio Retrieval-Augmented Generation è stato adottato per addestrare i chatbot, combinando tecniche di recupero di informazioni e generazione di risposte, al fine di migliorare la pertinenza e l'accuratezza delle risposte fornite dai bot.
+\item \textbf{Bot RAG}: L'approccio Retrieval-Augmented Generation è stato adottato per addestrare i chatbot, sviluppati in Python, combinando tecniche di recupero di informazioni e generazione di risposte, al fine di migliorare la pertinenza e l'accuratezza delle risposte fornite dai bot.
 \end{itemize}
 La realizzazione di questo ecosistema richiede un'integrazione armoniosa di componenti software e tecniche di machine learning, mirata a offrire una piattaforma versatile e potente per lo sviluppo di chatbot avanzati. L'importanza di questo progetto risiede nella sua capacità di semplificare la creazione e gestione di chatbot sofisticati, migliorando significativamente l'interazione uomo-macchina e offrendo soluzioni scalabili per diverse applicazioni aziendali e di consumo.
 
@@ -114,6 +141,8 @@ La realizzazione di questo ecosistema richiede un'integrazione armoniosa di comp
 I Large Language Models (LLMs) rappresentano una classe avanzata di modelli di intelligenza artificiale progettati per comprendere, generare e interagire con il linguaggio umano a livelli di complessità senza precedenti. Questi modelli sono stati all’avanguardia delle ricerche nel campo del Natural Language Processing (NLP) e sono stati progettati per comprendere, interpretare, generare e tradurre testi in linguaggio naturale. La loro "grandezza"(large) non deriva solo dalla dimensione del modello in termini di numero di parametri, ma anche dall’enrome quantità di dati su cui vengono addestrati. Questi modelli apprendono autonomamente le strutture linguistiche e le relazioni semantiche dai dati, permettendo loro di generare testi coerenti e pertinenti, rispondere a domande, riassumere documenti e molto altro.
 
 I servizi RESTful (Representational State Transfer) rappresentano un'architettura per la creazione di applicazioni web e API che consente una comunicazione semplice ed efficiente tra client e server. Basati sui principi dell'architettura REST, questi servizi utilizzano il protocollo HTTP per gestire le richieste e le risposte tra le diverse componenti di un sistema, fornendo quindi un modo standardizzato e scalabile per la comunicazione tra queste parti. Essi giocano un ruolo cruciale nella connessione tra il frontend e il backend di sistemi complessi, come quelli che utilizzano modelli di linguaggio avanzati. Per esempio, nel contesto di un chatbot addestrato con la metodologia RAG, i servizi RESTful possono facilitare la comunicazione tra l'interfaccia utente (frontend) e i servizi di elaborazione e generazione del linguaggio (backend), garantendo un'interazione fluida e reattiva.
+
+Si vedrà in seguito come si sono combinate queste due tecniche di programmazione, il potenziale attuale e i futuri sviluppi.
 
 \section{Storia e caratteristiche degli LLMs}
 Il viaggio dei Large Language Models (LLMs) inizia negli anni ’50, quando l'intelligenza artificiale era ancora agli albori. In quei primi giorni, i ricercatori si concentravano principalmente su sistemi basati su regole e approcci simbolici. I modelli di linguaggio dell'epoca erano piuttosto rudimentali e si basavano su semplici regole predefinite, senza la capacità di apprendere direttamente dai dati.
@@ -206,10 +235,9 @@ In sintesi, l'integrazione di LLMs con servizi RESTful offre una soluzione poten
 
 \chapter{Analisi e progettazione}
 
+Il progetto è nato dall'idea di sviluppare una piattaforma aziendale multifunzionale, progettata per essere consultabile dai dipendenti in base alle loro esigenze specifiche. La piattaforma offre una serie di servizi utili in vari contesti. Ad esempio, un dipendente può cercare informazioni sui benefit aziendali, un altro può interessarsi a un bando della pubblica amministrazione, oppure un altro ancora può indagare sull'uso di tecnologie nel settore bancario. Ogni dipendente interagisce con un assistente virtuale specializzato, implementato in Python e accessibile tramite un'interfaccia web sviluppata in ReactJS, il tutto gestito e coordinato da un backend Spring Boot.Questo è solo uno dei contesti in cui questa architettura può essere applicata.
 
-Per costruire un sistema robusto e altamente performante, ho integrato tre tecnologie chiave che costituiscono la base della nostra infrastruttura avanzata. L'analisi approfondita delle interazioni tra queste tecnologie ha guidato la progettazione e l'implementazione del sistema.
-
-Questa soluzione consente, tramite un'interfaccia web intuitiva, di selezionare tra diversi bot, ciascuno specializzato in tematiche specifiche di rilevanza per l'azienda. La possibilità di scegliere il bot più adatto alle esigenze dell'utente garantisce risposte precise e contestuali, ottimizzando l'efficienza operativa complessiva. Di seguito viene presentato un esempio di interazione tra l'utente e il sistema.
+Durante l'analisi e la progettazione del sistema sono stati considerati diversi fattori, tra cui le tecnologie da adottare, le funzionalità principali da implementare e le possibili evoluzioni future. L'obiettivo è stato quello di creare un prodotto leggero, performante e intuitivo, in grado di garantire un'esperienza d'uso semplice e immediata. Qui di seguito riporto un piccolo schema del flusso di una semplice interazione tra il sistema e l'utente.
 
 \begin{center}
 
@@ -217,7 +245,16 @@ Questa soluzione consente, tramite un'interfaccia web intuitiva, di selezionare 
 
 \end{center}
 
-\section{Scelta tecnologica}
+\section{Funzionalità e tecnologie}
+
+In una prima fase, si è posto l'accento sulla comprensione delle esigenze degli utenti nel contesto specifico in cui il sistema verrà utilizzato. Successivamente, l'attenzione si è spostata sugli aspetti tecnici, analizzando i passi necessari per progettare l'architettura di base su cui costruire il sistema.
+
+Le funzionalità destinate agli utenti sono state raccolte e organizzate in tre ambiti principali:
+\begin{itemize}
+	\item Creazione e gestione dei bot
+	\item Caricamento dei documenti per l'addestramento dei bot e relativa formazione
+	\item Area dedicata alla chat con il bot
+\end{itemize} 
 
 L'infrastruttura del sistema si basa su tre tecnologie principali:
 
@@ -225,6 +262,8 @@ L'infrastruttura del sistema si basa su tre tecnologie principali:
 	\item ReactJs
 	\item SpringBoot
 	\item Python
+	\item LangChain
+	\item Ollama
 \end{itemize} 
 
 ReactJS è stato scelto per la creazione dell'interfaccia grafica del sistema. Questa libreria JavaScript, sviluppata da Facebook, è rinomata per la sua capacità di costruire interfacce utente moderne e reattive. Grazie alla sua architettura basata sui componenti e al virtual DOM, ReactJS offre un'esperienza utente fluida e altamente interattiva, facilitando la gestione e l'aggiornamento dinamico dei dati all'interno dell'applicazione.
@@ -233,9 +272,19 @@ Spring Boot è utilizzato per lo sviluppo dei servizi RESTful che costituiscono 
 
 Python, infine, è impiegato per la creazione e l'addestramento dei bot. Conosciuto per la sua sintassi chiara e la vasta gamma di librerie specializzate, Python è particolarmente adatto per il machine learning e l'elaborazione del linguaggio naturale. Le librerie di Python, come TensorFlow e PyTorch, permettono di sviluppare modelli avanzati per i bot, che possono essere addestrati per rispondere in modo preciso e contestuale alle esigenze degli utenti.
 
+LangChain è un framework a supporto di Python per la vettorizzazione dei documenti sui quali si desidera addestrare il bot, per la tokenizzazione della domande dell'utente e il calcolo del coefficente di similarità tra la tokenizzazione della domanda e la tokenizzazione dei documenti. LangChain si coordina con Ollama, software per il download e l'avvio di LLM in locale.
+
+\begin{center}
+
+\fbox{\includegraphics[width=0.8\textwidth, height=0.8\textheight, keepaspectratio]{immagini/2.png}}
+\end{center}
+
+Come si può notare dall'immagine ogni bot è composto da due progetti, uno in Python per l'addestramento dell'LLM sui documenti e uno in Springboot per far interagire il bot con il resto dell'applicativo. Inoltre abbiamo un microservizio in Springboot per caricare i documenti e per registrare un bot nel database, inoltre è presente un microservizio BFF (Backend For Frontend per la comunicazione tra il Frontend e i restanti microservizi.
+
+
 \subsection{Creazione e addestramento dei chatbot}
 
-Nell'infrastruttura creata, ogni volta che è necessario sviluppare e addestrare un nuovo chatbot su documenti PDF specifici di una determinata tematica, viene avviato un progetto in Python che utilizza quattro librerie chiave:
+Nell'infrastruttura creata, ogni volta che è necessario sviluppare e addestrare un nuovo chatbot su documenti PDF specifici di una determinata tematica, viene creato un progetto in Python che utilizza quattro librerie chiave:
 
 \begin{itemize}
 	\item Flask: Questa libreria consente di creare endpoint REST, facilitando la comunicazione tra il chatbot e l'applicazione backend basata su Spring Boot tramite il protocollo REST.
@@ -245,32 +294,84 @@ Nell'infrastruttura creata, ogni volta che è necessario sviluppare e addestrare
 
 Parallelamente, viene avviato un progetto in Spring Boot per gestire la comunicazione tra il chatbot e l'interfaccia grafica tramite il protocollo REST, garantendo un'integrazione fluida e coerente tra il frontend e il backend.
 
+\begin{lstlisting}[language=Python, caption=Python example]
+from flask import Flask, request
+from langchain_community.vectorstores import Chroma
+from langchain_community.llms import Ollama
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
+from langchain_community.document_loaders import PDFPlumberLoader
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain.chains import create_retrieval_chain
+from langchain.prompts import PromptTemplate
+from mysql.connector import connect, Error
+import os
+import logging
+from logging.handlers import RotatingFileHandler
+
+from langdetect import detect
+from deep_translator import GoogleTranslator
+import re
+
+def connessioneDb():
+    global connectionDB
+    try:
+        connectionDB = connect(
+            host="localhost",
+            user="root",
+            password="root",
+            database="botrag",
+        )
+        app.logger.info('Connessione db.')
+    except Error as e:
+        app.logger.info(e)
+
+def startApplication():
+    connessioneDb()
+    recuperoPathAddestramento()
+    app.run(host='127.0.0.1', port=5000, debug=True)
+
+@app.route('/message-pdf', methods=['POST'])
+def askPdf():
+    jsonContent = request.json
+    query = jsonContent.get('query')
+    print(f"Query: {query}")
+
+    print(f"Carico il VectorStore")
+    vectorStore = Chroma(persist_directory=pathAddestramento,
+                         embedding_function=embedding)
+
+    print(f"Creo la chain")
+    retriever = vectorStore.as_retriever(
+        search_type="similarity_score_threshold",
+        search_kwargs={
+            "k": 20,
+            "score_threshold": 0.3,
+        },
+    )
+
+    document_chain = create_stuff_documents_chain(llm, rawPrompt)
+    chain = create_retrieval_chain(retriever, document_chain)
+
+    result = chain.invoke({"input": f"Rispondi in italiano: {query}"})
+
+    print(result)
+
+    sources = []
+    for doc in result["context"]:
+        sources.append(
+            {"source": doc.metadata["source"], "pageContent": doc.page_content}
+        )
+
+    responseAnswer = {"answer": check_and_translate(result["answer"]), "sources": sources}
+
+    return responseAnswer
+        
+\end{lstlisting}
+
 Questa architettura consente di creare chatbot altamente specializzati e funzionali, ottimizzando la gestione delle informazioni e migliorando l'interazione con gli utenti.
 
 
-
-\chapter{Titolo capitolo 3}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-
-\section{Titolo Paragrafo}
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-
-\subsection{Titolo Sottoparagrafo}
-At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat~\cite{sito1}.
-
-
-\chapter{Titolo capitolo 4}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-
-\section{Titolo Paragrafo}
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-
-\subsection{Titolo Sottoparagrafo}
-At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat~\cite{libro1}.
-
-
-\chapter{Conclusioni}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 \bibliographystyle{plain}  
 \bibliography{bibliografia}

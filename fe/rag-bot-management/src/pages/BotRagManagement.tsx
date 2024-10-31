@@ -1,8 +1,14 @@
 import React from 'react'
+import Footer from '../components/footer/Footer'
 
 function BotRagManagement() {
   return (
-    <div>BotRagManagement</div>
+    <div>
+      <br/>
+      <br/>
+      <br/>
+      <Footer/>
+    </div>
   )
 }
 
