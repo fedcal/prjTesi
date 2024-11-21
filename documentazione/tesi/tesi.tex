@@ -29,7 +29,7 @@
 
 \def\dept{DIPARTIMENTO DI INFORMATICA}
 \def\course{CORSO DI LAUREA IN INFORMATICA}
-\def\title{Sviluppo e Gestione di Chatbot Addestrati con Tecnica RAGG tramite Servizi RESTful}
+\def\title{Sviluppo e Gestione di Chatbot Addestrati con Tecnica RAG tramite Servizi RESTful}
 \def\author{Federico Calò}
 \def\relatoreone{Prof.ssa  Berardina Nadja DE CAROLIS}
 \def\relatoretwo{}
@@ -235,9 +235,9 @@ In sintesi, l'integrazione di LLMs con servizi RESTful offre una soluzione poten
 
 \chapter{Analisi e progettazione}
 
-Il progetto è nato dall'idea di sviluppare una piattaforma aziendale multifunzionale, progettata per essere consultabile dai dipendenti in base alle loro esigenze specifiche. La piattaforma offre una serie di servizi utili in vari contesti. Ad esempio, un dipendente può cercare informazioni sui benefit aziendali, un altro può interessarsi a un bando della pubblica amministrazione, oppure un altro ancora può indagare sull'uso di tecnologie nel settore bancario. Ogni dipendente interagisce con un assistente virtuale specializzato, implementato in Python e accessibile tramite un'interfaccia web sviluppata in ReactJS, il tutto gestito e coordinato da un backend Spring Boot.Questo è solo uno dei contesti in cui questa architettura può essere applicata.
+Il progetto nasce dall'idea di sviluppare un sistema di chatbot avanzati, addestrati su argomenti specifici utilizzando la tecnica RAG (Retrieval-Augmented Generation) applicata a file PDF, con interazione attraverso servizi RESTful. Durante le fasi di analisi e progettazione, è stata adottata un'architettura a microservizi, implementata con Spring Boot, un framework Java, e Python, scelto per la sua vasta gamma di librerie dedicate all'addestramento di modelli conversazionali. L'obiettivo principale del progetto è creare una piattaforma scalabile, modulare e facilmente integrabile in sistemi complessi, garantendo semplicità di gestione e manutenzione.
 
-Durante l'analisi e la progettazione del sistema sono stati considerati diversi fattori, tra cui le tecnologie da adottare, le funzionalità principali da implementare e le possibili evoluzioni future. L'obiettivo è stato quello di creare un prodotto leggero, performante e intuitivo, in grado di garantire un'esperienza d'uso semplice e immediata. Qui di seguito riporto un piccolo schema del flusso di una semplice interazione tra il sistema e l'utente.
+Un esempio applicativo del sistema è in ambito sanitario, dove ogni reparto di una struttura potrebbe disporre di un chatbot specificamente addestrato sui documenti PDF forniti dai medici del reparto stesso. I vari bot sarebbero accessibili tramite un'interfaccia grafica condivisa, che consentirebbe ai medici di consultare il chatbot del proprio reparto o di altri reparti per ottenere informazioni non presenti nei propri archivi, facilitando così la collaborazione inter-disciplinare.
 
 \begin{center}
 
@@ -245,28 +245,16 @@ Durante l'analisi e la progettazione del sistema sono stati considerati diversi 
 
 \end{center}
 
-\section{Funzionalità e tecnologie}
+\section{Stack tecnologico}
 
-In una prima fase, si è posto l'accento sulla comprensione delle esigenze degli utenti nel contesto specifico in cui il sistema verrà utilizzato. Successivamente, l'attenzione si è spostata sugli aspetti tecnici, analizzando i passi necessari per progettare l'architettura di base su cui costruire il sistema.
-
-Le funzionalità destinate agli utenti sono state raccolte e organizzate in tre ambiti principali:
-\begin{itemize}
-	\item Creazione e gestione dei bot
-	\item Caricamento dei documenti per l'addestramento dei bot e relativa formazione
-	\item Area dedicata alla chat con il bot
-\end{itemize} 
-
-L'infrastruttura del sistema si basa su tre tecnologie principali:
+Ogni bot si basa su queste tecnologie:
 
 \begin{itemize}
-	\item ReactJs
 	\item SpringBoot
 	\item Python
 	\item LangChain
 	\item Ollama
 \end{itemize} 
-
-ReactJS è stato scelto per la creazione dell'interfaccia grafica del sistema. Questa libreria JavaScript, sviluppata da Facebook, è rinomata per la sua capacità di costruire interfacce utente moderne e reattive. Grazie alla sua architettura basata sui componenti e al virtual DOM, ReactJS offre un'esperienza utente fluida e altamente interattiva, facilitando la gestione e l'aggiornamento dinamico dei dati all'interno dell'applicazione.
 
 Spring Boot è utilizzato per lo sviluppo dei servizi RESTful che costituiscono il cuore del backend del sistema. Questa potente piattaforma Java semplifica la creazione di applicazioni stand-alone e basate su microservizi. Spring Boot consente di costruire API REST robuste e scalabili, gestendo in modo efficiente le comunicazioni tra il frontend e i vari componenti del backend, e garantendo un'architettura modulare e facilmente estendibile.
 
@@ -274,12 +262,20 @@ Python, infine, è impiegato per la creazione e l'addestramento dei bot. Conosci
 
 LangChain è un framework a supporto di Python per la vettorizzazione dei documenti sui quali si desidera addestrare il bot, per la tokenizzazione della domande dell'utente e il calcolo del coefficente di similarità tra la tokenizzazione della domanda e la tokenizzazione dei documenti. LangChain si coordina con Ollama, software per il download e l'avvio di LLM in locale.
 
+La relazione tra queste tecnologie può essere rappresentata in modo chiaro ed efficace attraverso il seguente schema:
+\begin{center}
+
+\fbox{\includegraphics[width=0.8\textwidth, height=0.8\textheight, keepaspectratio]{immagini/3.png}}
+
+\end{center}
+
+
 \begin{center}
 
 \fbox{\includegraphics[width=0.8\textwidth, height=0.8\textheight, keepaspectratio]{immagini/2.png}}
 \end{center}
 
-Come si può notare dall'immagine ogni bot è composto da due progetti, uno in Python per l'addestramento dell'LLM sui documenti e uno in Springboot per far interagire il bot con il resto dell'applicativo. Inoltre abbiamo un microservizio in Springboot per caricare i documenti e per registrare un bot nel database, inoltre è presente un microservizio BFF (Backend For Frontend per la comunicazione tra il Frontend e i restanti microservizi.
+Come si può notare dall'immagine ogni bot è composto da due progetti, uno in Python per l'addestramento dell'LLM sui documenti e uno in Springboot per far interagire il bot con il resto dell'applicativo. Inoltre abbiamo un microservizio in Springboot per caricare i documenti e per registrare un bot nel database, inoltre è presente un microservizio BFF (Backend For Frontend) per la comunicazione tra il Frontend e i restanti microservizi.
 
 
 \subsection{Creazione e addestramento dei chatbot}
@@ -295,41 +291,65 @@ Nell'infrastruttura creata, ogni volta che è necessario sviluppare e addestrare
 Parallelamente, viene avviato un progetto in Spring Boot per gestire la comunicazione tra il chatbot e l'interfaccia grafica tramite il protocollo REST, garantendo un'integrazione fluida e coerente tra il frontend e il backend.
 
 \begin{lstlisting}[language=Python, caption=Python example]
-from flask import Flask, request
-from langchain_community.vectorstores import Chroma
-from langchain_community.llms import Ollama
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
-from langchain_community.document_loaders import PDFPlumberLoader
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain.chains import create_retrieval_chain
-from langchain.prompts import PromptTemplate
-from mysql.connector import connect, Error
-import os
-import logging
-from logging.handlers import RotatingFileHandler
+@app.route('/message', methods=['POST'])
+def botAiMessage():
+    jsonContent = request.json
+    query = jsonContent.get('query')
+    print(f"Query: {query}")
 
-from langdetect import detect
-from deep_translator import GoogleTranslator
-import re
+    response = llm.invoke(query)
+    responseAnswer = {"message": check_and_translate(response)}
 
-def connessioneDb():
-    global connectionDB
-    try:
-        connectionDB = connect(
-            host="localhost",
-            user="root",
-            password="root",
-            database="botrag",
-        )
-        app.logger.info('Connessione db.')
-    except Error as e:
-        app.logger.info(e)
+    return responseAnswer
 
-def startApplication():
-    connessioneDb()
-    recuperoPathAddestramento()
-    app.run(host='127.0.0.1', port=5000, debug=True)
+
+@app.route('/load-pdf', methods=['POST'])
+def loadPdf():
+    file = request.files['file']
+    fileName = file.filename
+    saveFile = ""
+    if os.name == 'nt':
+        saveFile = pathAddestramento + "\\" + fileName
+    else:
+        saveFile = pathAddestramento + "/" + fileName
+    file.save(saveFile)
+    print(f"File salvato: {saveFile}")
+
+    if not fileName[-4:] == ".pdf":
+        response = {
+            "status": "success",
+            "fileName": fileName,
+            "docLen": 0,
+            "chunks": 0
+        }
+        return response
+
+    loadPdf = PDFPlumberLoader(saveFile)
+
+    docs = loadPdf.load_and_split()
+    print(f"Doc len: {len(docs)}")
+
+    chunks = text_splitter.split_documents(docs)
+    print(f"Doc len: {len(chunks)}")
+
+    response = {
+        "status": "success",
+        "fileName": fileName,
+        "docLen": len(docs),
+        "chunks": len(chunks)
+    }
+    if(len(docs)==0 or len(chunks)==0 ):
+        response = {
+            "status": "failed",
+            "fileName": fileName,
+            "docLen": len(docs),
+            "chunks": len(chunks)
+        }
+    else:
+        vectorStore = Chroma.from_documents(documents=chunks, embedding=embedding, persist_directory=pathAddestramento)
+        vectorStore.persist()
+    return response
+
 
 @app.route('/message-pdf', methods=['POST'])
 def askPdf():
@@ -366,10 +386,16 @@ def askPdf():
     responseAnswer = {"answer": check_and_translate(result["answer"]), "sources": sources}
 
     return responseAnswer
+
+
+def startApplication():
+    connessioneDb()
+    recuperoPathAddestramento()
+    app.run(host='127.0.0.1', port=5002, debug=True)
         
 \end{lstlisting}
 
-Questa architettura consente di creare chatbot altamente specializzati e funzionali, ottimizzando la gestione delle informazioni e migliorando l'interazione con gli utenti.
+Ogni bot sarà collegato a una porta specifica e avrà tre endpoint in Python: "/message-pdf", "/message" e "/load-pdf"
 
 
 

@@ -34,10 +34,7 @@ logger.addHandler(handler)
 
 app = Flask(__name__)
 
-llm = Ollama(model="llama3") #8b
-#llm = Ollama(model="llama3:70b") #70b
-#llm = Ollama(model="gemma2") #9b
-#llm = Ollama(model="mistral-large") #123b
+llm = Ollama(model="llama3")
 
 embedding = FastEmbedEmbeddings()
 
@@ -65,7 +62,7 @@ def botAiMessage():
     print(f"Query: {query}")
 
     response = llm.invoke(query)
-    responseAnswer = {"message": response}
+    responseAnswer = {"message": check_and_translate(response)}
 
     return responseAnswer
 

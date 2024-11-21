@@ -9,5 +9,5 @@
 \contentsline {subsection}{\numberline {1.2.1}Applicazioni dei servizi REST}{8}{subsection.1.2.1}%
 \contentsline {section}{\numberline {1.3}Servizi REST e LLMs}{10}{section.1.3}%
 \contentsline {chapter}{\numberline {2}Analisi e progettazione}{13}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Funzionalità e tecnologie}{14}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Creazione e addestramento dei chatbot}{16}{subsection.2.1.1}%
+\contentsline {section}{\numberline {2.1}Stack tecnologico}{14}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Creazione e addestramento dei chatbot}{17}{subsection.2.1.1}%

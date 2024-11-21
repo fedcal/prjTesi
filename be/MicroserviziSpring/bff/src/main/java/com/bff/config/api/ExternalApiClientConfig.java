@@ -40,4 +40,12 @@ public class ExternalApiClientConfig {
         return apiClient;
     }
 
+    @Primary
+    @Bean
+    public com.bff.botalimentazione.invoker.ApiClient botAlimentazioneApiClient() {
+        com.bff.botalimentazione.invoker.ApiClient apiClient = new com.bff.botalimentazione.invoker.ApiClient(restTemplate);
+        apiClient.setBasePath("http://localhost:8084");
+        return apiClient;
+    }
+
 }

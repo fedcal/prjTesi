@@ -65,7 +65,7 @@ def botAiMessage():
     print(f"Query: {query}")
 
     response = llm.invoke(query)
-    responseAnswer = {"message": response}
+    responseAnswer = {"message": check_and_translate(response)}
 
     return responseAnswer
 
