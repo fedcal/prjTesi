@@ -26,7 +26,7 @@ public class BotAlimentazioneController {
     private final ChatService chatService;
 
     @Operation(summary = "Chat normale",
-            description = "Invio di un messaggio al bot AI sfruttando l'LLM non addestrato")
+            description = "Invio di un messaggio al bot Alimentazione sfruttando l'LLM non addestrato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
@@ -37,7 +37,7 @@ public class BotAlimentazioneController {
     }
 
     @Operation(summary = "Chat addestrata",
-            description = "Invio di un messaggio al bot AI sfruttando l'LLM addestrato")
+            description = "Invio di un messaggio al bot Alimentazione sfruttando l'LLM addestrato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")

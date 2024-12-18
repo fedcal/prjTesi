@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.23)  21 NOV 2024 19:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.23)  26 NOV 2024 18:49
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1085,42 +1085,40 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: immagini/3.png Graphic file (type png)
 <use immagini/3.png>
 Package pdftex.def Info: immagini/3.png  used on input line 268.
-(pdftex.def)             Requested size: 338.01547pt x 478.00168pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+(pdftex.def)             Requested size: 177.45341pt x 250.94423pt.
 
 
-
-[15]
-<immagini/2.png, id=148, 519.9425pt x 250.9375pt>
+[15 <./immagini/3.png>]
+<immagini/2.png, id=149, 519.9425pt x 250.9375pt>
 File: immagini/2.png Graphic file (type png)
 <use immagini/2.png>
-Package pdftex.def Info: immagini/2.png  used on input line 275.
+Package pdftex.def Info: immagini/2.png  used on input line 279.
 (pdftex.def)             Requested size: 337.99829pt x 163.12657pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-
-[16 <./immagini/3.png>]
+[16 <./immagini/2.png>]
 (C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/05/25 1.10b listings language file
 )
-
-[17 <./immagini/2.png>]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 293.
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 2
-93.
- (C:\Program Files\MiKTeX\tex/latex/base\t1cmtt.fd
+nput line 302.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 3
+02.
+
+(C:\Program Files\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
-294.
+303.
 
 (C:\Program Files\MiKTeX\tex/latex/base\ts1cmtt.fd
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
+
+[17]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [18]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1128,10 +1126,16 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [19]
+
+[20] (C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2024/05/25 1.10b listings language file
+)
+
+[21]
 No file tesi.bbl.
 
 
-[20]
+[22]
 \openout2 = `ringraziamenti.aux'.
 
 
@@ -1145,21 +1149,14 @@ See the caption package documentation for explanation.
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2024-08-30>
  ***********
-
-
-Package rerunfilecheck Warning: File `tesi.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `tesi.out':
-(rerunfilecheck)             Before: 3DAC081BDD70ADD9C93B3C2898281B15;2035
-(rerunfilecheck)             After:  937CCD87C34597AC6CF68AE90CBFC6C4;1989.
+Package rerunfilecheck Info: File `tesi.out' has not changed.
+(rerunfilecheck)             Checksum: 937CCD87C34597AC6CF68AE90CBFC6C4;1989.
  ) 
 Here is how much of TeX's memory you used:
- 39057 strings out of 473899
- 881592 string characters out of 5736315
- 1841722 words of memory out of 5000000
- 61172 multiletter control sequences out of 15000+600000
+ 39146 strings out of 473899
+ 882905 string characters out of 5736315
+ 1826262 words of memory out of 5000000
+ 61235 multiletter control sequences out of 15000+600000
  572809 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  138i,11n,135p,927b,2217s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1179,9 +1176,9 @@ fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\
 Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk
 > <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1
 200.pk>
-Output written on tesi.pdf (24 pages, 359784 bytes).
+Output written on tesi.pdf (26 pages, 372475 bytes).
 PDF statistics:
- 742 PDF objects out of 1000 (max. 8388607)
- 134 named destinations out of 1000 (max. 500000)
+ 789 PDF objects out of 1000 (max. 8388607)
+ 158 named destinations out of 1000 (max. 500000)
  113 words of extra memory for PDF output out of 10000 (max. 10000000)
 

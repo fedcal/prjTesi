@@ -265,9 +265,13 @@ LangChain è un framework a supporto di Python per la vettorizzazione dei docume
 La relazione tra queste tecnologie può essere rappresentata in modo chiaro ed efficace attraverso il seguente schema:
 \begin{center}
 
-\fbox{\includegraphics[width=0.8\textwidth, height=0.8\textheight, keepaspectratio]{immagini/3.png}}
+\fbox{\includegraphics[width=0.42\textwidth, height=0.7\textheight, keepaspectratio]{immagini/3.png}}
 
 \end{center}
+
+Ollama permette di scaricare e utilizzare localmente il modello linguistico (LLM) desiderato, offrendo una soluzione che coniuga efficienza e sicurezza. Questa tecnologia consente di eseguire l'intero programma direttamente su un server locale, eliminando la necessità di trasferire dati sensibili verso piattaforme cloud esterne. Grazie a questa architettura, è possibile conservare i file PDF e altri dati critici in un ambiente controllato, riducendo al minimo i rischi di accessi non autorizzati o violazioni della privacy.
+
+Oltre a garantire una maggiore protezione dei dati, l'approccio locale contribuisce a ridurre i costi operativi legati all'infrastruttura. L'assenza di dipendenze da servizi cloud esterni non solo abbatte i costi ricorrenti di archiviazione e calcolo, ma aumenta anche l'autonomia nella gestione del sistema, semplificando il controllo delle risorse hardware e software. Questa configurazione è particolarmente vantaggiosa per aziende e organizzazioni che devono trattare dati sensibili o rispettare rigorosi requisiti di conformità normativa.
 
 
 \begin{center}
@@ -275,8 +279,13 @@ La relazione tra queste tecnologie può essere rappresentata in modo chiaro ed e
 \fbox{\includegraphics[width=0.8\textwidth, height=0.8\textheight, keepaspectratio]{immagini/2.png}}
 \end{center}
 
-Come si può notare dall'immagine ogni bot è composto da due progetti, uno in Python per l'addestramento dell'LLM sui documenti e uno in Springboot per far interagire il bot con il resto dell'applicativo. Inoltre abbiamo un microservizio in Springboot per caricare i documenti e per registrare un bot nel database, inoltre è presente un microservizio BFF (Backend For Frontend) per la comunicazione tra il Frontend e i restanti microservizi.
+In un'infrastruttura complessa composta da più bot che operano contemporaneamente, l'orchestrazione del sistema può essere organizzata in modo chiaro e modulare. Ciascun bot è costituito da due componenti principali: un progetto Python, che si occupa dell'addestramento e dell'interrogazione del modello linguistico (LLM) sui relativi file PDF, e un servizio Spring Boot, che funge da ponte per consentire al bot di comunicare con il resto dell'applicativo.
 
+A supporto di questa struttura, esiste un progetto Spring Boot separato, dedicato alla gestione del caricamento dei documenti per ogni bot. Questo servizio è inoltre responsabile della registrazione dei bot nel database, garantendo un'integrazione coerente e centralizzata delle varie istanze operative.
+
+Per completare l'infrastruttura, un ulteriore progetto Spring Boot è implementato come Backend For Frontend (BFF), che funge da intermediario tra un eventuale frontend e l'intero backend. Questa soluzione facilita le interazioni, offrendo un punto di accesso unico e semplificando la comunicazione tra le varie componenti del sistema.
+
+Questa configurazione modulare non solo rende l'infrastruttura facilmente scalabile, consentendo l'aggiunta di nuovi bot, ma garantisce anche una gestione efficiente e una comunicazione fluida tra le diverse parti dell'ecosistema.
 
 \subsection{Creazione e addestramento dei chatbot}
 
@@ -290,9 +299,9 @@ Nell'infrastruttura creata, ogni volta che è necessario sviluppare e addestrare
 
 Parallelamente, viene avviato un progetto in Spring Boot per gestire la comunicazione tra il chatbot e l'interfaccia grafica tramite il protocollo REST, garantendo un'integrazione fluida e coerente tra il frontend e il backend.
 
-\begin{lstlisting}[language=Python, caption=Python example]
+\begin{lstlisting}[language=Python, caption=Microservizi Python]
 @app.route('/message', methods=['POST'])
-def botAiMessage():
+def botAlimentazioneMessage():
     jsonContent = request.json
     query = jsonContent.get('query')
     print(f"Query: {query}")
@@ -395,9 +404,50 @@ def startApplication():
         
 \end{lstlisting}
 
-Ogni bot sarà collegato a una porta specifica e avrà tre endpoint in Python: "/message-pdf", "/message" e "/load-pdf"
+Ogni bot sarà collegato a una porta specifica e avrà tre endpoint in Python:
 
+\begin{itemize}
+\item "/load-pdf": per caricare il file e addestrare il bot sul file pdf
+\item "/message": per dialogare con LLM non addestrato
+\item "/message-pdf": per dialogare con LLM addestrato
+\end{itemize}
 
+Quando viene richiamato il path "/load-pdf", il file caricato viene tokenizzato e memorizzato all'interno del vectorstore. Successivamente, richiamando l'endpoint "/message-pdf", l'algoritmo tokenizza la domanda dell'utente e la confronta con i token dei file PDF già presenti nel vectorstore per fornire una risposta pertinente.
+
+\newpage
+
+\begin{lstlisting}[language=Java, caption=Microservizio Java]
+@Operation(summary = "Chat normale",
+            description = "Invio di un messaggio al bot Alimentazione sfruttando l'LLM non addestrato")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value = "/normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<String>> normalChat(@RequestParam String messagge) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.normalChat(messagge)));
+    }
+
+    @Operation(summary = "Chat addestrata",
+            description = "Invio di un messaggio al bot Alimentazione sfruttando l'LLM addestrato")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value = "/chat-addestrata", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<ResponseMessagePdfDto>> chatAddestrata(@RequestParam String messagge) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.chatAddestrata(messagge)));
+    }
+        
+\end{lstlisting}
+
+Nel corrispettivo progetto in Java, abbiamo i seguenti endpoint:
+\begin{itemize}
+\item "/normal-chat"
+\item "/chat-addestrata"
+\end{itemize}
+
+Il primo metodo riceve come input il messaggio dell'utente, invia la richiesta all'endpoint corrispondente sviluppato in Python per interrogare l'LLM non addestrato e restituisce la risposta generata. Il secondo, anch'esso basato sul messaggio dell'utente, invia la richiesta a un altro endpoint, anch'esso sviluppato in Python, che interroga l'LLM addestrato e restituisce la relativa risposta.
 
 \bibliographystyle{plain}  
 \bibliography{bibliografia}

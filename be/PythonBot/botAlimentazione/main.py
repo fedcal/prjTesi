@@ -56,7 +56,7 @@ rawPrompt = PromptTemplate.from_template("""
 """)
 
 @app.route('/message', methods=['POST'])
-def botAiMessage():
+def botAlimentazioneMessage():
     jsonContent = request.json
     query = jsonContent.get('query')
     print(f"Query: {query}")
