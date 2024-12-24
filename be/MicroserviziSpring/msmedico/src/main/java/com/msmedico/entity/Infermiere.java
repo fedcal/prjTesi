@@ -1,7 +1,11 @@
 package com.msmedico.entity;
 
+import com.msmedico.entity.relation.MedicinaleSottoministrazione;
+import com.msmedico.entity.relation.VisitaSottoministrazioneInfermiere;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 @Entity
@@ -24,4 +28,10 @@ public class Infermiere {
     @ManyToOne
     @JoinColumn(name="id_reparto", nullable=false)
     private Reparto reparto;
+
+    @OneToMany(mappedBy = "infermiere")
+    private Set<MedicinaleSottoministrazione> medicinaleSottoministrazione;
+
+    @OneToMany(mappedBy = "infermiere")
+    private Set<VisitaSottoministrazioneInfermiere> visitaSottoministrazione;
 }

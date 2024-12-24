@@ -1,7 +1,10 @@
 package com.msmedico.entity;
 
+import com.msmedico.entity.relation.MedicinalePrescrizione;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 @Entity
@@ -24,4 +27,7 @@ public class Medico {
 
     @OneToOne(mappedBy = "capoReparto")
     private Reparto reparto;
+
+    @OneToMany(mappedBy = "medico")
+    private Set<MedicinalePrescrizione> medicinalePrescrizioneSet;
 }

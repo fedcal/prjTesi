@@ -1,22 +1,26 @@
 package com.mspazienti.entity;
 
+import com.mspazienti.entity.relation.MalattiaCartella;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-@Entity
+import java.util.Set;
+
+@Entity(name = "malattia")
 @Table(name = "malattia")
 @Data
 public class Malattia {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_medicinale")
-    private Long idMedicinale;
+    @Column(name="id_malattia")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Integer idMalattia;
 
-    @Column(name = "nome")
-    private Long nomeMedicinale;
+    @Column(name="nome")
+    private String nome;
 
-    @Column(name = "descrizione")
-    private Long descrizioneMedicinale;
+    @Column(name="descrizione")
+    private String descrizione;
+
+    @OneToMany(mappedBy = "malattia")
+    private Set<MalattiaCartella> cartelle;
 }
