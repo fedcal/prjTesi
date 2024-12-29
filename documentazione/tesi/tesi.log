@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.12.22)  24 DEC 2024 20:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.12.22)  27 DEC 2024 14:58
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -579,86 +579,85 @@ File: tikzlibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
 (C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibraryplotmarks.code.tex
 File: pgflibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
-))) (C:\Program Files\MiKTeX\tex/latex/minted\minted.sty
-Package: minted 2023/12/18 v2.9 Yet another Pygments shim for LaTeX
+))) (C:\Program Files\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
 
-(C:\Program Files\MiKTeX\tex/latex/kvoptions\kvoptions.sty
-Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+(C:\Program Files\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen270
+\captionmargin=\dimen271
+\caption@leftmargin=\dimen272
+\caption@rightmargin=\dimen273
+\caption@width=\dimen274
+\caption@indent=\dimen275
+\caption@parindent=\dimen276
+\caption@hangindent=\dimen277
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count315
+\c@continuedfloat=\count316
+Package caption Info: scrextend package is loaded.
+\caption@addmargin@hsize=\dimen278
+\caption@addmargin@linewidth=\dimen279
+)
+(C:\Program Files\MiKTeX\tex/latex/caption\subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count317
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count318
+)
+(C:\Program Files\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count319
+\lst@gtempboxa=\box71
+\lst@token=\toks43
+\lst@length=\count320
+\lst@currlwidth=\dimen280
+\lst@column=\count321
+\lst@pos=\count322
+\lst@lostspace=\dimen281
+\lst@width=\dimen282
+\lst@newlines=\count323
+\lst@lineno=\count324
+\lst@maxwidth=\dimen283
+
+(C:\Program Files\MiKTeX\tex/latex/listings\lstpatch.sty
+File: lstpatch.sty 2024/09/23 1.10c (Carsten Heinz)
+)
+(C:\Program Files\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
+\c@lstnumber=\count325
+\lst@skipnumbers=\count326
+\lst@framebox=\box72
+)
+(C:\Program Files\MiKTeX\tex/latex/listings\listings.cfg
+File: listings.cfg 2024/09/23 1.10c listings configuration
+))
+Package: listings 2024/09/23 1.10c (Carsten Heinz)
+
+(C:\Program Files\MiKTeX\tex/latex/tools\bm.sty
+Package: bm 2023/12/19 v1.2f Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup4
+\symboldletters=\mathgroup5
+\symboldsymbols=\mathgroup6
+Package bm Info: No bold for \OMX/cmex/m/n, using \pmb.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
+)
+(C:\Program Files\MiKTeX\tex/latex/hyperref\hyperref.sty
+Package: hyperref 2024-11-05 v7.01l Hypertext links for LaTeX
+
+(C:\Program Files\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)
+(C:\Program Files\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(C:\Program Files\MiKTeX\tex/generic/pdfescape\pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
 
 (C:\Program Files\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
 )
-(C:\Program Files\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
-Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-))
-(C:\Program Files\MiKTeX\tex/latex/fvextra\fvextra.sty
-Package: fvextra 2024/09/14 v1.8.0 fvextra - extensions and patches for fancyvr
-b
-
-(C:\Program Files\MiKTeX\tex/latex/upquote\upquote.sty
-Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
-tim
-
-(C:\Program Files\MiKTeX\tex/latex/base\textcomp.sty
-Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
-))
-(C:\Program Files\MiKTeX\tex/latex/lineno\lineno.sty
-Package: lineno 2023/05/20 line numbers on paragraphs v5.3
-\linenopenalty=\count315
-\output=\toks43
-\linenoprevgraf=\count316
-\linenumbersep=\dimen270
-\linenumberwidth=\dimen271
-\c@linenumber=\count317
-\c@pagewiselinenumber=\count318
-\c@LN@truepage=\count319
-\c@internallinenumber=\count320
-\c@internallinenumbers=\count321
-\quotelinenumbersep=\dimen272
-\bframerule=\dimen273
-\bframesep=\dimen274
-\bframebox=\box71
-LaTeX Info: Redefining \\ on input line 3180.
-)
-\c@FancyVerbWriteLine=\count322
-\c@FancyVerbBufferIndex=\count323
-\c@FancyVerbBufferLength=\count324
-\c@FancyVerbBufferLine=\count325
-\c@FV@oldbufferlength=\count326
-\c@FV@TrueTabGroupLevel=\count327
-\c@FV@TrueTabCounter=\count328
-\FV@TabBox@Group=\box72
-\FV@TmpLength=\skip56
-\c@FV@HighlightLinesStart=\count329
-\c@FV@HighlightLinesStop=\count330
-\FV@LoopCount=\count331
-\FV@NCharsBox=\box73
-\FV@BreakIndent=\dimen275
-\FV@BreakIndentNChars=\count332
-\FV@BreakSymbolSepLeft=\dimen276
-\FV@BreakSymbolSepLeftNChars=\count333
-\FV@BreakSymbolSepRight=\dimen277
-\FV@BreakSymbolSepRightNChars=\count334
-\FV@BreakSymbolIndentLeft=\dimen278
-\FV@BreakSymbolIndentLeftNChars=\count335
-\FV@BreakSymbolIndentRight=\dimen279
-\FV@BreakSymbolIndentRightNChars=\count336
-\c@FancyVerbLineBreakLast=\count337
-\FV@LineBox=\box74
-\FV@LineIndentBox=\box75
-\c@FV@BreakBufferDepth=\count338
-\FV@LineWidth=\dimen280
-)
-(C:\Program Files\MiKTeX\tex/latex/base\ifthen.sty
-Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
-)
-(C:\Program Files\MiKTeX\tex/latex/tools\shellesc.sty
-Package: shellesc 2023/07/08 v1.0d unified shell escape interface for LaTeX
-Package shellesc Info: Unrestricted shell escape enabled on input line 75.
-)
-(C:\Program Files\MiKTeX\tex/latex/ifplatform\ifplatform.sty
-Package: ifplatform 2017/10/13 v0.4a Testing for the operating system
-
 (C:\Program Files\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -669,116 +668,7 @@ Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-)
-(C:\Program Files\MiKTeX\tex/generic/catchfile\catchfile.sty
-Package: catchfile 2019/12/09 v1.8 Catch the contents of a file (HO)
-
-(C:\Program Files\MiKTeX\tex/generic/etexcmds\etexcmds.sty
-Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 ))
-(C:\Program Files\MiKTeX\tex/generic/iftex\ifluatex.sty
-Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
-))
-(C:\Program Files\MiKTeX\tex/latex/xstring\xstring.sty
-(C:\Program Files\MiKTeX\tex/generic/xstring\xstring.tex
-\xs_counta=\count339
-\xs_countb=\count340
-)
-Package: xstring 2023/08/22 v1.86 String manipulations (CT)
-)
-(C:\Program Files\MiKTeX\tex/latex/framed\framed.sty
-Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
-\OuterFrameSep=\skip57
-\fb@frw=\dimen281
-\fb@frh=\dimen282
-\FrameRule=\dimen283
-\FrameSep=\dimen284
-)
-(C:\Program Files\MiKTeX\tex/latex/newfloat\newfloat.sty
-Package: newfloat 2023/10/01 v1.2 Defining new floating environments (AR)
-Package newfloat Info: Document class `report' detected (original).
-)
-\minted@appexistsfile=\read5
-\minted@bgbox=\box76
-\minted@code=\write5
-\c@minted@FancyVerbLineTemp=\count341
-\c@minted@pygmentizecounter=\count342
-Package newfloat Info: New float `listing' with options `fileext=lol,placement=
-tbp' on input line 1221.
-\c@listing=\count343
-\newfloat@ftype=\count344
-Package newfloat Info: float type `listing'=8 on input line 1221.
-)
-runsystem(if not exist _minted-tesi mkdir _minted-tesi)...executed.
-
-
-(C:\Program Files\MiKTeX\tex/latex/caption\caption.sty
-Package: caption 2023/08/05 v3.6o Customizing captions (AR)
-
-(C:\Program Files\MiKTeX\tex/latex/caption\caption3.sty
-Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen285
-\captionmargin=\dimen286
-\caption@leftmargin=\dimen287
-\caption@rightmargin=\dimen288
-\caption@width=\dimen289
-\caption@indent=\dimen290
-\caption@parindent=\dimen291
-\caption@hangindent=\dimen292
-Package caption Info: Standard document class detected.
-)
-\c@caption@flags=\count345
-\c@continuedfloat=\count346
-Package caption Info: scrextend package is loaded.
-\caption@addmargin@hsize=\dimen293
-\caption@addmargin@linewidth=\dimen294
-)
-(C:\Program Files\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count347
-\lst@gtempboxa=\box77
-\lst@token=\toks44
-\lst@length=\count348
-\lst@currlwidth=\dimen295
-\lst@column=\count349
-\lst@pos=\count350
-\lst@lostspace=\dimen296
-\lst@width=\dimen297
-\lst@newlines=\count351
-\lst@lineno=\count352
-\lst@maxwidth=\dimen298
-
-(C:\Program Files\MiKTeX\tex/latex/listings\lstpatch.sty
-File: lstpatch.sty 2024/09/23 1.10c (Carsten Heinz)
-)
-(C:\Program Files\MiKTeX\tex/latex/listings\lstmisc.sty
-File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
-\c@lstnumber=\count353
-\lst@skipnumbers=\count354
-\lst@framebox=\box78
-)
-(C:\Program Files\MiKTeX\tex/latex/listings\listings.cfg
-File: listings.cfg 2024/09/23 1.10c listings configuration
-))
-Package: listings 2024/09/23 1.10c (Carsten Heinz)
-
-(C:\Program Files\MiKTeX\tex/latex/caption\subcaption.sty
-Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
-Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count355
-Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count356
-Package caption Info: New subtype `sublisting' on input line 238.
-\c@sublisting=\count357
-)
-(C:\Program Files\MiKTeX\tex/latex/hyperref\hyperref.sty
-Package: hyperref 2024-11-05 v7.01l Hypertext links for LaTeX
-
-(C:\Program Files\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
-Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-)
-(C:\Program Files\MiKTeX\tex/generic/pdfescape\pdfescape.sty
-Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-)
 (C:\Program Files\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
 )
@@ -790,16 +680,19 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 )
 (C:\Program Files\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
-)
-\c@section@level=\count358
+
+(C:\Program Files\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count327
 )
 (C:\Program Files\MiKTeX\tex/generic/stringenc\stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
-\@linkdim=\dimen299
-\Hy@linkcounter=\count359
-\Hy@pagecounter=\count360
+\@linkdim=\dimen284
+\Hy@linkcounter=\count328
+\Hy@pagecounter=\count329
 
 (C:\Program Files\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2024-11-05 v7.01l Hyperref: PDFDocEncoding definition (HO)
@@ -809,7 +702,7 @@ Now handling font encoding PD1 ...
 (C:\Program Files\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count361
+\Hy@SavedSpaceFactor=\count330
 
 (C:\Program Files\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2024-11-05 v7.01l Hyperref: PDF Unicode definition (HO)
@@ -823,14 +716,14 @@ Package hyperref Info: Plain pages OFF on input line 4172.
 Package hyperref Info: Backreferencing OFF on input line 4177.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4424.
-\c@Hy@tempcnt=\count362
+\c@Hy@tempcnt=\count331
 
 (C:\Program Files\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4763.
-\XeTeXLinkMargin=\dimen300
+\XeTeXLinkMargin=\dimen285
 
 (C:\Program Files\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -839,9 +732,9 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count363
-\Field@Width=\dimen301
-\Fld@charsize=\dimen302
+\Fld@menulength=\count332
+\Field@Width=\dimen286
+\Fld@charsize=\dimen287
 Package hyperref Info: Hyper figures OFF on input line 6042.
 Package hyperref Info: Link nesting OFF on input line 6047.
 Package hyperref Info: Hyper index ON on input line 6050.
@@ -854,9 +747,9 @@ Package hyperref Info: PDF/A mode OFF on input line 6072.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count364
-\c@Item=\count365
-\c@Hfootnote=\count366
+\Hy@abspage=\count333
+\c@Item=\count334
+\c@Hfootnote=\count335
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
@@ -868,8 +761,8 @@ Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
 kage
 with kernel methods
 )
-\Fld@listcount=\count367
-\c@bookmark@seq@number=\count368
+\Fld@listcount=\count336
+\c@bookmark@seq@number=\count337
 
 (C:\Program Files\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
 Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
@@ -880,52 +773,47 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 85.
 )
-\Hy@SectionHShift=\skip58
+\Hy@SectionHShift=\skip56
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 22.
-runsystem(for ^%i in (pygmentize.exe pygmentize.bat pygmentize.cmd) do set > te
-si.aex <nul: /p x=^%~$PATH:i>> tesi.aex)...executed.
-
-runsystem(del tesi.aex)...executed.
-
+Package hyperref Info: Option `colorlinks' set `true' on input line 83.
 
 (tesi.aux (ringraziamenti.aux))
 \openout1 = `tesi.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Info: Redefining \it@ocap on input line 80.
-LaTeX Info: Redefining \it@ccap on input line 80.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Info: Redefining \it@ocap on input line 87.
+LaTeX Info: Redefining \it@ccap on input line 87.
 
 (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count369
-\scratchdimen=\dimen303
-\scratchbox=\box79
-\nofMPsegments=\count370
-\nofMParguments=\count371
-\everyMPshowfont=\toks45
-\MPscratchCnt=\count372
-\MPscratchDim=\dimen304
-\MPnumerator=\count373
-\makeMPintoPDFobject=\count374
-\everyMPtoPDFconversion=\toks46
+\scratchcounter=\count338
+\scratchdimen=\dimen288
+\scratchbox=\box73
+\nofMPsegments=\count339
+\nofMParguments=\count340
+\everyMPshowfont=\toks44
+\MPscratchCnt=\count341
+\MPscratchDim=\dimen289
+\MPnumerator=\count342
+\makeMPintoPDFobject=\count343
+\everyMPtoPDFconversion=\toks45
 ) (C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -936,47 +824,53 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 (C:\Program Files\MiKTeX\tex/latex/toptesi\topfront.sty
 Package: topfront 2020-09-06 v.6.4.06 Title page for TOPtesi and other classes
-\TPT@logospace=\skip59
-\TPT@logobox=\box80
-\TPT@logoheight=\dimen305
-\T@Tlogoheight=\skip60
+\TPT@logospace=\skip57
+\TPT@logobox=\box74
+\TPT@logoheight=\dimen290
+\T@Tlogoheight=\skip58
 
 (C:\Program Files\MiKTeX\tex/latex/toptesi\toptesi.cfg))
 (C:\Program Files\MiKTeX\tex/latex/toptesi\topcoman.sty
 Package: topcoman 2020-09-06 v.6.4.06 Additional commands for the TOPtesi bundl
 e
-)
-Package pgfplots notification 'compat/show suggested version=true': document ha
-s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
+
+(C:\Program Files\MiKTeX\tex/latex/base\textcomp.sty
+Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
+))
+
+Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
+ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into 
+your preamble.
+ on input line 87.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count375
-Package hyperref Info: Link coloring ON on input line 80.
+\c@lstlisting=\count344
+Package hyperref Info: Link coloring ON on input line 87.
 (tesi.out) (tesi.out)
-\@outlinefile=\write6
-\openout6 = `tesi.out'.
+\@outlinefile=\write5
+\openout5 = `tesi.out'.
 
-<immagini/uniba.jpg, id=50, 1146.2825pt x 358.33875pt>
+<immagini/uniba.jpg, id=58, 1146.2825pt x 358.33875pt>
 File: immagini/uniba.jpg Graphic file (type jpg)
 <use immagini/uniba.jpg>
-Package pdftex.def Info: immagini/uniba.jpg  used on input line 85.
+Package pdftex.def Info: immagini/uniba.jpg  used on input line 92.
 (pdftex.def)             Requested size: 316.87674pt x 99.06017pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 91.
+(Font)              <12> on input line 98.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 91.
+(Font)              <8> on input line 98.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 91.
+(Font)              <6> on input line 98.
 
-Underfull \hbox (badness 10000) in paragraph at lines 98--98
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
  [][]\T1/cmr/bx/n/12 LAUREANDO:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 99--99
+Underfull \hbox (badness 10000) in paragraph at lines 106--106
  [][]\T1/cmr/m/n/14.4 Federico Ca-lò
  []
 
@@ -992,8 +886,8 @@ niba.jpg>]
 [2
 
 ] (tesi.toc)
-\tf@toc=\write7
-\openout7 = `tesi.toc'.
+\tf@toc=\write6
+\openout6 = `tesi.toc'.
 
 
 
@@ -1011,7 +905,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.137 
+l.144 
        [1
 
 ]
@@ -1021,11 +915,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.140 
+l.147 
        [2]
 Capitolo 1.
 
-Underfull \vbox (badness 3049) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
@@ -1033,15 +927,18 @@ Underfull \vbox (badness 3049) has occurred while \output is active []
 
 
 ]
-Underfull \vbox (badness 1496) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 [4]
-Overfull \hbox (24.14003pt too wide) in paragraph at lines 164--165
+Overfull \hbox (6.51521pt too wide) in paragraph at lines 171--172
 []\T1/cmr/m/n/12 I LLMs uti-liz-za-no tec-ni-che di ap-pren-di-men-to non su-pe
 r-vi-sio-na-to e pre-addestramento
  []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
@@ -1053,6 +950,9 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [6]
 
 [7]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [8]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1069,10 +969,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 Capitolo 2.
-<immagini/1.png, id=136, 502.87875pt x 553.06625pt>
+<immagini/1.png, id=146, 502.87875pt x 553.06625pt>
 File: immagini/1.png Graphic file (type png)
 <use immagini/1.png>
-Package pdftex.def Info: immagini/1.png  used on input line 244.
+Package pdftex.def Info: immagini/1.png  used on input line 251.
 (pdftex.def)             Requested size: 338.00127pt x 371.73393pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1082,32 +982,38 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [13]
 
 [14 <./immagini/1.png>]
-<immagini/3.png, id=147, 397.485pt x 562.1pt>
+<immagini/3.png, id=157, 397.485pt x 562.1pt>
 File: immagini/3.png Graphic file (type png)
 <use immagini/3.png>
-Package pdftex.def Info: immagini/3.png  used on input line 268.
+Package pdftex.def Info: immagini/3.png  used on input line 275.
 (pdftex.def)             Requested size: 177.45341pt x 250.94423pt.
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[15 <./immagini/3.png>]
-<immagini/2.png, id=154, 519.9425pt x 250.9375pt>
+
+
+[15]
+<immagini/2.png, id=163, 519.9425pt x 250.9375pt>
 File: immagini/2.png Graphic file (type png)
 <use immagini/2.png>
-Package pdftex.def Info: immagini/2.png  used on input line 279.
+Package pdftex.def Info: immagini/2.png  used on input line 286.
 (pdftex.def)             Requested size: 337.99829pt x 163.12657pt.
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[16 <./immagini/2.png>]
+
+
+[16 <./immagini/3.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[17 <./immagini/2.png>]
 (C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 302.
-
-
-[17]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+nput line 309.
 
 
 [18]
@@ -1116,37 +1022,65 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [19]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[20] (C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty
+
+
+[20]
+
+[21] (C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 
-[21]
-
 [22]
+
+[23]
+
+[24
+
+]
 Capitolo 3.
 
 
-[23
-
-]
+[25]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 481.
+(hyperref)                than one, level fixed on input line 488.
+
+
+Underfull \vbox (badness 2913) has occurred while \output is active []
 
 
 
-[24]
+[26]
+Underfull \hbox (badness 10000) in paragraph at lines 491--493
+
+ []
+
+<immagini/Database bot.png, id=338, 584.1825pt x 162.6075pt>
+File: immagini/Database bot.png Graphic file (type png)
+<use immagini/Database bot.png>
+Package pdftex.def Info: immagini/Database bot.png  used on input line 494.
+(pdftex.def)             Requested size: 338.01491pt x 94.08662pt.
+
+
+[27 <./immagini/Database bot.png>]
+
+[28]
+
+[29]
+
+[30]
 No file tesi.bbl.
 
 
-[25]
+[31]
 \openout2 = `ringraziamenti.aux'.
 
 
 No file ringraziamenti.tex.
 
-Package caption Warning: Unused \captionsetup[listing] on input line 15.
+Package caption Warning: Unused \captionsetup[listing] on input line 12.
 See the caption package documentation for explanation.
 
 (tesi.aux (ringraziamenti.aux))
@@ -1154,43 +1088,35 @@ See the caption package documentation for explanation.
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
  ***********
-
-
-Package rerunfilecheck Warning: File `tesi.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `tesi.out':
-(rerunfilecheck)             Before: 09428424D3B2B8D30B351B64DB36B4F3;2093
-(rerunfilecheck)             After:  D7B1FAB14F8DAC200AA954B28D1C3214;2289.
+Package rerunfilecheck Info: File `tesi.out' has not changed.
+(rerunfilecheck)             Checksum: C9367C9E0F19C13B6A01BDDDB8D79539;2520.
  ) 
 Here is how much of TeX's memory you used:
- 39157 strings out of 473650
- 882702 string characters out of 5727959
- 1827980 words of memory out of 5000000
- 61482 multiletter control sequences out of 15000+600000
- 572809 words of font info for 63 fonts, out of 8000000 for 9000
+ 36500 strings out of 473650
+ 820517 string characters out of 5727959
+ 1751860 words of memory out of 5000000
+ 58857 multiletter control sequences out of 15000+600000
+ 575281 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 138i,11n,135p,1132b,2217s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 138i,11n,135p,1132b,2187s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm
 1095.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
-0\tctt1000.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
-/dpi600\ectt1000.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
-pen/ec/dpi600\ecrm0600.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour
-/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/
-ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fon
-ts/pk/ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\fedca\AppData\Local\MiKT
-eX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\fedca\AppData\Loca
-l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc1200.pk> <C:\Users\fedca\AppDat
-a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\fedca\
-AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\
-fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\
-Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk
-> <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1
-200.pk>
-Output written on tesi.pdf (29 pages, 381249 bytes).
+0\ectt1000.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
+/dpi600\ecrm0600.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
+pen/ec/dpi600\ecbx1440.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour
+/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/
+ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fon
+ts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\fedca\AppData\Local\MiKT
+eX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc1200.pk> <C:\Users\fedca\AppData\Loca
+l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\fedca\AppDat
+a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\fedca\
+AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\
+fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\
+Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk
+>
+Output written on tesi.pdf (35 pages, 403086 bytes).
 PDF statistics:
- 813 PDF objects out of 1000 (max. 8388607)
- 163 named destinations out of 1000 (max. 500000)
- 121 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 853 PDF objects out of 1000 (max. 8388607)
+ 170 named destinations out of 1000 (max. 500000)
+ 142 words of extra memory for PDF output out of 10000 (max. 10000000)
 

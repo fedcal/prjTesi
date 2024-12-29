@@ -16,15 +16,15 @@ public class Medico {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_medico")
-    private Long idMedico;
+    private Integer idMedico;
 
     @Column(name = "nome_medico")
-    private Long nomeMedico;
+    private String nomeMedico;
 
     @Column(name = "cognome_medico")
-    private Long cognomeMedico;
+    private String cognomeMedico;
 
-    @Column(name = "turno_medico", columnDefinition = "VARCHAR(100)")
+    @Column(name = "turno_medico")
     private String turnoMedico;
 
     @OneToOne(mappedBy = "capoReparto")

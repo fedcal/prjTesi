@@ -6,9 +6,9 @@ import java.util.Set;
 
 @Data
 public class RepartoDto {
-    private Long idReparto;
-    private Long nomeReparto;
-    private Long descrizioneReparto;
+    private Integer idReparto;
+    private String nomeReparto;
+    private String descrizioneReparto;
     private MedicoDto capoReparto;
     private Set<InfermiereDto> infermieri;
 }

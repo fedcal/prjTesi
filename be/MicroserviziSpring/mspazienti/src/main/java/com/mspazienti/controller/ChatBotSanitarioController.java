@@ -14,8 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import static com.mspazienti.constants.WebConstants.REST_CONTEX_STRING;
+
 @RestController
-@RequestMapping("/bot-sanitario-chat")
+@RequestMapping(REST_CONTEX_STRING + "/bot-sanitario-chat")
 @Validated
 @Tag(name = "Bot Sanitario Chat Controller",
         description = "Gestione della chat")

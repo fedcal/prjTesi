@@ -7,24 +7,23 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 \usepackage{pgfplots}
-\usepackage[newfloat]{minted}
 \usepackage[font=small,skip=1pt]{caption}
-\usepackage{minted}
-\usepackage{listings}
 \usepackage{xcolor}
 \captionsetup[listing]{position=top}
 \usepackage{subcaption}
-\pgfplotsset{compat=1.18}
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks = true,
-    allcolors=black
-}
+
 %This equals 1.5 linespacing in Word
 \linespread{1.25}
 
 \let\savedlisting\listing
 \AtBeginDocument{\let\listing\savedlisting}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle= \ttfamily\footnotesize
+}
+
+\usepackage{bm}
 
 
 \def\dept{DIPARTIMENTO DI INFORMATICA}
@@ -74,8 +73,16 @@
     showtabs=false,                  
     tabsize=2
 }
-
 \lstset{style=mystyle}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    allcolors=black
+}
+
+\newcommand{\boldtt}[1]{\textbf{\texttt{#1}}}
 
 \begin{document}
 
@@ -479,7 +486,79 @@ Il bot dedicato all'alimentazione comunica con il microservizio corrispondente, 
 Tutti i microservizi interagiscono con un database progettato e implementato utilizzando SQL, che funge da archivio centrale per la gestione delle informazioni. Nel database vengono memorizzati i dati relativi all'addestramento dei bot, comprese le cartelle dei documenti caricati, insieme alle tabelle dedicate alla gestione delle sezioni riguardanti medici, infermieri e pazienti. Questo approccio garantisce una struttura organizzata e un accesso efficiente ai dati necessari per il funzionamento e l'evoluzione del sistema.
 
 \subsection{Progettazione del database}
-Durante la fase di sviluppo è stato utilizzato un database relazionale, gestito tramite il linguaggio SQL, denominato botRag. Per configurare lo schema di base necessario al funzionamento dei microservizi, è sufficiente eseguire lo script creazioneTabelle.sql, che contiene tutte le query necessarie per la creazione delle tabelle. Questo script definisce la struttura del database, garantendo che tutti i microservizi possano accedere e manipolare i dati in modo corretto.
+Durante la fase di sviluppo è stato utilizzato un database relazionale, gestito tramite il linguaggio SQL, denominato botRag. Per configurare lo schema di base necessario al funzionamento dei microservizi, è sufficiente eseguire lo script creazioneTabelle.sql, che contiene tutte le query necessarie per la creazione delle tabelle. Questo script definisce la struttura del database, garantendo che tutti i microservizi possano accedere e manipolare i dati in modo corretto. 
+
+L'URL di connessione al database utilizzato è: jdbc:mysql://localhost:3306/. Nel caso in cui la porta di connessione venga modificata o si decida di utilizzare un database in cloud, sarà necessario aggiornare il file di configurazione nei vari microservizi e nei progetti Python. Questo passaggio è fondamentale per garantire il corretto collegamento al database e il funzionamento del sistema.
+\\
+
+\fbox{\includegraphics[width=0.8\textwidth, height=0.7\textheight, keepaspectratio]{immagini/Database bot.png}}
+
+Il sistema di gestione dei dati per l'addestramento dei bot è organizzato secondo un modello relazionale composto da tre tabelle principali: \textbf{rag\scalebox{0.5}[1.0]{\_}bot\scalebox{0.5}[1.0]{\_}pdf}, \textbf{cartelle} e \textbf{documenti}. Di seguito viene descritto il ruolo e la struttura di ciascuna tabella, nonché le relazioni tra di esse. La tabella \textbf{rag\scalebox{0.5}[1.0]{\_}bot\scalebox{0.5}[1.0]{\_}pdf} contiene le configurazioni necessarie per ciascun bot. Qui di seguito vengono descritti i campi della tabella:
+
+\begin{itemize}
+\item \textbf{\textnormal{\lstinline|id_rag_bot_pdf|}}: Identificativo univoco del bot.
+\item \textnormal{\lstinline|nome_bot|}: nome del bot
+\item \textnormal{\lstinline|descrizione_bot|}: descrizione del bot
+\item \textnormal{\lstinline|url_spring|}: URL utilizzato per l'integrazione con servizi esterni implementati in Spring.
+\item \textnormal{\lstinline|url_python|}: URL utilizzato per l'integrazione con servizi esterni implementati in Python
+\item \textnormal{\lstinline|id_cartella_addestramento|}: Riferimento alla cartella che contiene i file utilizzati per l'addestramento singolo del bot.
+\item \textnormal{\lstinline|id_cartella_caricamento_massivo|}: Riferimento alla cartella utilizzata per la funzionalità di addestramento massivo.
+\end{itemize}
+
+La tabella \textbf{cartelle} è destinata alla gestione delle directory utilizzate per l'addestramento. Qui di seguito vengono descritti i campi della tabella:
+
+\begin{itemize}
+\item \textnormal{\lstinline|id_cartella|}: Identificativo univoco della cartella.
+\item \textnormal{\lstinline|nome_cartella|}: Nome della cartella.
+\item \textnormal{\lstinline|path_cartella|}: Percorso della cartella nel file system.
+\item \textnormal{\lstinline|is_cartella_addestramento|}: Campo booleano che distingue tra:
+	\begin{itemize}
+	\item Cartella di addestramento singolo: Contiene i file già pronti per essere utilizzati nel processo di addestramento del bot.
+	\item Cartella di addestramento massivo: Utilizzata esclusivamente per conservare file che verranno successivamente spostati nella cartella di addestramento singolo al 					momento dell’esecuzione della funzionalità di addestramento massivo.
+	\end{itemize}
+\end{itemize}
+
+Il campo \textnormal{\lstinline|is_cartella_addestramento|} gioca un ruolo fondamentale nel distinguere le due tipologie di cartelle. La cartella di addestramento singolo è utilizzata direttamente nel processo di addestramento del bot, mentre la cartella di addestramento massivo funge da spazio temporaneo per conservare file che verranno successivamente caricati nella cartella di addestramento singolo. Questa distinzione consente di gestire in modo efficiente processi di addestramento su larga scala, garantendo la separazione tra i file temporanei e quelli effettivamente utilizzati dal bot.
+
+La tabella documenti rappresenta i file utilizzati nel processo di addestramento. Qui di seguito vengono descritti i campi della tabella:
+\begin{itemize}
+\item \textnormal{\lstinline|id_documento|}: Identificativo univoco del documento.
+\item \textnormal{\lstinline|nome_documento|}: Nome del file.
+\item \textnormal{\lstinline|estensione_documento|}: Estensione o formato del file
+\item \textnormal{\lstinline|path_documento|}: Percorso del file nel file system.
+\item \textnormal{\lstinline|id_cartella|}: Collegamento alla cartella di appartenenza.
+\end{itemize}
+
+Le tre tabelle sono collegate per formare un sistema relazionale:
+\begin{itemize}
+\raggedright
+\item La tabella \textnormal{\lstinline|rag_bot_pdf|} è associata alla tabella cartelle tramite i campi \textnormal{\lstinline|id_cartella_addestramento|} e \textnormal{\lstinline|id_cartella_caricamento_massivo|}, consentendo di associare un bot a due diverse directory: una per l'addestramento singolo e una per il caricamento massivo.
+\item La tabella cartelle, a sua volta, è collegata alla tabella documenti tramite il campo \textnormal{\lstinline|id_cartella|}, che associa ogni documento a una specifica cartella.
+\end{itemize}
+
+Le altre tabelle del database sono destinate alla gestione del sistema sanitario in cui l'applicativo sarà utilizzato. Non fanno parte della gestione dei bot, ma possono essere adattate in base al contesto in cui i bot vengono creati. In futuro, si prevede comunque la possibilità di addestrare un bot utilizzando i dati presenti nel database e di sviluppare una memoria interna per il bot.
+
+\subsection{Creazione dei microservizi REST}
+
+Dopo aver creato i bot attraverso i relativi progetti in Python, come descritto nella sezione 2.1.1, si è proceduto allo sviluppo dei corrispondenti microservizi utilizzando Spring Boot, inclusa la realizzazione del microservizio System Management. I progetti relativi ai bot espongono endpoint specifici per consentire la comunicazione con gli altri componenti del sistema.
+
+Il microservizio System Management adotta la metodologia Object-Relational Mapping (ORM) per mappare le entità del database su oggetti Java, agevolando la manipolazione dei dati e garantendo una stretta integrazione con la logica applicativa. Questo microservizio fornisce endpoint per operazioni essenziali come la registrazione, l'aggiornamento e l'eliminazione dei bot. Inoltre, include funzionalità per il caricamento dei file necessari e l'addestramento dei modelli, contribuendo a una gestione centralizzata ed efficace del ciclo di vita dei bot.
+
+Un ruolo cruciale è svolto dal microservizio BFF (Backend for Frontend), progettato per fungere da ponte tra il front-end e gli altri microservizi. Al suo interno vengono memorizzati i file YAML, che descrivono le configurazioni e le specifiche di comunicazione tra i vari microservizi. Questo approccio semplifica il flusso dei dati, migliorando la modularità e riducendo la complessità nelle interazioni tra front-end e back-end. Il BFF consente al sistema di mantenere una chiara separazione delle responsabilità: i microservizi relativi ai bot e al System Management gestiscono rispettivamente le funzionalità core e la logica applicativa, mentre il BFF offre un'interfaccia ottimizzata per il front-end, migliorando l'esperienza utente e l'efficienza complessiva del sistema.
+
+La configurazione dei path necessari per la comunicazione tra i microservizi è gestita dalla classe ExternalApiClientConfig, che centralizza e organizza i riferimenti ai percorsi esposti. Questo approccio garantisce una struttura modulare e facilmente manutenibile, permettendo di stabilire in modo chiaro e flessibile i percorsi per invocare le funzionalità offerte dai microservizi.
+
+La gestione delle risposte derivanti dalle chiamate ai microservizi è affidata alla classe EsitoResponseErrorHandler, che si occupa di convertire e uniformare le risposte ricevute. Tali risposte vengono incapsulate in un oggetto generalizzato del tipo generico T, che include:
+
+\begin{itemize}
+\item un identificativo dell'operazione
+\item una lista di messaggi che possono contenere informazioni, avvisi o errori,
+\item il tipo di esito che specifica se l'operazione è andata a buon fine o meno.
+\end{itemize}
+
+Questa struttura consente una gestione uniforme delle risposte, migliorando la leggibilità e la manutenzione del codice. La generalizzazione introdotta dalla classe EsitoResponseErrorHandler offre inoltre maggiore flessibilità nel trattamento delle risposte, indipendentemente dal tipo specifico di payload restituito.
+
+Per facilitare l'interazione con gli endpoint esposti dai microservizi, è stato integrato Swagger UI, un'interfaccia grafica intuitiva che permette agli sviluppatori e agli utenti di esplorare e testare gli endpoint. Swagger UI genera automaticamente documentazione interattiva basata su annotazioni presenti nel codice, rendendo l'accesso agli endpoint più immediato e agevole. Questa integrazione offre una soluzione user-friendly per inviare richieste e visualizzare risposte, eliminando la necessità di strumenti esterni o conoscenze approfondite dei dettagli di implementazione.
 
 \bibliographystyle{plain}  
 \bibliography{bibliografia}

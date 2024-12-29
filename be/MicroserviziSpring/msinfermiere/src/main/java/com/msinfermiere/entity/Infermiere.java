@@ -14,15 +14,15 @@ public class Infermiere {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_infermiere")
-    private Long idInfermiere;
+    private Integer idInfermiere;
 
-    @Column(name = "nome_infermiere", columnDefinition = "VARCHAR(100)")
+    @Column(name = "nome_infermiere")
     private String nomeInfermiere;
 
-    @Column(name = "cognome_infermiere", columnDefinition = "VARCHAR(100)")
+    @Column(name = "cognome_infermiere")
     private String cognomeInfermiere;
 
-    @Column(name = "turno_infermiere", columnDefinition = "VARCHAR(100)")
+    @Column(name = "turno_infermiere")
     private String turnoInfermiere;
 
     @ManyToOne

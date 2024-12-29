@@ -12,11 +12,11 @@ public class Medicinale {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_medicinale")
-    private Long idMedicinale;
+    private Integer idMedicinale;
 
-    @Column(name = "nome")
-    private Long nomeMedicinale;
+    @Column(name = "nome_medicinale")
+    private String nomeMedicinale;
 
-    @Column(name = "descrizione")
-    private Long descrizioneMedicinale;
+    @Column(name = "descrizione_medicinale")
+    private String descrizioneMedicinale;
 }

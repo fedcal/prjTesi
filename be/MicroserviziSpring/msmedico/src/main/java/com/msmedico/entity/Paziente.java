@@ -10,7 +10,7 @@ public class Paziente {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_paziente")
-    private Long idPaziente;
+    private Integer idPaziente;
 
     @Column(name = "nome")
     private String nome;

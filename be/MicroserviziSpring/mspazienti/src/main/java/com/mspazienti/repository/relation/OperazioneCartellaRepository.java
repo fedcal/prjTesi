@@ -1,0 +1,9 @@
+package com.mspazienti.repository.relation;
+
+import com.mspazienti.entity.relation.OperazioneCartella;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface OperazioneCartellaRepository extends JpaRepository<OperazioneCartella, Integer> {
+}

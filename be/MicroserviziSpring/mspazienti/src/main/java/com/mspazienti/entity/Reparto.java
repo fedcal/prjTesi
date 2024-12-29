@@ -12,13 +12,13 @@ public class Reparto {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_reparto")
-    private Long idReparto;
+    private Integer idReparto;
 
     @Column(name = "nome_reparto")
-    private Long nomeReparto;
+    private String nomeReparto;
 
     @Column(name = "descrizione_reparto")
-    private Long descrizioneReparto;
+    private String descrizioneReparto;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "capo_reparto", referencedColumnName = "id_medico")
