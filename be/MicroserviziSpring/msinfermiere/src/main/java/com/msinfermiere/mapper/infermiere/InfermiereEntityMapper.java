@@ -1,6 +1,7 @@
 package com.msinfermiere.mapper.infermiere;
 
 import com.msinfermiere.dto.infermiere.InfermiereDto;
+import com.msinfermiere.dto.request.AddInfermiereDto;
 import com.msinfermiere.entity.Infermiere;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -14,4 +15,6 @@ public interface InfermiereEntityMapper {
 
     Infermiere toDto(InfermiereDto entity);
     List<Infermiere> toDto(List<InfermiereDto> entity);
+
+    Infermiere fromRequest(AddInfermiereDto addInfermiereDto);
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/bot-sanitario-chat")
 @Validated
-@Tag(name = "Bot Sanitario Chat Controller",
+@Tag(name = "MsInfermiereChatBotSanitarioController",
         description = "Gestione della chat")
 @CrossOrigin
 @AllArgsConstructor
