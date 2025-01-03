@@ -127,10 +127,14 @@
 \setcounter{page}{1}
 \addcontentsline{toc}{chapter}{Introduzione}
 
-\chapter*{Introduzione}
-Nel contesto odierno, caratterizzato da una crescente interazione tra utenti e sistemi digitali, i chatbot stanno emergendo come strumenti fondamentali per migliorare l'esperienza dell'utente e ottimizzare i processi aziendali. Tuttavia, la creazione e gestione di chatbot avanzati richiede un approccio integrato che sfrutti le migliori tecniche di addestramento e architetture software.
+\chapter{Introduzione}
+Nel contesto attuale, caratterizzato da una crescente interazione tra utenti e sistemi digitali, i chatbot stanno emergendo come strumenti essenziali per migliorare l’esperienza dell’utente e ottimizzare i processi aziendali. Diverse ricerche evidenziano come l’adozione di chatbot possa ridurre significativamente i costi operativi, aumentare l’efficienza del servizio clienti e migliorare il tasso di soddisfazione degli utenti. Ad esempio, uno studio condotto da Gartner nel 2023 stima che entro il 2026 i chatbot contribuiranno a ridurre i costi aziendali del 30%, sostituendo fino al 70% delle interazioni umane in determinati contesti di servizio clienti. Inoltre, un rapporto di McKinsey sottolinea come le aziende che integrano chatbot nei propri processi abbiano registrato un aumento medio del 25% nella velocità di risoluzione delle richieste.
 
-Questa tesi si propone di affrontare tale sfida attraverso la progettazione e realizzazione di un ecosistema avanzato per la creazione e gestione di chatbot. L'obiettivo principale del progetto è sviluppare una piattaforma che consenta la creazione di diversi chatbot addestrati utilizzando la metodologia Retrieval-Augmented Generation (RAG), i quali possono interfaccirsi tra loro e con l'utente attraverso servizi REST.
+Tuttavia, i chatbot tradizionali presentano alcune limitazioni significative, in particolare la mancanza di contesto nelle risposte fornite. Questi sistemi spesso si basano su algoritmi deterministici o su modelli di machine learning addestrati su dataset limitati, che non sono in grado di adattarsi dinamicamente a richieste complesse o ambigue. Ad esempio, un chatbot tradizionale potrebbe fornire risposte errate o incomplete in scenari in cui l’utente utilizza un linguaggio non strutturato, si riferisce a informazioni specifiche o richiede dati aggiornati in tempo reale. Tali limitazioni riducono la loro efficacia in applicazioni aziendali critiche, come l’assistenza tecnica avanzata o la consulenza personalizzata.
+
+Per superare queste limitazioni, è stata adottata la metodologia Retrieval-Augmented Generation (RAG), che combina tecniche di recupero di informazioni (retrieval) e generazione di risposte (generation). L’approccio RAG consente ai chatbot di consultare un database di conoscenze esterno per reperire informazioni pertinenti e integrarle nella generazione di risposte, migliorando significativamente la pertinenza e la precisione delle interazioni. Ad esempio, un chatbot basato su RAG può accedere a documentazione tecnica, manuali aziendali o dati di mercato aggiornati, fornendo risposte dettagliate e contestualizzate anche a domande complesse.
+
+Questa tesi si propone di affrontare la sfida della creazione e gestione di chatbot avanzati attraverso la progettazione e realizzazione di un ecosistema completo basato su RAG. L’obiettivo principale del progetto è sviluppare una piattaforma che consenta la creazione di diversi chatbot addestrati con questa metodologia, in grado di interfacciarsi tra loro e con l’utente attraverso servizi REST.
 
 Per garantire una fruizione ottimale e una gestione efficiente dei chatbot, è stata progettata una soluzione integrata che comprende:
 \begin{itemize}
@@ -140,10 +144,55 @@ Per garantire una fruizione ottimale e una gestione efficiente dei chatbot, è s
 
 \item \textbf{Bot RAG}: L'approccio Retrieval-Augmented Generation è stato adottato per addestrare i chatbot, sviluppati in Python, combinando tecniche di recupero di informazioni e generazione di risposte, al fine di migliorare la pertinenza e l'accuratezza delle risposte fornite dai bot.
 \end{itemize}
+
 La realizzazione di questo ecosistema richiede un'integrazione armoniosa di componenti software e tecniche di machine learning, mirata a offrire una piattaforma versatile e potente per lo sviluppo di chatbot avanzati. L'importanza di questo progetto risiede nella sua capacità di semplificare la creazione e gestione di chatbot sofisticati, migliorando significativamente l'interazione uomo-macchina e offrendo soluzioni scalabili per diverse applicazioni aziendali e di consumo.
 
+Diversi contesti possono beneficiare di quanto realizzato, tra cui il settore sanitario, che è stato scelto come esempio di applicazione pratica durante il progetto. In questo ambito, i chatbot basati su RAG possono supportare il personale medico rispondendo a domande sui protocolli clinici, fornendo informazioni sui farmaci o assistendo i pazienti nella gestione delle loro cure.
 
-\chapter{Intrroduzione ai LLMs e ai servizi REST}
+Per quanto riguarda gli sviluppi futuri, questa tecnologia potrebbe evolversi integrando funzionalità di intelligenza artificiale più avanzate, come modelli di linguaggio di nuova generazione e algoritmi di apprendimento rinforzato. Ciò permetterebbe ai chatbot di adattarsi in tempo reale alle esigenze degli utenti, prevedere domande basandosi sul contesto e fornire un supporto ancora più personalizzato e proattivo. Inoltre, l'integrazione con sistemi IoT e dispositivi indossabili potrebbe ampliare ulteriormente le applicazioni, consentendo ai chatbot di raccogliere e analizzare dati in tempo reale per offrire risposte ancora più precise ed efficaci.
+
+\chapter{Large Language Models (LLM) e Retrieval-Augmented Generation (RAG)}
+L'intelligenza artificiale (IA) ha rivoluzionato il panorama tecnologico, con un impatto significativo su molteplici settori. Nel campo del Natural Language Processing (NLP), i Large Language Models (LLM) rappresentano una delle innovazioni più avanzate. Modelli come GPT (Generative Pre-trained Transformer) di OpenAI, BERT (Bidirectional Encoder Representations from Transformers) di Google e T5 (Text-To-Text Transfer Transformer) hanno dimostrato capacità straordinarie nel comprendere e generare linguaggio umano. Tuttavia, le loro limitazioni intrinseche, come la mancanza di accesso a dati aggiornati e il rischio di generare informazioni inesatte, ne riducono l'efficacia in applicazioni critiche.
+
+Per superare queste sfide, è stata introdotta la tecnica Retrieval-Augmented Generation (RAG), sviluppata da Facebook AI Research (FAIR) nel 2020. RAG combina le capacità dei LLM con sistemi di recupero delle informazioni, consentendo l'accesso a fonti esterne per generare risposte più accurate e contestualizzate. Questo capitolo esplorerà il funzionamento degli LLM, le loro limitazioni e come RAG rappresenti un progresso cruciale per lo sviluppo di chatbot avanzati, supportato da studi e applicazioni pratiche.
+
+Gli LLM sono modelli di deep learning progettati per comprendere e generare linguaggio naturale. Basati sull'architettura Transformer, introdotta da Vaswani et al. nel 2017 nel paper "Attention is All You Need", questi modelli sono addestrati su enormi corpus testuali che includono libri, articoli scientifici e conversazioni.
+
+Un esempio emblematico è GPT-3, descritto nel paper "Language Models are Few-Shot Learners" di Brown et al. (2020). Con 175 miliardi di parametri, GPT-3 eccelle in compiti complessi come traduzioni, creazione di contenuti e scrittura di codice. Altri modelli di rilievo includono BERT, focalizzato sulla comprensione del contesto bidirezionale, e T5, che unifica diversi compiti NLP in un framework text-to-text.
+
+Gli LLM sono utilizzati in numerosi ambiti:
+\begin{itemize}
+\item Generazione di testo: Creazione di articoli, riassunti e traduzioni.
+\item Chatbot: Assistenza virtuale e customer service.
+\item Analisi del linguaggio: Classificazione di testi e rilevamento del sentiment.
+\item Ricerca di informazioni: Risposte a domande complesse basate su grandi volumi di dati.
+\end{itemize}
+
+Nonostante il loro successo, gli LLM presentano limiti significativi che ne ostacolano l'applicazione in scenari knowledge-intensive. Uno dei problemi principali è la mancanza di accesso a informazioni aggiornate in tempo reale. Gli LLM generano risposte basate esclusivamente sui dati di addestramento, che potrebbero essere obsoleti. Questo è particolarmente problematico in domini come medicina e diritto, dove l'accuratezza e l'attualità delle informazioni sono cruciali.
+
+Un altro limite è il fenomeno delle allucinazioni (hallucinations), dove i modelli generano risposte false o inventate. Ad esempio, se un utente richiede informazioni su un argomento emergente, un LLM potrebbe fornire dati inesatti. Inoltre, i bias presenti nei dati di addestramento possono influenzare negativamente le risposte, riducendo l'affidabilità del modello. La tecnica RAG è stata proposta da Lewis et al. nel 2020 nel paper "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks". Questo approccio ibrido combina la capacità di recupero delle informazioni con la generazione di testo, migliorando significativamente l'accuratezza e la pertinenza delle risposte.
+
+Il funzionamento di RAG può essere spiegato in modo semplice e intuitivo. Immaginiamo di avere un assistente virtuale che deve rispondere a una domanda specifica, come "Quali sono le opzioni di spedizione disponibili?". Ecco come agisce il sistema RAG:
+\begin{itemize}
+\item Recupero:  L'assistente cerca nei suoi archivi le informazioni più pertinenti alla domanda. Questa ricerca avviene utilizzando tecniche avanzate, come l'indicizzazione vettoriale (es. FAISS), che rendono il processo rapido ed efficiente.
+\item Fusione: Una volta trovate le informazioni, queste vengono "fuse" con la domanda dell'utente per creare un contesto ricco e dettagliato. È un po' come avere una conversazione con un esperto che mette insieme pezzi di conoscenza per darti una risposta completa.
+\item Generazione:  Infine, il modello LLM interviene per trasformare tutto questo in una risposta ben articolata e naturale, che sembri davvero scritta da un essere umano.
+\end{itemize}
+
+L'approccio RAG offre diversi vantaggi significativi:
+
+\begin{itemize}
+\item Aggiornabilità: Poiché il sistema accede a database esterni, le informazioni sono sempre aggiornate, superando uno dei limiti principali degli LLM tradizionali.
+\item Riduzione delle allucinazioni: L'uso di fonti affidabili riduce drasticamente il rischio di risposte errate o inventate.
+\item Contestualizzazione:  Le risposte non sono generiche ma adattate al contesto specifico della domanda, rendendole estremamente utili in settori come il customer service e l'educazione.
+\end{itemize}
+
+Torniamo all'esempio dell'assistente virtuale per il customer service. Con un sistema RAG, se un cliente chiede: "Quali sono le opzioni di spedizione disponibili?", il chatbot recupererà le informazioni più recenti dal database aziendale, le integrerà con i dettagli della domanda e risponderà in modo chiaro e preciso: "Le opzioni disponibili sono: standard (3-5 giorni), espresso (1-2 giorni) e ritiro in negozio." Questo non solo migliora l'esperienza dell'utente ma aumenta anche la fiducia nei confronti del sistema. Guardando al futuro, RAG ha il potenziale per evolversi ulteriormente. Una possibile direzione è l'integrazione di modelli multimodali, che combinano testo, immagini e video per offrire risposte ancora più ricche e interattive. Pensiamo, ad esempio, a un chatbot che non solo risponde a una domanda tecnica ma mostra anche un video tutorial o un'infografica. Inoltre, l'adozione di algoritmi di apprendimento attivo potrebbe rendere il sistema più robusto, riducendo bias e migliorando la trasparenza.
+
+Gli LLM hanno trasformato il panorama del NLP, ma le loro limitazioni richiedono approcci innovativi come RAG per superare le sfide attuali. La combinazione di generazione e recupero di informazioni consente di creare chatbot avanzati, capaci di offrire risposte accurate e contestualizzate. Studi come quelli di Lewis et al. (2020) e Izacard et al. (2021) evidenziano il potenziale di RAG in applicazioni knowledge-intensive. Con ulteriori sviluppi tecnologici, questa metodologia potrebbe rivoluzionare ulteriormente l'interazione uomo-macchina, aprendo nuove opportunità in settori strategici.
+
+
+\chapter{Intrroduzione ai LLMs e ai servizi REST (Da eliminare, è stato diviso in due)}
 
 I Large Language Models (LLMs) rappresentano una classe avanzata di modelli di intelligenza artificiale progettati per comprendere, generare e interagire con il linguaggio umano a livelli di complessità senza precedenti. Questi modelli sono stati all’avanguardia delle ricerche nel campo del Natural Language Processing (NLP) e sono stati progettati per comprendere, interpretare, generare e tradurre testi in linguaggio naturale. La loro "grandezza"(large) non deriva solo dalla dimensione del modello in termini di numero di parametri, ma anche dall’enrome quantità di dati su cui vengono addestrati. Questi modelli apprendono autonomamente le strutture linguistiche e le relazioni semantiche dai dati, permettendo loro di generare testi coerenti e pertinenti, rispondere a domande, riassumere documenti e molto altro.
 
@@ -242,25 +291,74 @@ In sintesi, l'integrazione di LLMs con servizi RESTful offre una soluzione poten
 
 \chapter{Analisi e progettazione}
 
-Il progetto nasce dall'idea di sviluppare un sistema di chatbot avanzati, addestrati su argomenti specifici utilizzando la tecnica RAG (Retrieval-Augmented Generation) applicata a file PDF, con interazione attraverso servizi RESTful. Durante le fasi di analisi e progettazione, è stata adottata un'architettura a microservizi, implementata con Spring Boot, un framework Java, e Python, scelto per la sua vasta gamma di librerie dedicate all'addestramento di modelli conversazionali. L'obiettivo principale del progetto è creare una piattaforma scalabile, modulare e facilmente integrabile in sistemi complessi, garantendo semplicità di gestione e manutenzione.
+Negli ultimi due decenni, i servizi RESTful (Representational State Transfer) hanno trasformato il modo in cui le applicazioni comunicano, emergendo come lo standard de facto per la progettazione di API scalabili e interoperabili. L'architettura REST, introdotta da Roy Fielding nella sua tesi di dottorato nel 2000, si basa su principi che enfatizzano la semplicità, l'indipendenza tecnologica e l'uso efficiente delle risorse di rete. La sua adozione su vasta scala ha facilitato l'interoperabilità tra sistemi eterogenei, rendendola un pilastro fondamentale dello sviluppo software moderno.
 
-Un esempio applicativo del sistema è in ambito sanitario, dove ogni reparto di una struttura potrebbe disporre di un chatbot specificamente addestrato sui documenti PDF forniti dai medici del reparto stesso. I vari bot sarebbero accessibili tramite un'interfaccia grafica condivisa, che consentirebbe ai medici di consultare il chatbot del proprio reparto o di altri reparti per ottenere informazioni non presenti nei propri archivi, facilitando così la collaborazione inter-disciplinare.
+Un aspetto chiave del successo di REST è la sua natura stateless, che elimina la necessità per il server di mantenere lo stato delle richieste precedenti. Ogni richiesta HTTP include tutte le informazioni necessarie per essere processata, garantendo una maggiore scalabilità e semplificando l'architettura. Questo approccio consente ai servizi RESTful di gestire un elevato volume di richieste simultanee, un requisito essenziale per le moderne applicazioni distribuite.
 
-\begin{center}
+La separazione tra client e server è un altro principio cardine di REST. Questo modello architettonico consente uno sviluppo modulare, in cui il frontend e il backend possono evolversi indipendentemente. Ad esempio, un'applicazione mobile può utilizzare le stesse API RESTful di un'applicazione web, garantendo una maggiore riusabilità del codice e riducendo i costi di manutenzione.
 
-\fbox{\includegraphics[width=0.8\textwidth, height=0.8\textheight, keepaspectratio]{immagini/1.png}}
+La storia dei servizi RESTful è strettamente legata alla crescita di Internet e delle applicazioni web. Negli anni '90, la necessità di una comunicazione efficiente tra sistemi in rete ha portato allo sviluppo di vari protocolli e architetture, ma molti di essi, come SOAP (Simple Object Access Protocol), risultavano troppo complessi o rigidi per soddisfare le esigenze in rapida evoluzione delle applicazioni moderne.
 
-\end{center}
+L'introduzione di REST ha segnato un cambiamento radicale, grazie alla sua enfasi sulla semplicità e sull'utilizzo di standard esistenti come HTTP. La sua adozione è stata accelerata dall'ascesa di applicazioni basate su microservizi, dove l'indipendenza e la modularità dei componenti erano requisiti fondamentali. Studi recenti, come quello di Richardson e Ruby nel libro "RESTful Web Services", sottolineano come REST abbia permesso di superare le limitazioni delle architetture precedenti, offrendo una soluzione flessibile e scalabile per la progettazione di API.
 
-\section{Stack tecnologico}
+Con l'emergere dei modelli di linguaggio di grandi dimensioni (LLMs), come GPT e BERT, i servizi RESTful hanno trovato una nuova dimensione di applicazione. L'integrazione tra REST e LLMs consente di sfruttare le capacità avanzate di elaborazione del linguaggio naturale all'interno di architetture distribuite, creando un'infrastruttura potente e flessibile per applicazioni basate sull'intelligenza artificiale.
 
+In questo progetto, i servizi RESTful fungono da intermediari tra i modelli LLMs, i database e le applicazioni client. La tecnica Retrieval-Augmented Generation (RAG), utilizzata per arricchire le risposte dei chatbot con dati specifici e aggiornati, si basa su questo approccio. Ad esempio, una richiesta HTTP proveniente da un client può attivare il recupero di informazioni da un database, che vengono poi elaborate da un modello LLM per generare una risposta contestualizzata e pertinente.
+
+\section{Architettura del Sistema}
+
+Il progetto adotta un'architettura basata su microservizi, implementata con Spring Boot per il backend e Python per l'addestramento e l'interrogazione dei modelli di linguaggio. Questa scelta tecnologica consente di sfruttare i punti di forza di ciascuna piattaforma: Spring Boot per la robustezza e la scalabilità delle API REST, e Python per la sua vasta gamma di librerie dedicate al machine learning e al Natural Language Processing.
+
+Ogni microservizio è progettato per svolgere una funzione specifica, come l'autenticazione, la gestione delle richieste o l'elaborazione dei dati. Questo approccio modulare facilita l'estensibilità del sistema, permettendo di aggiungere nuovi chatbot o funzionalità senza compromettere l'infrastruttura esistente. I servizi RESTful, grazie alla loro natura indipendente dalla piattaforma, orchestrano la comunicazione tra i vari componenti del sistema, garantendo coerenza e flessibilità.
+
+Un esempio pratico di applicazione è rappresentato dall'ambito sanitario. Ogni reparto di una struttura medica potrebbe disporre di un chatbot addestrato su documenti specifici, come protocolli clinici o linee guida. I chatbot, accessibili tramite un'interfaccia grafica condivisa, consentirebbero ai medici di consultare rapidamente informazioni pertinenti, migliorando la collaborazione interdisciplinare e l'efficienza operativa.
+
+L'integrazione tra i servizi REST e i modelli LLMs offre molteplici vantaggi:
+
+\begin{itemize}
+\item Scalabilità: I servizi RESTful semplificano la gestione di grandi volumi di richieste simultanee, garantendo prestazioni elevate anche in scenari ad alta intensità computazionale.
+\item Modularità: Ogni componente del sistema può essere sviluppato, aggiornato e sostituito indipendentemente, riducendo i tempi di sviluppo e manutenzione.
+\item Accesso contestuale: L'utilizzo della tecnica RAG consente ai chatbot di accedere a fonti di conoscenza esterne, migliorando la pertinenza e l'accuratezza delle risposte.
+\item Sicurezza: L'architettura REST supporta facilmente l'integrazione di protocolli di sicurezza, come OAuth, per proteggere i dati sensibili.
+\end{itemize}
+
+Il capitolo "Analisi e progettazione" approfondisce i legami tra i servizi RESTful e i modelli di linguaggio avanzati, evidenziando come questa combinazione rappresenti una soluzione potente per lo sviluppo di applicazioni moderne. Attraverso un'analisi dettagliata delle scelte tecnologiche e dell'architettura implementata, si dimostra come i principi di REST possano essere sfruttati per creare sistemi scalabili, modulari e altamente efficienti. Questo approccio non solo soddisfa le esigenze attuali, ma offre anche una solida base per futuri sviluppi tecnologici.
+
+\chapter{Applicazione}
+
+Per testare la fattibilità di integrare chatbot addestrati con la metodologia RAG (Retrieval-Augmented Generation) in un sistema complesso basato su microservizi e chiamate REST, è stato scelto come caso di studio l'ambito sanitario. In particolare, si è sviluppato un sistema per la gestione dei pazienti che include un chatbot addestrato su alcune schede dietetiche tratte dal progetto SISTER. Quest'ultimo progetto, incentrato sull'invecchiamento attivo degli anziani, ha dedicato particolare attenzione alle diete personalizzate come strumento per prevenire la fragilità biopsicosociale, dimostrando come un approccio multidisciplinare possa migliorare la qualità della vita attraverso interventi mirati e basati su evidenze scientifiche.
+
+
+
+
+Si sono creati diversi microservizi in SpringBoot:
+\begin{itemize}
+\item bff
+\item bot alimentazione
+\item ms infermiere
+\item ms medico
+\item ms pazienti
+\item system management
+\end{itemize}
+
+Il BFF rappresenta lo strato di comunicazione tra i microservizi e l'interfaccia di frontend, fungendo da intermediario per gestire le richieste e restituire i dati in modo ottimale. Il progetto Bot Alimentazione è dedicato alla gestione del chatbot addestrato sulle schede dietetiche, fornendo risposte personalizzate e basate sui dati nutrizionali. Il microservizio MS Infermiere si occupa della gestione degli infermieri e delle loro attività operative, mentre MS Medico è responsabile delle funzionalità legate ai medici, come la gestione delle consultazioni e delle prescrizioni. Allo stesso modo, MS Pazienti è focalizzato sulle operazioni riguardanti i pazienti, inclusi l'archiviazione dei dati clinici e il monitoraggio delle loro attività. Infine, il progetto System Management è stato progettato per gestire e addestrare i chatbot, garantendo un aggiornamento continuo delle funzionalità e un miglioramento costante delle prestazioni. Questa architettura modulare consente una chiara separazione delle responsabilità, assicurando flessibilità e scalabilità all’intero sistema.
+
+I bot sviluppati in Python sono invece:
+\begin{itemize}
+\item bot alimentazione
+\item bot sanitario
+\end{itemize}
+
+Il bot dedicato all'alimentazione comunica con il microservizio corrispondente, Bot Alimentazione, sviluppato in Spring Boot. Questo microservizio è addestrato utilizzando file PDF contenenti informazioni relative all'alimentazione, consentendo al bot di fornire risposte accurate e personalizzate in questo ambito. Il Bot Sanitario, invece, interagisce con i microservizi MS Infermiere, MS Medico e MS Pazienti. Questo bot può essere addestrato su materiale sanitario specifico, rendendolo uno strumento versatile e utile per medici, infermieri e pazienti, fornendo supporto in base alle esigenze di ciascun ruolo.
+
+Tutti i microservizi interagiscono con un database progettato e implementato utilizzando SQL, che funge da archivio centrale per la gestione delle informazioni. Nel database vengono memorizzati i dati relativi all'addestramento dei bot, comprese le cartelle dei documenti caricati, insieme alle tabelle dedicate alla gestione delle sezioni riguardanti medici, infermieri e pazienti. Questo approccio garantisce una struttura organizzata e un accesso efficiente ai dati necessari per il funzionamento e l'evoluzione del sistema.
+\\ \\ \\
 Ogni bot si basa su queste tecnologie:
 
 \begin{itemize}
-	\item SpringBoot
-	\item Python
-	\item LangChain
-	\item Ollama
+\item Python
+\item LangChain
+\item Ollama
 \end{itemize} 
 
 Spring Boot è utilizzato per lo sviluppo dei servizi RESTful che costituiscono il cuore del backend del sistema. Questa potente piattaforma Java semplifica la creazione di applicazioni stand-alone e basate su microservizi. Spring Boot consente di costruire API REST robuste e scalabili, gestendo in modo efficiente le comunicazioni tra il frontend e i vari componenti del backend, e garantendo un'architettura modulare e facilmente estendibile.
@@ -457,33 +555,6 @@ Nel corrispettivo progetto in Java, abbiamo i seguenti endpoint:
 Il primo endpoint consente di inviare un messaggio all'applicazione per ottenere una risposta generata da un modello di linguaggio non addestrato. Quando un utente invia un messaggio a questo endpoint, il sistema lo inoltra a un servizio Python che interroga il modello AI non personalizzato. La risposta generata viene quindi restituita all'utente in modo diretto, senza ulteriori informazioni di supporto. Il secondo endpoint, offre un'interazione più sofisticata. Anche in questo caso, l'utente fornisce un messaggio, ma il sistema lo inoltra a un servizio Python diverso, che interroga un modello di linguaggio addestrato su un insieme specifico di dati. Questo modello non solo genera una risposta, ma restituisce anche i file e le sezioni di contenuto utilizzate per formulare la risposta. Ciò consente all'utente di comprendere su quali informazioni il modello ha basato la sua elaborazione, rendendo questa opzione particolarmente utile per casi d'uso che richiedono maggiore trasparenza e tracciabilità.
 
 Questi due endpoint rappresentano quindi due livelli distinti di interazione con i modelli di linguaggio: uno generico e immediato, l'altro personalizzato e più informativo.
-
-\chapter{Applicazione}
-
-Per testare la fattibilità di integrare chatbot addestrati con la metodologia RAG (Retrieval-Augmented Generation) in un sistema complesso basato su microservizi e chiamate REST, è stato scelto come caso di studio l'ambito sanitario. In particolare, si è sviluppato un sistema per la gestione dei pazienti che include un chatbot addestrato su alcune schede dietetiche tratte dal progetto SISTER. Quest'ultimo progetto, incentrato sull'invecchiamento attivo degli anziani, ha dedicato particolare attenzione alle diete personalizzate come strumento per prevenire la fragilità biopsicosociale, dimostrando come un approccio multidisciplinare possa migliorare la qualità della vita attraverso interventi mirati e basati su evidenze scientifiche.
-
-
-Si sono creati diversi microservizi in SpringBoot:
-\begin{itemize}
-\item bff
-\item bot alimentazione
-\item ms infermiere
-\item ms medico
-\item ms pazienti
-\item system management
-\end{itemize}
-
-Il BFF rappresenta lo strato di comunicazione tra i microservizi e l'interfaccia di frontend, fungendo da intermediario per gestire le richieste e restituire i dati in modo ottimale. Il progetto Bot Alimentazione è dedicato alla gestione del chatbot addestrato sulle schede dietetiche, fornendo risposte personalizzate e basate sui dati nutrizionali. Il microservizio MS Infermiere si occupa della gestione degli infermieri e delle loro attività operative, mentre MS Medico è responsabile delle funzionalità legate ai medici, come la gestione delle consultazioni e delle prescrizioni. Allo stesso modo, MS Pazienti è focalizzato sulle operazioni riguardanti i pazienti, inclusi l'archiviazione dei dati clinici e il monitoraggio delle loro attività. Infine, il progetto System Management è stato progettato per gestire e addestrare i chatbot, garantendo un aggiornamento continuo delle funzionalità e un miglioramento costante delle prestazioni. Questa architettura modulare consente una chiara separazione delle responsabilità, assicurando flessibilità e scalabilità all’intero sistema.
-
-I bot sviluppati in Python sono invece:
-\begin{itemize}
-\item bot alimentazione
-\item bot sanitario
-\end{itemize}
-
-Il bot dedicato all'alimentazione comunica con il microservizio corrispondente, Bot Alimentazione, sviluppato in Spring Boot. Questo microservizio è addestrato utilizzando file PDF contenenti informazioni relative all'alimentazione, consentendo al bot di fornire risposte accurate e personalizzate in questo ambito. Il Bot Sanitario, invece, interagisce con i microservizi MS Infermiere, MS Medico e MS Pazienti. Questo bot può essere addestrato su materiale sanitario specifico, rendendolo uno strumento versatile e utile per medici, infermieri e pazienti, fornendo supporto in base alle esigenze di ciascun ruolo.
-
-Tutti i microservizi interagiscono con un database progettato e implementato utilizzando SQL, che funge da archivio centrale per la gestione delle informazioni. Nel database vengono memorizzati i dati relativi all'addestramento dei bot, comprese le cartelle dei documenti caricati, insieme alle tabelle dedicate alla gestione delle sezioni riguardanti medici, infermieri e pazienti. Questo approccio garantisce una struttura organizzata e un accesso efficiente ai dati necessari per il funzionamento e l'evoluzione del sistema.
 
 \subsection{Progettazione del database}
 Durante la fase di sviluppo è stato utilizzato un database relazionale, gestito tramite il linguaggio SQL, denominato botRag. Per configurare lo schema di base necessario al funzionamento dei microservizi, è sufficiente eseguire lo script creazioneTabelle.sql, che contiene tutte le query necessarie per la creazione delle tabelle. Questo script definisce la struttura del database, garantendo che tutti i microservizi possano accedere e manipolare i dati in modo corretto. 
