@@ -315,16 +315,19 @@ Un esempio pratico di applicazione è rappresentato dall'ambito sanitario. Ogni 
 
 L'integrazione tra i servizi REST e i modelli LLMs offre molteplici vantaggi:
 
-\begin{itemize}
-\item Scalabilità: I servizi RESTful semplificano la gestione di grandi volumi di richieste simultanee, garantendo prestazioni elevate anche in scenari ad alta intensità computazionale.
-\item Modularità: Ogni componente del sistema può essere sviluppato, aggiornato e sostituito indipendentemente, riducendo i tempi di sviluppo e manutenzione.
-\item Accesso contestuale: L'utilizzo della tecnica RAG consente ai chatbot di accedere a fonti di conoscenza esterne, migliorando la pertinenza e l'accuratezza delle risposte.
-\item Sicurezza: L'architettura REST supporta facilmente l'integrazione di protocolli di sicurezza, come OAuth, per proteggere i dati sensibili.
-\end{itemize}
+Uno degli aspetti più significativi dell'uso di REST in combinazione con gli LLMs è la capacità di fornire esperienze personalizzate. Analizzando le richieste degli utenti, i sistemi possono adattare le risposte ai bisogni specifici, migliorando non solo la soddisfazione dell'utente ma anche l'efficacia delle interazioni. Questo approccio personalizzato è particolarmente utile in contesti come il customer service, dove è cruciale rispondere rapidamente e accuratamente a un'ampia varietà di richieste.
+
+Inoltre, la natura stateless di REST garantisce interazioni robuste, minimizzando il rischio di errori legati a sessioni instabili o a interruzioni nella comunicazione. Questo aspetto è particolarmente rilevante in applicazioni mission-critical, come quelle mediche o finanziarie, dove l'affidabilità è essenziale. L'architettura REST, combinata con le capacità degli LLMs, consente di bilanciare richieste ad alta intensità computazionale, garantendo prestazioni fluide anche in situazioni di carico elevato.
+
+Un altro vantaggio significativo è rappresentato dalla scalabilità. I sistemi distribuiti basati su REST possono essere facilmente estesi per gestire un numero crescente di richieste, rendendo questa combinazione ideale per applicazioni globali che operano in ambienti multilingue e multi-dominio. Ad esempio, i chatbot possono fornire risposte in diverse lingue, accedendo a fonti di informazione localizzate e garantendo un'esperienza uniforme agli utenti di tutto il mondo.
+
+Un caso emblematico di miglioramento dell'esperienza utente attraverso REST e LLMs è l'implementazione di sistemi di assistenza virtuale in tempo reale. In questi scenari, i chatbot possono integrare informazioni provenienti da database esterni e modelli predittivi per fornire risposte contestuali e aggiornate. L'uso del caching, inoltre, riduce i tempi di latenza, migliorando ulteriormente l'interazione utente-macchina.
+
+Infine, l'adattabilità di questa combinazione è fondamentale per supportare applicazioni in costante evoluzione. Gli sviluppatori possono aggiornare i modelli di linguaggio o modificare le API REST senza interrompere il servizio, garantendo così un ciclo di sviluppo continuo e una rapida risposta alle nuove esigenze degli utenti.
 
 Il capitolo "Analisi e progettazione" approfondisce i legami tra i servizi RESTful e i modelli di linguaggio avanzati, evidenziando come questa combinazione rappresenti una soluzione potente per lo sviluppo di applicazioni moderne. Attraverso un'analisi dettagliata delle scelte tecnologiche e dell'architettura implementata, si dimostra come i principi di REST possano essere sfruttati per creare sistemi scalabili, modulari e altamente efficienti. Questo approccio non solo soddisfa le esigenze attuali, ma offre anche una solida base per futuri sviluppi tecnologici.
 
-\chapter{Applicazione}
+\section{Applicazione}
 
 Per testare la fattibilità di integrare chatbot addestrati con la metodologia RAG (Retrieval-Augmented Generation) in un sistema complesso basato su microservizi e chiamate REST, è stato scelto come caso di studio l'ambito sanitario. In particolare, si è sviluppato un sistema per la gestione dei pazienti che include un chatbot addestrato su alcune schede dietetiche tratte dal progetto SISTER. Quest'ultimo progetto, incentrato sull'invecchiamento attivo degli anziani, ha dedicato particolare attenzione alle diete personalizzate come strumento per prevenire la fragilità biopsicosociale, dimostrando come un approccio multidisciplinare possa migliorare la qualità della vita attraverso interventi mirati e basati su evidenze scientifiche.
 
@@ -630,6 +633,13 @@ La gestione delle risposte derivanti dalle chiamate ai microservizi è affidata 
 Questa struttura consente una gestione uniforme delle risposte, migliorando la leggibilità e la manutenzione del codice. La generalizzazione introdotta dalla classe EsitoResponseErrorHandler offre inoltre maggiore flessibilità nel trattamento delle risposte, indipendentemente dal tipo specifico di payload restituito.
 
 Per facilitare l'interazione con gli endpoint esposti dai microservizi, è stato integrato Swagger UI, un'interfaccia grafica intuitiva che permette agli sviluppatori e agli utenti di esplorare e testare gli endpoint. Swagger UI genera automaticamente documentazione interattiva basata su annotazioni presenti nel codice, rendendo l'accesso agli endpoint più immediato e agevole. Questa integrazione offre una soluzione user-friendly per inviare richieste e visualizzare risposte, eliminando la necessità di strumenti esterni o conoscenze approfondite dei dettagli di implementazione.
+
+\chapter{Risultati}
+
+Risultati ed esempio di risposta
+
+\chapter{Conclusione}
+ riepilogo di tutto quello che hai fatto e commenta i risultati ottenuti in fase di sperimentazione
 
 \bibliographystyle{plain}  
 \bibliography{bibliografia}

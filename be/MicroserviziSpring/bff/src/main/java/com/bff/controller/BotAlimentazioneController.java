@@ -1,5 +1,7 @@
 package com.bff.controller;
 
+import com.bff.dto.botpy.responseRequest.ResponseEvalueteNormalChatDto;
+import com.bff.dto.botpy.responseRequest.ResponseMessageDto;
 import com.bff.dto.botpy.responseRequest.ResponseMessagePdfDto;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseDto;
@@ -37,7 +39,7 @@ public class BotAlimentazioneController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value = "/normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<String>> normalChat(@RequestParam String messagge) {
+    public ResponseEntity<GenericResponseDto<ResponseMessageDto>> normalChat(@RequestParam String messagge) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(botAlimentazioneService.normalChat(messagge)));
     }
 
@@ -50,5 +52,16 @@ public class BotAlimentazioneController {
     @GetMapping(value = "/chat-addestrata", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<ResponseMessagePdfDto>> chatAddestrata(@RequestParam String messagge) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(botAlimentazioneService.chatAddestrata(messagge)));
+    }
+
+    @Operation(summary = "Chat Valutazione pdf",
+            description = "Chat Valutazione pdf")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value = "/evaluete-normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<ResponseEvalueteNormalChatDto>> evalueteNormalChat(@RequestParam String messagge) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(botAlimentazioneService.evalueteNormalChat(messagge)));
     }
 }

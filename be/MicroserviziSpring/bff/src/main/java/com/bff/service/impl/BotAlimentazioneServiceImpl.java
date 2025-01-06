@@ -1,7 +1,8 @@
 package com.bff.service.impl;
 
 import com.bff.botalimentazione.api.BotAlimentazioneChatControllerApi;
-import com.bff.botoffertebandi.api.BotBandiChatControllerApi;
+import com.bff.dto.botpy.responseRequest.ResponseEvalueteNormalChatDto;
+import com.bff.dto.botpy.responseRequest.ResponseMessageDto;
 import com.bff.dto.botpy.responseRequest.ResponseMessagePdfDto;
 import com.bff.esito.GenericResponseConverter;
 import com.bff.esito.GenericResponseDto;
@@ -18,8 +19,8 @@ public class BotAlimentazioneServiceImpl implements BotAlimentazioneService {
 
 
     @Override
-    public String normalChat(String messagge) {
-        GenericResponseDto<String> normalChatResponse = genericResponseConverter.convertGenericResponse(botAlimentazioneChatControllerApi.normalChat(messagge), String.class);
+    public ResponseMessageDto normalChat(String messagge) {
+        GenericResponseDto<ResponseMessageDto> normalChatResponse = genericResponseConverter.convertGenericResponse(botAlimentazioneChatControllerApi.normalChat(messagge), ResponseMessageDto.class);
         return normalChatResponse.getPayload();
     }
 
@@ -27,6 +28,12 @@ public class BotAlimentazioneServiceImpl implements BotAlimentazioneService {
     public ResponseMessagePdfDto chatAddestrata(String messagge) {
         GenericResponseDto<ResponseMessagePdfDto> chatAddestrata = genericResponseConverter.convertGenericResponse(botAlimentazioneChatControllerApi.chatAddestrata(messagge), ResponseMessagePdfDto.class);
         return chatAddestrata.getPayload();
+    }
+
+    @Override
+    public ResponseEvalueteNormalChatDto evalueteNormalChat(String messagge) {
+        GenericResponseDto<ResponseEvalueteNormalChatDto> evaluationeChatAddestrata = genericResponseConverter.convertGenericResponse(botAlimentazioneChatControllerApi.chatAddestrata(messagge), ResponseEvalueteNormalChatDto.class);
+        return evaluationeChatAddestrata.getPayload();
     }
 
 }

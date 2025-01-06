@@ -1,6 +1,8 @@
 package com.mspazienti.controller;
 
+import com.mspazienti.dto.chatbot.ResponseEvalueteNormalChatDto;
 import com.mspazienti.dto.chatbot.ResponseMessagePdfDto;
+import com.mspazienti.dto.chatbot.ResponseNormalMessageDto;
 import com.mspazienti.esito.EsitoMessaggiRequestContextHolder;
 import com.mspazienti.esito.GenericResponseDto;
 import com.mspazienti.service.ChatService;
@@ -19,7 +21,7 @@ import static com.mspazienti.constants.WebConstants.REST_CONTEX_STRING;
 @RestController
 @RequestMapping(REST_CONTEX_STRING + "/bot-sanitario-chat")
 @Validated
-@Tag(name = "Bot Sanitario Chat Controller",
+@Tag(name = "MsPazienteChatbotController",
         description = "Gestione della chat")
 @CrossOrigin
 @AllArgsConstructor
@@ -34,7 +36,7 @@ public class ChatBotSanitarioController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value = "/normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<String>> normalChat(@RequestParam String messagge) {
+    public ResponseEntity<GenericResponseDto<ResponseNormalMessageDto>> normalChat(@RequestParam String messagge) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.normalChat(messagge)));
     }
 
@@ -47,5 +49,16 @@ public class ChatBotSanitarioController {
     @GetMapping(value = "/chat-addestrata", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<ResponseMessagePdfDto>> chatAddestrata(@RequestParam String messagge) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.chatAddestrata(messagge)));
+    }
+
+    @Operation(summary = "Chat normale",
+            description = "Invio di un messaggio al bot Alimentazione sfruttando l'LLM non addestrato")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value = "/evaluete-normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<ResponseEvalueteNormalChatDto>> evalueteNormalChat(@RequestParam String messagge) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.evalueteNormalChat(messagge)));
     }
 }

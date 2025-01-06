@@ -1,6 +1,7 @@
 package com.msinfermiere.mapper.contattoriferimento;
 
 import com.msinfermiere.dto.infermiere.ContattoRiferimentoDto;
+import com.msinfermiere.dto.request.gestionepaziente.AddContattoRiferimentoDto;
 import com.msinfermiere.entity.ContattoRiferimento;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -14,4 +15,6 @@ public interface ContattoRiferimentoEntityMapper {
 
     ContattoRiferimento toEntity(ContattoRiferimentoDto dto);
     List<ContattoRiferimento> toEntity(List<ContattoRiferimentoDto> dto);
+
+    ContattoRiferimento toEntity(AddContattoRiferimentoDto addContattoRiferimentoDto);
 }

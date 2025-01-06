@@ -16,21 +16,6 @@ import java.io.IOException;
 public class ExternalApiClientConfig {
     private final RestTemplate restTemplate;
 
-   @Primary
-    @Bean
-    public com.bff.botoffertebandi.invoker.ApiClient botOfferteBandiApiClient() {
-        com.bff.botoffertebandi.invoker.ApiClient apiClient = new com.bff.botoffertebandi.invoker.ApiClient(restTemplate);
-        apiClient.setBasePath("http://localhost:8082");
-        return apiClient;
-    }
-
-    @Primary
-    @Bean
-    public com.bff.botai.invoker.ApiClient botAiApiClient() {
-        com.bff.botai.invoker.ApiClient apiClient = new com.bff.botai.invoker.ApiClient(restTemplate);
-        apiClient.setBasePath("http://localhost:8083");
-        return apiClient;
-    }
 
     @Primary
     @Bean
@@ -45,6 +30,22 @@ public class ExternalApiClientConfig {
     public com.bff.botalimentazione.invoker.ApiClient botAlimentazioneApiClient() {
         com.bff.botalimentazione.invoker.ApiClient apiClient = new com.bff.botalimentazione.invoker.ApiClient(restTemplate);
         apiClient.setBasePath("http://localhost:8084");
+        return apiClient;
+    }
+
+    @Primary
+    @Bean
+    public com.bff.mspaziente.invoker.ApiClient msPazienteApiClient() {
+        com.bff.mspaziente.invoker.ApiClient apiClient = new com.bff.mspaziente.invoker.ApiClient(restTemplate);
+        apiClient.setBasePath("http://localhost:8085");
+        return apiClient;
+    }
+
+    @Primary
+    @Bean
+    public com.bff.msinfermiere.invoker.ApiClient msInfermiereApiClient() {
+        com.bff.msinfermiere.invoker.ApiClient apiClient = new com.bff.msinfermiere.invoker.ApiClient(restTemplate);
+        apiClient.setBasePath("http://localhost:8086");
         return apiClient;
     }
 

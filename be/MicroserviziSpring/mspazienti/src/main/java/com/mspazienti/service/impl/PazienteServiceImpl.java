@@ -2,6 +2,7 @@ package com.mspazienti.service.impl;
 
 import com.mspazienti.dto.paziente.PazienteDto;
 import com.mspazienti.esito.EsitoMessaggiRequestContextHolder;
+import com.mspazienti.mapper.paziente.PazienteDtoMapper;
 import com.mspazienti.repository.PazienteRepository;
 import com.mspazienti.service.PazienteService;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,11 @@ public class PazienteServiceImpl implements PazienteService {
 
     @Override
     public List<PazienteDto> getListPazienti() {
-        return List.of();
+        return PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findAll());
+    }
+
+    @Override
+    public PazienteDto getInfoPaziente(Integer idPaziente) {
+        return PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findById(idPaziente).get());
     }
 }

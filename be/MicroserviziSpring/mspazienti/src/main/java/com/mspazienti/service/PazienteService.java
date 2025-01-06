@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface PazienteService {
     List<PazienteDto> getListPazienti();
+
+    PazienteDto getInfoPaziente(Integer idPaziente);
 }

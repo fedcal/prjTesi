@@ -124,20 +124,49 @@
 				<version>3.0.41</version>
 				<executions>
 					<execution>
-						<id>generate-client-bot-ai</id>
+						<id>generate-client-ms-infermiere</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
 							<inputSpec>
-								${project.basedir}/botAi.yaml
+								${project.basedir}/msInfermiere.yaml
 							</inputSpec>
 							<language>java</language>
 							<library>resttemplate</library>
-							<modelPackage>com.bff.botai.model</modelPackage>
-							<apiPackage>com.bff.botai.api</apiPackage>
-							<invokerPackage>com.bff.botai.invoker</invokerPackage>
+							<modelPackage>com.bff.msinfermiere.model</modelPackage>
+							<apiPackage>com.bff.msinfermiere.api</apiPackage>
+							<invokerPackage>com.bff.msinfermiere.invoker</invokerPackage>
+							<output>${project.build.directory}/generated-sources</output>
+							<generateApiTests>false</generateApiTests>
+							<configOptions>
+								<dateLibrary>custom</dateLibrary>
+								<java8>true</java8>
+							</configOptions>
+							<typeMappings>
+								<typeMapping>DateTime=Instant</typeMapping>
+							</typeMappings>
+							<importMappings>
+								<importMapping>Instant=java.time.Instant</importMapping>
+							</importMappings>
+						</configuration>
+					</execution>
+					<execution>
+						<id>generate-client-ms-paziente</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>
+								${project.basedir}/msPaziente.yaml
+							</inputSpec>
+							<language>java</language>
+							<library>resttemplate</library>
+							<modelPackage>com.bff.mspaziente.model</modelPackage>
+							<apiPackage>com.bff.mspaziente.api</apiPackage>
+							<invokerPackage>com.bff.mspaziente.invoker</invokerPackage>
 							<output>${project.build.directory}/generated-sources</output>
 							<generateApiTests>false</generateApiTests>
 							<configOptions>

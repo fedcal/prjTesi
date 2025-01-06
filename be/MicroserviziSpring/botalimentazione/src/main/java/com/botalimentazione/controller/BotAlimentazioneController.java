@@ -1,6 +1,8 @@
 package com.botalimentazione.controller;
 
+import com.botalimentazione.dto.botalimentazione.responseRequest.ResponseEvalueteNormalChatDto;
 import com.botalimentazione.dto.botalimentazione.responseRequest.ResponseMessagePdfDto;
+import com.botalimentazione.dto.botalimentazione.responseRequest.ResponseNormalMessageDto;
 import com.botalimentazione.esito.EsitoMessaggiRequestContextHolder;
 import com.botalimentazione.esito.GenericResponseDto;
 import com.botalimentazione.service.ChatService;
@@ -32,7 +34,7 @@ public class BotAlimentazioneController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value = "/normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<String>> normalChat(@RequestParam String messagge) {
+    public ResponseEntity<GenericResponseDto<ResponseNormalMessageDto>> normalChat(@RequestParam String messagge) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.normalChat(messagge)));
     }
 
@@ -45,5 +47,16 @@ public class BotAlimentazioneController {
     @GetMapping(value = "/chat-addestrata", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<ResponseMessagePdfDto>> chatAddestrata(@RequestParam String messagge) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.chatAddestrata(messagge)));
+    }
+
+    @Operation(summary = "Chat Valutazione pdf",
+            description = "Chat Valutazione pdf")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value = "/evaluete-normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<ResponseEvalueteNormalChatDto>> evalueteNormalChat(@RequestParam String messagge) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.evalueteNormalChat(messagge)));
     }
 }

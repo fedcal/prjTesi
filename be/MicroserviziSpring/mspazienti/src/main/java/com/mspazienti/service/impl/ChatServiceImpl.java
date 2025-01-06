@@ -2,6 +2,7 @@ package com.mspazienti.service.impl;
 
 import com.mspazienti.constants.BotSanitarioPyUrl;
 import com.mspazienti.dto.chatbot.NormalChatRequestParams;
+import com.mspazienti.dto.chatbot.ResponseEvalueteNormalChatDto;
 import com.mspazienti.dto.chatbot.ResponseMessagePdfDto;
 import com.mspazienti.dto.chatbot.ResponseNormalMessageDto;
 import com.mspazienti.esito.EsitoMessaggiRequestContextHolder;
@@ -24,7 +25,7 @@ public class ChatServiceImpl implements ChatService {
 
 
     @Override
-    public String normalChat(String messagge) {
+    public ResponseNormalMessageDto normalChat(String messagge) {
         esitoMessaggiRequestContextHolder.setOperationId("normalChat");
         String url = BotSanitarioPyUrl.NORMAL_MESSAGE;
 
@@ -57,7 +58,7 @@ public class ChatServiceImpl implements ChatService {
         }
 
         esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
-        return response.getBody().getMessage();
+        return response.getBody();
     }
 
     @Override
@@ -79,6 +80,43 @@ public class ChatServiceImpl implements ChatService {
 
         try {
             response = restTemplate.postForEntity(url, request, ResponseMessagePdfDto.class);
+        } catch (RestClientException e) {
+            if(e.getMessage().contains("port=11434")){
+                Messaggio messaggio = Messaggio.builder().severita(SeveritaMessaggioEnum.INFO).codMsg("Il modello non risponde.").build();
+                esitoMessaggiRequestContextHolder.getMessaggi().add(messaggio);
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+                throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+            }else{
+                Messaggio messaggio = Messaggio.builder().severita(SeveritaMessaggioEnum.INFO).codMsg("Il relativo servizio in python non è attivo.").build();
+                esitoMessaggiRequestContextHolder.getMessaggi().add(messaggio);
+                esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.KO);
+                throw new EsitoRuntimeException(HttpStatus.BAD_REQUEST);
+            }
+        }
+
+        esitoMessaggiRequestContextHolder.setCodRet(EsitoOperazioneEnum.OK);
+        return response.getBody();
+    }
+
+    @Override
+    public ResponseEvalueteNormalChatDto evalueteNormalChat(String messagge) {
+        esitoMessaggiRequestContextHolder.setOperationId("evalueteNormalChat");
+        String url = BotSanitarioPyUrl.EVALUETE_NORMAL_MESSAGE;
+
+        NormalChatRequestParams normalChatRequestParams = new NormalChatRequestParams();
+        normalChatRequestParams.setQuery(messagge);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<NormalChatRequestParams> request = new HttpEntity<>(normalChatRequestParams, headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<ResponseEvalueteNormalChatDto> response = null;
+
+        try {
+            response = restTemplate.postForEntity(url, request, ResponseEvalueteNormalChatDto.class);
         } catch (RestClientException e) {
             if(e.getMessage().contains("port=11434")){
                 Messaggio messaggio = Messaggio.builder().severita(SeveritaMessaggioEnum.INFO).codMsg("Il modello non risponde.").build();

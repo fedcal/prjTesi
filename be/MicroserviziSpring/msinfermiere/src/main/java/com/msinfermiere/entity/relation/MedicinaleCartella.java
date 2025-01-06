@@ -3,6 +3,7 @@ package com.msinfermiere.entity.relation;
 import com.msinfermiere.entity.CartellaClinica;
 import com.msinfermiere.entity.Medicinale;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

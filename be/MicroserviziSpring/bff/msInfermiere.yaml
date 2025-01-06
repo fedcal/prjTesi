@@ -1,0 +1,1366 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8086
+    description: Generated server url
+tags:
+  - name: MsInfermiereGestioneInfermiereController
+    description: Gestione degli infermieri
+  - name: MsInfermiereGestionePazientiController
+    description: Gestione dei pazienti da parte degli infermieri
+  - name: MsInfermiereChatBotSanitarioController
+    description: Gestione della chat
+paths:
+  /ms-infermiere/gestione-infermieri/modifica:
+    put:
+      tags:
+        - MsInfermiereGestioneInfermiereController
+      summary: Modifica info infermiere
+      description: Modifica le informazioni dell'infermiere
+      operationId: modificaInfermiere
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModificaInfermiereDto'
+        required: true
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoInfermiereDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoInfermiereDto'
+  /ms-infermiere/gestione-pazienti/visualizza-cartella-clinica/{idCartellaClinica}:
+    post:
+      tags:
+        - MsInfermiereGestionePazientiController
+      summary: Add Paziente
+      description: Aggiunge un paziente
+      operationId: visualizzaCartellaClinica
+      parameters:
+        - name: idCartellaClinica
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaDto'
+  /ms-infermiere/gestione-pazienti/collega-visita-medica-cartella-clinica:
+    post:
+      tags:
+        - MsInfermiereGestionePazientiController
+      summary: Add Paziente
+      description: Aggiunge un paziente
+      operationId: collegaVisitaMedicaCartellaClinica
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollegaVisitaMedicaCartellaDto'
+        required: true
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaMedicaCartellaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVisitaMedicaCartellaDto'
+  /ms-infermiere/gestione-pazienti/collega-medicinale-cartella-clinica:
+    post:
+      tags:
+        - MsInfermiereGestionePazientiController
+      summary: Add Paziente
+      description: Aggiunge un paziente
+      operationId: collegaMedicinaleCartellaClinica
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollegaMedicinaleCartellaClinica'
+        required: true
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleCartellaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMedicinaleCartellaDto'
+  /ms-infermiere/gestione-pazienti/collega-malattia-cartella-clinica:
+    post:
+      tags:
+        - MsInfermiereGestionePazientiController
+      summary: Add Paziente
+      description: Aggiunge un paziente
+      operationId: collegaMalattiaPaziente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollegaMalattiaCartellaDto'
+        required: true
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaCartellaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoMalattiaCartellaDto'
+  /ms-infermiere/gestione-pazienti/add-paziente:
+    post:
+      tags:
+        - MsInfermiereGestionePazientiController
+      summary: Add Paziente
+      description: Aggiunge un paziente
+      operationId: addPaziente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPazientereDto'
+        required: true
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoPazienteDto'
+  /ms-infermiere/gestione-pazienti/add-contatto-riferimento:
+    post:
+      tags:
+        - MsInfermiereGestionePazientiController
+      summary: Add Contatto riferimento
+      description: Aggiunge un contatto riferimento
+      operationId: addContattoRiferimento
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddContattoRiferimentoDto'
+        required: true
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoContattoRiferimentoDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoContattoRiferimentoDto'
+  /ms-infermiere/gestione-pazienti/add-cartella-clinica:
+    post:
+      tags:
+        - MsInfermiereGestionePazientiController
+      summary: Add Cartella Clinica
+      description: Aggiunge una cartella clinica
+      operationId: addCartellaClinica
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCartellaClinicaDto'
+        required: true
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoCartellaClinicaDto'
+  /ms-infermiere/gestione-infermieri/add-infermiere:
+    post:
+      tags:
+        - MsInfermiereGestioneInfermiereController
+      summary: Add Infermiere
+      description: Aggiunge un infermiere
+      operationId: addInfermiere
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddInfermiereDto'
+        required: true
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoInfermiereDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoInfermiereDto'
+  /ms-infermiere/gestione-pazienti/filter-pazienti:
+    get:
+      tags:
+        - MsInfermiereGestionePazientiController
+      summary: Filter infermieri
+      description: Restituisce gli infermieri filtrati
+      operationId: filterPazienti
+      parameters:
+        - name: filterPazienteDto
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/FilterPazienteDto'
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+  /ms-infermiere/gestione-pazienti/all:
+    get:
+      tags:
+        - MsInfermiereGestionePazientiController
+      summary: All Pazienti
+      description: Restituisce tutti i pazienti
+      operationId: getAllInfermieri
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListPazienteDto'
+  /ms-infermiere/gestione-infermieri/filter-infermiere:
+    get:
+      tags:
+        - MsInfermiereGestioneInfermiereController
+      summary: Filter infermieri
+      description: Restituisce gli infermieri filtrati
+      operationId: filterInfermieri
+      parameters:
+        - name: filterInfermiereDto
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/FilterInfermiereDto'
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
+  /ms-infermiere/gestione-infermieri/all:
+    get:
+      tags:
+        - MsInfermiereGestioneInfermiereController
+      summary: All Infermieri
+      description: Restituisce tutti gli infermieri
+      operationId: getAllInfermieri_1
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoListInfermiereDto'
+  /ms-infermiere/bot-sanitario-chat/normal-chat:
+    get:
+      tags:
+        - MsInfermiereChatBotSanitarioController
+      summary: Chat normale
+      description: Invio di un messaggio al bot Sanitario sfruttando l'LLM non addestrato
+      operationId: normalChat
+      parameters:
+        - name: messagge
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoString'
+  /ms-infermiere/bot-sanitario-chat/chat-addestrata:
+    get:
+      tags:
+        - MsInfermiereChatBotSanitarioController
+      summary: Chat addestrata
+      description: Invio di un messaggio al bot Sanitario sfruttando l'LLM addestrato
+      operationId: chatAddestrata
+      parameters:
+        - name: messagge
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoResponseMessagePdfDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoResponseMessagePdfDto'
+  /ms-infermiere/gestione-infermieri/delete:
+    delete:
+      tags:
+        - MsInfermiereGestioneInfermiereController
+      summary: Delete Infermiere
+      description: Elimina l'infermiere selezionato
+      operationId: deleteInfermiere
+      parameters:
+        - name: idInfermiere
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVoid'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoVoid'
+components:
+  schemas:
+    ModificaInfermiereDto:
+      type: object
+      properties:
+        idInfermiere:
+          type: integer
+          format: int32
+        nuovoNomeInfermiere:
+          type: string
+        nuovoCognomeInfermiere:
+          type: string
+        nuovoIdReparto:
+          type: integer
+          format: int32
+        nuovoTurnoInfermiere:
+          type: string
+    CartellaClinica:
+      type: object
+      properties:
+        idCartellaClinica:
+          type: integer
+          format: int32
+        gruppoSanguigno:
+          type: string
+        diagnosi:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Diagnosi'
+        malattiaCartella:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MalattiaCartella'
+        visitaMedicaCartella:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaMedicaCartella'
+        operazioneCartella:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OperazioneCartella'
+        medicinalePrescrizione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinalePrescrizione'
+        visitaPrescrizione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaPrescrizione'
+        visitaSottoministrazioneMedico:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaSottoministrazioneMedico'
+        visitaSottoministrazioneInfermiere:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaSottoministrazioneInfermiere'
+        medicinaleCartella:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleCartella'
+        operazionePrescrizione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OperazionePrescrizione'
+        medicinaleSottoministrazione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleSottoministrazione'
+    CartellaClinicaDto:
+      type: object
+      properties:
+        idCartellaClinica:
+          type: integer
+          format: int32
+        gruppoSanguigno:
+          type: string
+        diagnosi:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DiagnosiDto'
+        malattiaCartella:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MalattiaCartellaDto'
+        visitaMedicaCartella:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaMedicaCartellaDto'
+        operazioneCartella:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OperazioneCartellaDto'
+        visitaPrescrizione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaPrescrizioneDto'
+        visitaSottoministrazioneMedico:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaSottoministrazioneMedicoDto'
+        visitaSottoministrazioneInfermiere:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaSottoministrazioneInfermiereDto'
+        medicinaleCartella:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleCartellaDto'
+        operazionePrescrizione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OperazionePrescrizioneDto'
+        medicinaleSottoministrazione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleSottoministrazioneDto'
+    Diagnosi:
+      type: object
+      properties:
+        idDiagnosi:
+          type: integer
+          format: int32
+        tipoDiagnosi:
+          type: string
+        descrizione:
+          type: string
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinica'
+    DiagnosiDto:
+      type: object
+      properties:
+        idDiagnosi:
+          type: integer
+          format: int32
+        tipoDiagnosi:
+          type: string
+        descrizione:
+          type: string
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    Esito:
+      type: object
+      properties:
+        codRet:
+          type: string
+          enum:
+            - OK
+            - WARNING
+            - KO
+        operationId:
+          type: string
+        messaggi:
+          type: array
+          items:
+            $ref: '#/components/schemas/Messaggio'
+    GenericResponseDtoInfermiereDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/InfermiereDto'
+    Infermiere:
+      type: object
+      properties:
+        idInfermiere:
+          type: integer
+          format: int32
+        nomeInfermiere:
+          type: string
+        cognomeInfermiere:
+          type: string
+        turnoInfermiere:
+          type: string
+        reparto:
+          $ref: '#/components/schemas/Reparto'
+        medicinaleSottoministrazione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleSottoministrazione'
+        visitaSottoministrazione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaSottoministrazioneInfermiere'
+    InfermiereDto:
+      type: object
+      properties:
+        idInfermiere:
+          type: integer
+          format: int32
+        nomeInfermiere:
+          type: string
+        cognomeInfermiere:
+          type: string
+        turnoInfermiere:
+          type: string
+        reparto:
+          $ref: '#/components/schemas/RepartoDto'
+        medicinaleSottoministrazione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinaleSottoministrazioneDto'
+        visitaSottoministrazione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaSottoministrazioneInfermiereDto'
+    Malattia:
+      type: object
+      properties:
+        idMalattia:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+        cartelle:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MalattiaCartella'
+    MalattiaCartella:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        malattia:
+          $ref: '#/components/schemas/Malattia'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinica'
+    MalattiaCartellaDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        malattia:
+          $ref: '#/components/schemas/MalattiaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    MalattiaDto:
+      type: object
+      properties:
+        idMalattia:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+    Medicinale:
+      type: object
+      properties:
+        idMedicinale:
+          type: integer
+          format: int32
+        nomeMedicinale:
+          type: string
+        descrizioneMedicinale:
+          type: string
+    MedicinaleCartella:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medicinale:
+          $ref: '#/components/schemas/Medicinale'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinica'
+    MedicinaleCartellaDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medicinale:
+          $ref: '#/components/schemas/MedicinaleDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    MedicinaleDto:
+      type: object
+      properties:
+        idMedicinale:
+          type: integer
+          format: int32
+        nomeMedicinale:
+          type: string
+        descrizioneMedicinale:
+          type: string
+    MedicinalePrescrizione:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medico:
+          $ref: '#/components/schemas/Medico'
+        medicinale:
+          $ref: '#/components/schemas/Medicinale'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinica'
+    MedicinalePrescrizioneDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medico:
+          $ref: '#/components/schemas/MedicoDto'
+        medicinale:
+          $ref: '#/components/schemas/MedicinaleDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    MedicinaleSottoministrazione:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        infermiere:
+          $ref: '#/components/schemas/Infermiere'
+        medicinale:
+          $ref: '#/components/schemas/Medicinale'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinica'
+    MedicinaleSottoministrazioneDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        infermiere:
+          $ref: '#/components/schemas/InfermiereDto'
+        medicinale:
+          $ref: '#/components/schemas/MedicinaleDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    Medico:
+      type: object
+      properties:
+        idMedico:
+          type: integer
+          format: int32
+        nomeMedico:
+          type: string
+        cognomeMedico:
+          type: string
+        turnoMedico:
+          type: string
+        reparto:
+          $ref: '#/components/schemas/Reparto'
+        medicinalePrescrizioneSet:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinalePrescrizione'
+    MedicoDto:
+      type: object
+      properties:
+        idMedico:
+          type: integer
+          format: int32
+        nomeMedico:
+          type: string
+        cognomeMedico:
+          type: string
+        turnoMedico:
+          type: string
+        reparto:
+          $ref: '#/components/schemas/RepartoDto'
+        medicinalePrescrizioneSet:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicinalePrescrizioneDto'
+    Messaggio:
+      type: object
+      properties:
+        severita:
+          type: string
+          enum:
+            - INFO
+            - WARNING
+            - ERROR
+            - PROPAGATED
+        codMsg:
+          type: string
+        parametri:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parametro'
+    OperazioneCartella:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        operazioneMedica:
+          $ref: '#/components/schemas/OperazioneMedica'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinica'
+        medico:
+          $ref: '#/components/schemas/Medico'
+    OperazioneCartellaDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        operazioneMedica:
+          $ref: '#/components/schemas/OperazioneMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+        medico:
+          $ref: '#/components/schemas/MedicoDto'
+    OperazioneMedica:
+      type: object
+      properties:
+        idOperazioneMedica:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+        tipologia:
+          type: string
+        operazioneCartella:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OperazioneCartella'
+        operazionePrescrizione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OperazionePrescrizione'
+    OperazioneMedicaDto:
+      type: object
+      properties:
+        idOperazioneMedica:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        descrizione:
+          type: string
+        tipologia:
+          type: string
+        operazionePrescrizione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OperazionePrescrizioneDto'
+    OperazionePrescrizione:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        operazioneMedica:
+          $ref: '#/components/schemas/OperazioneMedica'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinica'
+        medico:
+          $ref: '#/components/schemas/Medico'
+    OperazionePrescrizioneDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        operazioneMedica:
+          $ref: '#/components/schemas/OperazioneMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+        medico:
+          $ref: '#/components/schemas/MedicoDto'
+    Parametro:
+      type: object
+      properties:
+        nome:
+          type: string
+        valore:
+          type: string
+    RefertoVisitaMedica:
+      type: object
+      properties:
+        idReferto:
+          type: integer
+          format: int32
+        tipologia:
+          type: string
+        descrizione:
+          type: string
+        dataReferto:
+          type: string
+    Reparto:
+      type: object
+      properties:
+        idReparto:
+          type: integer
+          format: int32
+        nomeReparto:
+          type: string
+        descrizioneReparto:
+          type: string
+        capoReparto:
+          $ref: '#/components/schemas/Medico'
+        infermieri:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Infermiere'
+    RepartoDto:
+      type: object
+      properties:
+        idReparto:
+          type: integer
+          format: int32
+        nomeReparto:
+          type: string
+        descrizioneReparto:
+          type: string
+        capoReparto:
+          $ref: '#/components/schemas/MedicoDto'
+        infermieri:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/InfermiereDto'
+    VisitaMedica:
+      type: object
+      properties:
+        idVisitaMedica:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        tipologia:
+          type: string
+        descrizione:
+          type: string
+        visitaPrescrizione:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaPrescrizione'
+        visitaSottoministrazioneMedico:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaSottoministrazioneMedico'
+        visitaSottoministrazioneInfermiere:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaSottoministrazioneInfermiere'
+    VisitaMedicaCartella:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinica'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedica'
+        refertoVisitaMedica:
+          $ref: '#/components/schemas/RefertoVisitaMedica'
+    VisitaMedicaCartellaDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinica'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedica'
+        refertoVisitaMedica:
+          $ref: '#/components/schemas/RefertoVisitaMedica'
+    VisitaMedicaDto:
+      type: object
+      properties:
+        idVisitaMedica:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        tipologia:
+          type: string
+        descrizione:
+          type: string
+        visitaSottoministrazioneMedico:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaSottoministrazioneMedicoDto'
+        visitaSottoministrazioneInfermiere:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitaSottoministrazioneInfermiereDto'
+    VisitaPrescrizione:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medico:
+          $ref: '#/components/schemas/Medico'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedica'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinica'
+    VisitaPrescrizioneDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medico:
+          $ref: '#/components/schemas/MedicoDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    VisitaSottoministrazioneInfermiere:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        infermiere:
+          $ref: '#/components/schemas/Infermiere'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedica'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinica'
+    VisitaSottoministrazioneInfermiereDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        infermiere:
+          $ref: '#/components/schemas/InfermiereDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    VisitaSottoministrazioneMedico:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medico:
+          $ref: '#/components/schemas/Medico'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedica'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinica'
+    VisitaSottoministrazioneMedicoDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        medico:
+          $ref: '#/components/schemas/MedicoDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    GenericResponseDtoCartellaClinicaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    CollegaVisitaMedicaCartellaDto:
+      type: object
+      properties:
+        idVisitaMedica:
+          type: integer
+          format: int32
+        idCartellaClinica:
+          type: integer
+          format: int32
+    GenericResponseDtoVisitaMedicaCartellaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/VisitaMedicaCartellaDto'
+    CollegaMedicinaleCartellaClinica:
+      type: object
+      properties:
+        idCartellaClinica:
+          type: integer
+          format: int32
+        idMedicinale:
+          type: integer
+          format: int32
+    GenericResponseDtoMedicinaleCartellaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/MedicinaleCartellaDto'
+    CollegaMalattiaCartellaDto:
+      type: object
+      properties:
+        idCartellaClinica:
+          type: integer
+          format: int32
+        idMalattiaPaziente:
+          type: integer
+          format: int32
+    GenericResponseDtoMalattiaCartellaDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/MalattiaCartellaDto'
+    AddPazientereDto:
+      type: object
+      properties:
+        nome:
+          type: string
+        cognome:
+          type: string
+        dataNascita:
+          type: string
+        luogoNascita:
+          type: string
+        idReparto:
+          type: integer
+          format: int32
+        idCartellaClinica:
+          type: integer
+          format: int32
+        idContattoRiferimento:
+          type: integer
+          format: int32
+    ContattoRiferimentoDto:
+      type: object
+      properties:
+        idContatto:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        numeroCellulare:
+          type: string
+    GenericResponseDtoPazienteDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/PazienteDto'
+    PazienteDto:
+      type: object
+      properties:
+        idPaziente:
+          type: integer
+          format: int32
+        nome:
+          type: string
+        cognome:
+          type: string
+        dataNascita:
+          type: string
+        luogoNascita:
+          type: string
+        provinciaNascita:
+          type: string
+        contattoRiferimento:
+          $ref: '#/components/schemas/ContattoRiferimentoDto'
+        reparto:
+          $ref: '#/components/schemas/RepartoDto'
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+    AddContattoRiferimentoDto:
+      type: object
+      properties:
+        nome:
+          type: string
+        cognome:
+          type: string
+        numeroCellulare:
+          type: string
+    GenericResponseDtoContattoRiferimentoDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/ContattoRiferimentoDto'
+    AddCartellaClinicaDto:
+      type: object
+      properties:
+        gruppoSanguigno:
+          type: string
+    AddInfermiereDto:
+      type: object
+      properties:
+        nomeInfermiere:
+          type: string
+        cognomeInfermiere:
+          type: string
+        turnoInfermiere:
+          type: string
+        idReparto:
+          type: integer
+          format: int32
+    FilterPazienteDto:
+      type: object
+      properties:
+        idPaziente:
+          type: integer
+          format: int32
+        nomePaziente:
+          type: string
+        cognomePaziente:
+          type: string
+        idReparto:
+          type: integer
+          format: int32
+        dataNascita:
+          type: string
+        luogoNascita:
+          type: string
+        provinciaNascita:
+          type: string
+        contattoRiferimento:
+          type: integer
+          format: int32
+    GenericResponseDtoListPazienteDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/PazienteDto'
+    FilterInfermiereDto:
+      type: object
+      properties:
+        idInfermiere:
+          type: integer
+          format: int32
+        nomeInfermiere:
+          type: string
+        cognomeInfermiere:
+          type: string
+        idReparto:
+          type: integer
+          format: int32
+        turnoInfermiere:
+          type: string
+    GenericResponseDtoListInfermiereDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfermiereDto'
+    GenericResponseDtoString:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: string
+    GenericResponseDtoResponseMessagePdfDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/ResponseMessagePdfDto'
+    ResponseMessagePdfDto:
+      type: object
+      properties:
+        answer:
+          type: string
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceDto'
+    SourceDto:
+      type: object
+      properties:
+        pageContent:
+          type: string
+        source:
+          type: string
+    GenericResponseDtoVoid:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          type: object

@@ -21,7 +21,7 @@ import static com.mspazienti.constants.WebConstants.REST_CONTEX_STRING;
 @RestController
 @RequestMapping(REST_CONTEX_STRING + "/paziente")
 @Validated
-@Tag(name = "Bot Sanitario Chat Controller",
+@Tag(name = "MsPazienteController",
         description = "Gestione della chat")
 @CrossOrigin
 @AllArgsConstructor
@@ -29,14 +29,25 @@ public class PazienteController {
     private final EsitoMessaggiRequestContextHolder esitoMessaggiRequestContextHolder;
     private final PazienteService pazienteService;
 
-    @Operation(summary = "Chat normale",
-            description = "Invio di un messaggio al bot Sanitario sfruttando l'LLM non addestrato")
+    @Operation(summary = "Lista di pazienti",
+            description = "Lista di tutti i pazienti")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value = "/normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<PazienteDto>>> getListPazienti() {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.getListPazienti()));
+    }
+
+    @Operation(summary = "Paziente",
+            description = "Ottenimento informazione paziente tramite id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value = "/info/{idPaziente}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<PazienteDto>> getInfoPaziente(@RequestParam("idPaziente") Integer idPaziente) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(pazienteService.getInfoPaziente(idPaziente)));
     }
 }

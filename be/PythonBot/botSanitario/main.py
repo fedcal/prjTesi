@@ -11,6 +11,8 @@ from mysql.connector import connect, Error
 import os
 import logging
 from logging.handlers import RotatingFileHandler
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 from langdetect import detect
 from deep_translator import GoogleTranslator
@@ -62,7 +64,55 @@ def botAlimentazioneMessage():
     print(f"Query: {query}")
 
     response = llm.invoke(query)
-    responseAnswer = {"message": check_and_translate(response)}
+    responseAnswer = {"query": query, "message": check_and_translate(response)}
+
+    return responseAnswer
+
+@app.route('/evaluete-message', methods=['POST'])
+def botAlimentazioneEvalueteMessage():
+    jsonContent = request.json
+    query = jsonContent.get('query')
+    print(f"Query: {query}")
+
+    print(f"Carico il VectorStore")
+    vectorStore = Chroma(persist_directory=pathAddestramento,
+                         embedding_function=embedding)
+
+    print(f"Creo la chain")
+    retriever = vectorStore.as_retriever(
+        search_type="similarity_score_threshold",
+        search_kwargs={
+            "k": 20,
+            "score_threshold": 0.3,
+        },
+    )
+
+    document_chain = create_stuff_documents_chain(llm, rawPrompt)
+    chain = create_retrieval_chain(retriever, document_chain)
+
+    result = chain.invoke({"input": f"Rispondi in italiano: {query}"})
+
+    print(result)
+
+    sources = []
+    for doc in result["context"]:
+        sources.append(
+            {"source": doc.metadata["source"], "pageContent": doc.page_content}
+        )
+
+    rispostaCorretta = "Ecco la mia risposta:\n\n**Schema alimentare 1 (8C)**\n\n* Pranzo:\n\t+ Pasta di semola secca: scegli tra pasta di semola secca 100g preferibilmente integrale, pasta di semola fresca 140g o pasta all'uovo fresca 120g\n\t+ Condimento del primo piatto: sugo semplice al pomodoro, sugo all'arrabbiata, in brodo (vegetale), condimento di verdure a piacere, in bianco, con aglio olio e peperoncino. È possibile aggiungere 1 cucchiaino di formaggio grattugiato stagionato (grana, parmigiano, pecorino) se gradito.\n* Colazione:\n\t+ Opzione a scelta: una tazza di latte parzialmente scremato da 250ml, due vasetti di yogurt naturale magro non zuccherato da 125g o un bicchiere di kefir da 300ml. In alternativa, può scegliere una tazza di latte da 125 ml + uno yogurt naturale magro da 125g\n\t+ In aggiunta: 6 biscotti frollini o 7 biscotti secchi preferibilmente integrali (60g), 5 fette biscottate preferibilmente integrali (60g) con un velo sottile di marmellata, due panini piccoli preferibilmente integrali (100g) con un velo sottile di marmellata o 8-10 cucchiai di cereali per la colazione preferibilmente integrali, o cornflakes (60g)\n* Possibilità di utilizzare una bevanda calda come caffè, orzo o tè non zuccherato in bustina (non superare i 2 cucchiaini di zucchero o miele al giorno per zuccherare le bevande calde)\n\n**Schema alimentare 1 (8C)**\n\n* Pranzo:\n\t+ Pasta di semola secca: scegli tra pasta di semola secca 100g preferibilmente integrale, pasta di semola fresca 140g o pasta all'uovo fresca 120g\n\t+ Condimento del primo piatto: sugo semplice al pomodoro, sugo all'arrabbiata, in brodo (vegetale), condimento di verdure a piacere, in bianco, con aglio olio e peperoncino. È possibile aggiungere 1 cucchiaino di formaggio grattugiato stagionato (grana, parmigiano, pecorino) se gradito.\n* Colazione:\n\t+ Opzione a scelta: una tazza di latte parzialmente scremato da 250ml, due vasetti di yogurt naturale magro non zuccherato da 125g o un bicchiere di kefir da 300ml. In alternativa, può scegliere una tazza di latte da 125 ml + uno yogurt naturale magro da 125g\n\t+ In aggiunta: 6 biscotti frollini o 7 biscotti secchi preferibilmente integrali (60g), 5 fette biscottate preferibilmente integrali (60g) con un velo sottile di marmellata, due panini piccoli preferibilmente integrali (100g) con un velo sottile di marmellata o 8-10 cucchiai di cereali per la colazione preferibilmente integrali, o cornflakes (60g)\n* Possibilità di utilizzare una bevanda calda come caffè, orzo o tè non zuccherato in bustina (non superare i 2 cucchiaini di zucchero o miele al giorno per zuccherare le bevande calde)\n\n**Schema alimentare 1 (8C)**\n\n* Pranzo:\n\t+ Pasta di semola secca: scegli tra pasta di semola secca 100g preferibilmente integrale, pasta di semola fresca 140g o pasta all'uovo fresca 120g\n\t+ Condimento del primo piatto: sugo semplice al pomodoro, sugo all'arrabbiata, in brodo (vegetale), condimento di verdure a piacere, in bianco, con aglio olio e peperoncino. È possibile aggiungere 1 cucchiaino di formaggio grattugiato stagionato (grana, parmigiano, pecorino) se gradito.\n* Colazione:\n\t+ Opzione a scelta: una tazza di latte parzialmente scremato da 250ml, due vasetti di yogurt naturale magro non zuccherato da 125g o un bicchiere di kefir da 300ml. In alternativa, può scegliere una tazza di latte da 125 ml + uno yogurt naturale magro da 125g\n\t+ In aggiunta: 6 biscotti frollini o 7 biscotti secchi preferibilmente integrali (60g), 5 fette biscottate preferibilmente integrali (60g) con un velo sottile di marmellata, due panini piccoli preferibilmente integrali (100g) con un velo sottile di marmellata o 8-10 cucchiai di cereali per la colazione preferibilmente integrali, o cornflakes (60g)\n* Possibilità di utilizzare una bevanda calda come caffè, orzo o tè non zuccherato in bustina (non superare i 2 cucchiaini di zucchero o miele al giorno per zuccherare le bevande calde)"
+    # Calcola la similarità tra la risposta generata e la risposta di riferimento
+    similarity_score = calculate_similarity(
+        check_and_translate(result["answer"]).replace("\n", "").replace("\t", "").replace("+", "").replace("*", ""),  # Risposta generata
+        rispostaCorretta.replace("\n", "").replace("\t", "").replace("+", "").replace("*", "")  # Risposta di riferimento
+    )
+
+    # Stampa del risultato
+    print(f"Similarità: {similarity_score}")
+
+    print(f"answer: {check_and_translate(result["answer"])}")
+
+    responseAnswer = {"answer": check_and_translate(result["answer"]), "sources": sources, "query": query, "similarity": similarity_score}
 
     return responseAnswer
 
@@ -147,7 +197,7 @@ def askPdf():
             {"source": doc.metadata["source"], "pageContent": doc.page_content}
         )
 
-    responseAnswer = {"answer": check_and_translate(result["answer"]), "sources": sources}
+    responseAnswer = {"answer": check_and_translate(result["answer"]), "sources": sources, "query": query}
 
     return responseAnswer
 
@@ -211,6 +261,15 @@ def check_and_translate(text):
         return text
     elif detected_language == 'it':
         return text
+
+def calculate_similarity(text1, text2):
+    """
+    Calcola la similarità del coseno tra due testi.
+    """
+    vectorizer = TfidfVectorizer()
+    tfidf_matrix = vectorizer.fit_transform([text1, text2])
+    similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
+    return similarity[0][0]
 
 if __name__ == '__main__':
     startApplication()
