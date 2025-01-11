@@ -1,5 +1,6 @@
 package com.bff.dto.response.mspaziente;
 
+import com.bff.dto.response.mspaziente.relation.*;
 import lombok.Data;
 
 import java.util.Set;

@@ -1,6 +1,8 @@
 package com.msinfermiere.controller;
 
+import com.msinfermiere.dto.chatbot.responseRequest.ResponseEvalueteNormalChatDto;
 import com.msinfermiere.dto.chatbot.responseRequest.ResponseMessagePdfDto;
+import com.msinfermiere.dto.chatbot.responseRequest.ResponseNormalMessageDto;
 import com.msinfermiere.esito.EsitoMessaggiRequestContextHolder;
 import com.msinfermiere.esito.GenericResponseDto;
 import com.msinfermiere.service.ChatService;
@@ -34,7 +36,7 @@ public class ChatBotSanitarioController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value = "/normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<String>> normalChat(@RequestParam String messagge) {
+    public ResponseEntity<GenericResponseDto<ResponseNormalMessageDto>> normalChat(@RequestParam String messagge) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.normalChat(messagge)));
     }
 
@@ -47,5 +49,16 @@ public class ChatBotSanitarioController {
     @GetMapping(value = "/chat-addestrata", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<ResponseMessagePdfDto>> chatAddestrata(@RequestParam String messagge) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.chatAddestrata(messagge)));
+    }
+
+    @Operation(summary = "Chat Valutazione pdf",
+            description = "Chat Valutazione pdf")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value = "/evaluete-normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<ResponseEvalueteNormalChatDto>> evalueteNormalChat(@RequestParam String messagge) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.evalueteNormalChat(messagge)));
     }
 }

@@ -1,4 +1,8 @@
-package com.bff.dto.response.mspaziente;
+package com.bff.dto.response.mspaziente.relation;
+
+import com.bff.dto.response.mspaziente.InfermiereDto;
+import com.bff.dto.response.mspaziente.MedicinaleDto;
+import com.bff.dto.response.mspaziente.CartellaClinicaDto;
 
 import lombok.Data;
 

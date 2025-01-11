@@ -1,11 +1,11 @@
 package com.bff.service;
 
 import com.bff.dto.botpy.responseRequest.ResponseEvalueteNormalChatDto;
-import com.bff.dto.botpy.responseRequest.ResponseMessageDto;
 import com.bff.dto.botpy.responseRequest.ResponseMessagePdfDto;
+import com.bff.dto.botpy.responseRequest.ResponseNormalMessageDto;
 
 public interface MsPazienteService {
-    ResponseMessageDto normalChat(String messagge);
+    ResponseNormalMessageDto normalChat(String messagge);
 
     ResponseMessagePdfDto chatAddestrata(String messagge);
 

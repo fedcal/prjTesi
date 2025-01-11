@@ -3,6 +3,7 @@ package com.bff.service.impl;
 import com.bff.dto.botpy.responseRequest.ResponseEvalueteNormalChatDto;
 import com.bff.dto.botpy.responseRequest.ResponseMessageDto;
 import com.bff.dto.botpy.responseRequest.ResponseMessagePdfDto;
+import com.bff.dto.botpy.responseRequest.ResponseNormalMessageDto;
 import com.bff.esito.GenericResponseConverter;
 import com.bff.esito.GenericResponseDto;
 import com.bff.mspaziente.api.MsPazienteChatbotControllerApi;
@@ -19,8 +20,8 @@ public class MsPazienteServiceImpl implements MsPazienteService {
     private final GenericResponseConverter genericResponseConverter;
 
     @Override
-    public ResponseMessageDto normalChat(String messagge) {
-        GenericResponseDto<ResponseMessageDto> normalChatResponse = genericResponseConverter.convertGenericResponse(msPazienteChatbotControllerApi.normalChat(messagge), ResponseMessageDto.class);
+    public ResponseNormalMessageDto normalChat(String messagge) {
+        GenericResponseDto<ResponseNormalMessageDto> normalChatResponse = genericResponseConverter.convertGenericResponse(msPazienteChatbotControllerApi.normalChat(messagge), ResponseNormalMessageDto.class);
         return normalChatResponse.getPayload();
     }
 
@@ -32,7 +33,7 @@ public class MsPazienteServiceImpl implements MsPazienteService {
 
     @Override
     public ResponseEvalueteNormalChatDto evalueteNormalChat(String messagge) {
-        GenericResponseDto<ResponseEvalueteNormalChatDto> evaluationeChatAddestrata = genericResponseConverter.convertGenericResponse(msPazienteChatbotControllerApi.chatAddestrata(messagge), ResponseEvalueteNormalChatDto.class);
+        GenericResponseDto<ResponseEvalueteNormalChatDto> evaluationeChatAddestrata = genericResponseConverter.convertGenericResponse(msPazienteChatbotControllerApi.evalueteNormalChat(messagge), ResponseEvalueteNormalChatDto.class);
         return evaluationeChatAddestrata.getPayload();
     }
 }

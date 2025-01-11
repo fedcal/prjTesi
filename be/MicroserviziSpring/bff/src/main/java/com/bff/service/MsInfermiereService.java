@@ -4,7 +4,7 @@ import com.bff.dto.botpy.responseRequest.ResponseEvalueteNormalChatDto;
 import com.bff.dto.botpy.responseRequest.ResponseMessagePdfDto;
 import com.bff.dto.botpy.responseRequest.ResponseNormalMessageDto;
 
-public interface BotAlimentazioneService {
+public interface MsInfermiereService {
     ResponseNormalMessageDto normalChat(String messagge);
 
     ResponseMessagePdfDto chatAddestrata(String messagge);

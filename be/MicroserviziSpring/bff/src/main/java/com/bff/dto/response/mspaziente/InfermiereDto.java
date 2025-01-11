@@ -1,5 +1,7 @@
 package com.bff.dto.response.mspaziente;
 
+import com.bff.dto.response.mspaziente.relation.MedicinaleSottoministrazioneDto;
+import com.bff.dto.response.mspaziente.relation.VisitaSottoministrazioneInfermiereDto;
 import lombok.Data;
 
 import java.util.Set;

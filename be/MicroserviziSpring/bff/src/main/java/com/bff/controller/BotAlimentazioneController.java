@@ -3,6 +3,7 @@ package com.bff.controller;
 import com.bff.dto.botpy.responseRequest.ResponseEvalueteNormalChatDto;
 import com.bff.dto.botpy.responseRequest.ResponseMessageDto;
 import com.bff.dto.botpy.responseRequest.ResponseMessagePdfDto;
+import com.bff.dto.botpy.responseRequest.ResponseNormalMessageDto;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseDto;
 import com.bff.service.BotAlimentazioneService;
@@ -39,7 +40,7 @@ public class BotAlimentazioneController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value = "/normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<ResponseMessageDto>> normalChat(@RequestParam String messagge) {
+    public ResponseEntity<GenericResponseDto<ResponseNormalMessageDto>> normalChat(@RequestParam String messagge) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(botAlimentazioneService.normalChat(messagge)));
     }
 

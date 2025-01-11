@@ -359,13 +359,39 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
+                $ref: '#/components/schemas/GenericResponseDtoResponseNormalMessageDto'
         '500':
           description: Errore di sistema
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponseDtoString'
+                $ref: '#/components/schemas/GenericResponseDtoResponseNormalMessageDto'
+  /ms-infermiere/bot-sanitario-chat/evaluete-normal-chat:
+    get:
+      tags:
+        - MsInfermiereChatBotSanitarioController
+      summary: Chat Valutazione pdf
+      description: Chat Valutazione pdf
+      operationId: evalueteNormalChat
+      parameters:
+        - name: messagge
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operazione andata a buon fine
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoResponseEvalueteNormalChatDto'
+        '500':
+          description: Errore di sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponseDtoResponseEvalueteNormalChatDto'
   /ms-infermiere/bot-sanitario-chat/chat-addestrata:
     get:
       tags:
@@ -1327,12 +1353,44 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InfermiereDto'
-    GenericResponseDtoString:
+    GenericResponseDtoResponseNormalMessageDto:
       type: object
       properties:
         esito:
           $ref: '#/components/schemas/Esito'
         payload:
+          $ref: '#/components/schemas/ResponseNormalMessageDto'
+    ResponseNormalMessageDto:
+      type: object
+      properties:
+        message:
+          type: string
+    GenericResponseDtoResponseEvalueteNormalChatDto:
+      type: object
+      properties:
+        esito:
+          $ref: '#/components/schemas/Esito'
+        payload:
+          $ref: '#/components/schemas/ResponseEvalueteNormalChatDto'
+    ResponseEvalueteNormalChatDto:
+      type: object
+      properties:
+        query:
+          type: string
+        answer:
+          type: string
+        similarity:
+          type: string
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceDto'
+    SourceDto:
+      type: object
+      properties:
+        pageContent:
+          type: string
+        source:
           type: string
     GenericResponseDtoResponseMessagePdfDto:
       type: object
@@ -1350,13 +1408,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SourceDto'
-    SourceDto:
-      type: object
-      properties:
-        pageContent:
-          type: string
-        source:
-          type: string
     GenericResponseDtoVoid:
       type: object
       properties:
