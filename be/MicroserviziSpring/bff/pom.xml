@@ -90,6 +90,12 @@
 			<artifactId>json-path</artifactId>
 			<version>2.8.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.6.0.Beta1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -107,8 +113,16 @@
 							<artifactId>lombok</artifactId>
 							<version>${lombok.version}</version>
 						</path>
-
-
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct</artifactId>
+							<version>1.6.0.Beta1</version>
+						</path>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>1.6.0.Beta1</version>
+						</path>
 					</annotationProcessorPaths>
 					<compilerArgs>
 						<compilerArg>

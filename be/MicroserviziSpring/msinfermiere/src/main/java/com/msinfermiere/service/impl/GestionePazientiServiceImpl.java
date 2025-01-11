@@ -65,7 +65,7 @@ public class GestionePazientiServiceImpl implements GestionePazientiService {
     private VisitaMedicaCartellaRepository visitaMedicaCartellaRepository;
 
     @Override
-    public List<PazienteDto> getAllInfermieri() {
+    public List<PazienteDto> getAllpazienti() {
         return PazienteDtoMapper.INSTANCE.toDto(pazienteRepository.findAll());
     }
 

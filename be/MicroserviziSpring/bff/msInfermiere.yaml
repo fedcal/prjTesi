@@ -280,7 +280,7 @@ paths:
         - MsInfermiereGestionePazientiController
       summary: All Pazienti
       description: Restituisce tutti i pazienti
-      operationId: getAllInfermieri
+      operationId: getAllpazienti
       responses:
         '200':
           description: Operazione andata a buon fine
@@ -326,7 +326,7 @@ paths:
         - MsInfermiereGestioneInfermiereController
       summary: All Infermieri
       description: Restituisce tutti gli infermieri
-      operationId: getAllInfermieri_1
+      operationId: getAllInfermieri
       responses:
         '200':
           description: Operazione andata a buon fine

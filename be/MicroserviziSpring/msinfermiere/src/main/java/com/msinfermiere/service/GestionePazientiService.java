@@ -11,7 +11,7 @@ import com.msinfermiere.dto.request.gestionepaziente.*;
 import java.util.List;
 
 public interface GestionePazientiService {
-    List<PazienteDto> getAllInfermieri();
+    List<PazienteDto> getAllpazienti();
 
     List<PazienteDto> filterPazienti(FilterPazienteDto filterInfermiereDto);
 

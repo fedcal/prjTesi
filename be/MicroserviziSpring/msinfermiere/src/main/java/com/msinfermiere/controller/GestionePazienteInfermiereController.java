@@ -42,8 +42,8 @@ public class GestionePazienteInfermiereController {
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<List<PazienteDto>>> getAllInfermieri() {
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(gestionePazientiService.getAllInfermieri()));
+    public ResponseEntity<GenericResponseDto<List<PazienteDto>>> getAllpazienti() {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(gestionePazientiService.getAllpazienti()));
     }
 
     @Operation(summary = "Filter infermieri",
