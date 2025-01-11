@@ -3,6 +3,7 @@ package com.bff.controller;
 import com.bff.dto.response.bot.ResponseEvalueteNormalChatDto;
 import com.bff.dto.response.bot.ResponseMessagePdfDto;
 import com.bff.dto.response.bot.ResponseNormalMessageDto;
+import com.bff.dto.response.mssanitario.PazienteDto;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseDto;
 import com.bff.service.MsPazienteService;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/ms-pazienti")
@@ -63,5 +66,27 @@ public class MsPazientiController {
     @GetMapping(value = "/evaluete-normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<ResponseEvalueteNormalChatDto>> evalueteNormalChat(@RequestParam String messagge) {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(msPazienteService.evalueteNormalChat(messagge)));
+    }
+
+    @Operation(summary = "Lista di pazienti",
+            description = "Lista di tutti i pazienti")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<List<PazienteDto>>> getListPazienti() {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(msPazienteService.getListPazienti()));
+    }
+
+    @Operation(summary = "Paziente",
+            description = "Ottenimento informazione paziente tramite id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
+            @ApiResponse(responseCode = "500", description = "Errore di sistema")
+    })
+    @GetMapping(value = "/info/{idPaziente}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<PazienteDto>> getInfoPaziente(@RequestParam("idPaziente") Integer idPaziente) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(msPazienteService.getInfoPaziente(idPaziente)));
     }
 }
