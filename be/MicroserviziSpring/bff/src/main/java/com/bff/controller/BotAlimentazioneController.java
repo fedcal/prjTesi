@@ -1,9 +1,8 @@
 package com.bff.controller;
 
-import com.bff.dto.botpy.responseRequest.ResponseEvalueteNormalChatDto;
-import com.bff.dto.botpy.responseRequest.ResponseMessageDto;
-import com.bff.dto.botpy.responseRequest.ResponseMessagePdfDto;
-import com.bff.dto.botpy.responseRequest.ResponseNormalMessageDto;
+import com.bff.dto.response.bot.ResponseEvalueteNormalChatDto;
+import com.bff.dto.response.bot.ResponseMessagePdfDto;
+import com.bff.dto.response.bot.ResponseNormalMessageDto;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseDto;
 import com.bff.service.BotAlimentazioneService;

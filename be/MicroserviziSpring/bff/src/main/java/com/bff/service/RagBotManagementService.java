@@ -1,9 +1,9 @@
 package com.bff.service;
 
 import com.bff.dto.RagBotPdfDto;
-import com.bff.dto.params.ragbotpdf.ModificaBotParams;
-import com.bff.dto.params.ragbotpdf.RegistraBotParams;
-import com.bff.dto.params.ragbotpdf.TrovaBotParams;
+import com.bff.dto.request.ragbotpdf.ModificaBotParams;
+import com.bff.dto.request.ragbotpdf.RegistraBotParams;
+import com.bff.dto.request.ragbotpdf.TrovaBotParams;
 
 import java.util.List;
 

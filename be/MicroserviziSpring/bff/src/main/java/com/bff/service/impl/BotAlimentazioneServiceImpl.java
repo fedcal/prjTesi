@@ -1,9 +1,9 @@
 package com.bff.service.impl;
 
 import com.bff.botalimentazione.api.BotAlimentazioneChatControllerApi;
-import com.bff.dto.botpy.responseRequest.ResponseEvalueteNormalChatDto;
-import com.bff.dto.botpy.responseRequest.ResponseMessagePdfDto;
-import com.bff.dto.botpy.responseRequest.ResponseNormalMessageDto;
+import com.bff.dto.response.bot.ResponseEvalueteNormalChatDto;
+import com.bff.dto.response.bot.ResponseMessagePdfDto;
+import com.bff.dto.response.bot.ResponseNormalMessageDto;
 import com.bff.esito.GenericResponseConverter;
 import com.bff.esito.GenericResponseDto;
 import com.bff.service.BotAlimentazioneService;

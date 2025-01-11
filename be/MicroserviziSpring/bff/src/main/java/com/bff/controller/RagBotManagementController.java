@@ -1,7 +1,7 @@
 package com.bff.controller;
 
 import com.bff.dto.RagBotPdfDto;
-import com.bff.dto.params.ragbotpdf.TrovaBotParams;
+import com.bff.dto.request.ragbotpdf.TrovaBotParams;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseDto;
 import com.bff.service.RagBotManagementService;
@@ -16,8 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.bff.dto.params.ragbotpdf.RegistraBotParams;
-import com.bff.dto.params.ragbotpdf.ModificaBotParams;
+import com.bff.dto.request.ragbotpdf.RegistraBotParams;
+import com.bff.dto.request.ragbotpdf.ModificaBotParams;
 
 import java.util.List;
 

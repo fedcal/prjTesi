@@ -1,8 +1,8 @@
 package com.bff.service;
 
 import com.bff.dto.CartelleDto;
-import com.bff.dto.params.cartella.CartellaParams;
-import com.bff.dto.params.cartella.ModificaCartellaParams;
+import com.bff.dto.request.cartella.CartellaParams;
+import com.bff.dto.request.cartella.ModificaCartellaParams;
 import jakarta.validation.Valid;
 
 import java.util.List;

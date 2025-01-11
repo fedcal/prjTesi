@@ -1,8 +1,8 @@
 package com.bff.service.impl;
 
 import com.bff.dto.CartelleDto;
-import com.bff.dto.params.cartella.CartellaParams;
-import com.bff.dto.params.cartella.ModificaCartellaParams;
+import com.bff.dto.request.cartella.CartellaParams;
+import com.bff.dto.request.cartella.ModificaCartellaParams;
 import com.bff.esito.EsitoMessaggiRequestContextHolder;
 import com.bff.esito.GenericResponseConverter;
 import com.bff.esito.GenericResponseDto;
@@ -10,7 +10,6 @@ import com.bff.filemanagement.api.CartelleControllerApi;
 import com.bff.service.CartelleManagementService;
 import com.bff.utils.ConverterObjectParameter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

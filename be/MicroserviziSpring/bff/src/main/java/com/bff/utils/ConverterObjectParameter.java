@@ -1,10 +1,10 @@
 package com.bff.utils;
 
-import com.bff.dto.params.cartella.CartellaParams;
-import com.bff.dto.params.cartella.ModificaCartellaParams;
-import com.bff.dto.params.ragbotpdf.RegistraBotParams;
-import com.bff.dto.params.ragbotpdf.ModificaBotParams;
-import com.bff.dto.params.ragbotpdf.TrovaBotParams;
+import com.bff.dto.request.cartella.CartellaParams;
+import com.bff.dto.request.cartella.ModificaCartellaParams;
+import com.bff.dto.request.ragbotpdf.RegistraBotParams;
+import com.bff.dto.request.ragbotpdf.ModificaBotParams;
+import com.bff.dto.request.ragbotpdf.TrovaBotParams;
 
 
 public final class ConverterObjectParameter {
