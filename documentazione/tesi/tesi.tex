@@ -125,10 +125,10 @@
 
 \pagenumbering{arabic}
 \setcounter{page}{1}
-\addcontentsline{toc}{chapter}{Introduzione}
+%\addcontentsline{toc}{chapter}{Introduzione}
 
 \chapter{Introduzione}
-Nel contesto attuale, caratterizzato da una crescente interazione tra utenti e sistemi digitali, i chatbot stanno emergendo come strumenti essenziali per migliorare l’esperienza dell’utente e ottimizzare i processi aziendali. Diverse ricerche evidenziano come l’adozione di chatbot possa ridurre significativamente i costi operativi, aumentare l’efficienza del servizio clienti e migliorare il tasso di soddisfazione degli utenti. Ad esempio, uno studio condotto da Gartner nel 2023 stima che entro il 2026 i chatbot contribuiranno a ridurre i costi aziendali del 30%, sostituendo fino al 70% delle interazioni umane in determinati contesti di servizio clienti. Inoltre, un rapporto di McKinsey sottolinea come le aziende che integrano chatbot nei propri processi abbiano registrato un aumento medio del 25% nella velocità di risoluzione delle richieste.
+Nel contesto attuale, caratterizzato da una crescente interazione tra utenti e sistemi digitali, i chatbot stanno emergendo come strumenti essenziali per migliorare l’esperienza dell’utente e ottimizzare i processi aziendali. Diverse ricerche evidenziano come l’adozione di chatbot possa ridurre significativamente i costi operativi, aumentare l’efficienza del servizio clienti e migliorare il tasso di soddisfazione degli utenti. Ad esempio, uno studio condotto da Gartner nel 2023 stima che entro il 2026 i chatbot contribuiranno a ridurre i costi aziendali del 30\%, sostituendo fino al 70\% delle interazioni umane in determinati contesti di servizio clienti. Inoltre, un rapporto di McKinsey sottolinea come le aziende che integrano chatbot nei propri processi abbiano registrato un aumento medio del 25\% nella velocità di risoluzione delle richieste.
 
 Tuttavia, i chatbot tradizionali presentano alcune limitazioni significative, in particolare la mancanza di contesto nelle risposte fornite. Questi sistemi spesso si basano su algoritmi deterministici o su modelli di machine learning addestrati su dataset limitati, che non sono in grado di adattarsi dinamicamente a richieste complesse o ambigue. Ad esempio, un chatbot tradizionale potrebbe fornire risposte errate o incomplete in scenari in cui l’utente utilizza un linguaggio non strutturato, si riferisce a informazioni specifiche o richiede dati aggiornati in tempo reale. Tali limitazioni riducono la loro efficacia in applicazioni aziendali critiche, come l’assistenza tecnica avanzata o la consulenza personalizzata.
 
@@ -138,7 +138,6 @@ Questa tesi si propone di affrontare la sfida della creazione e gestione di chat
 
 Per garantire una fruizione ottimale e una gestione efficiente dei chatbot, è stata progettata una soluzione integrata che comprende:
 \begin{itemize}
-\item \textbf{Frontend in ReactJS}: Un'interfaccia utente interattiva e dinamica che facilita l'interazione degli utenti con i chatbot. ReactJS è stato scelto per la sua capacità di creare applicazioni web veloci e reattive.
 
 \item \textbf{Servizi REST}: Interfacce di programmazione che permettono la comunicazione tra il frontend, i servizi backend e i vari bot. Le API sono state sviluppate utilizzando due tecnologie complementari: Spring Boot e Python.
 
@@ -152,44 +151,68 @@ Diversi contesti possono beneficiare di quanto realizzato, tra cui il settore sa
 Per quanto riguarda gli sviluppi futuri, questa tecnologia potrebbe evolversi integrando funzionalità di intelligenza artificiale più avanzate, come modelli di linguaggio di nuova generazione e algoritmi di apprendimento rinforzato. Ciò permetterebbe ai chatbot di adattarsi in tempo reale alle esigenze degli utenti, prevedere domande basandosi sul contesto e fornire un supporto ancora più personalizzato e proattivo. Inoltre, l'integrazione con sistemi IoT e dispositivi indossabili potrebbe ampliare ulteriormente le applicazioni, consentendo ai chatbot di raccogliere e analizzare dati in tempo reale per offrire risposte ancora più precise ed efficaci.
 
 \chapter{Large Language Models (LLM) e Retrieval-Augmented Generation (RAG)}
-L'intelligenza artificiale (IA) ha rivoluzionato il panorama tecnologico, con un impatto significativo su molteplici settori. Nel campo del Natural Language Processing (NLP), i Large Language Models (LLM) rappresentano una delle innovazioni più avanzate. Modelli come GPT (Generative Pre-trained Transformer) di OpenAI, BERT (Bidirectional Encoder Representations from Transformers) di Google e T5 (Text-To-Text Transfer Transformer) hanno dimostrato capacità straordinarie nel comprendere e generare linguaggio umano. Tuttavia, le loro limitazioni intrinseche, come la mancanza di accesso a dati aggiornati e il rischio di generare informazioni inesatte, ne riducono l'efficacia in applicazioni critiche.
+Nel contesto dell'intelligenza artificiale e del Natural Language Processing (NLP), i Large Language Models (LLM) e la metodologia Retrieval-Augmented Generation (RAG) rappresentano due pilastri fondamentali. Questo capitolo analizza l'evoluzione degli LLM, partendo dagli approcci simbolici iniziali fino agli avanzamenti moderni resi possibili dall'architettura Transformer. Successivamente, vengono approfondite le caratteristiche tecniche degli LLM, le loro applicazioni in diversi ambiti e le limitazioni che ne influenzano l'adozione. Inoltre, viene descritta la metodologia RAG, evidenziandone il funzionamento come combinazione tra generazione di contenuti e recupero di informazioni esterne, con particolare attenzione ai benefici, alle sfide e alle prospettive di sviluppo. Infine, si affrontano le implicazioni etiche e le potenziali direzioni future di queste tecnologie.
 
-Per superare queste sfide, è stata introdotta la tecnica Retrieval-Augmented Generation (RAG), sviluppata da Facebook AI Research (FAIR) nel 2020. RAG combina le capacità dei LLM con sistemi di recupero delle informazioni, consentendo l'accesso a fonti esterne per generare risposte più accurate e contestualizzate. Questo capitolo esplorerà il funzionamento degli LLM, le loro limitazioni e come RAG rappresenti un progresso cruciale per lo sviluppo di chatbot avanzati, supportato da studi e applicazioni pratiche.
+\section{Breve Storia e Evoluzione dei LLM}
 
-Gli LLM sono modelli di deep learning progettati per comprendere e generare linguaggio naturale. Basati sull'architettura Transformer, introdotta da Vaswani et al. nel 2017 nel paper "Attention is All You Need", questi modelli sono addestrati su enormi corpus testuali che includono libri, articoli scientifici e conversazioni.
+I Large Language Models (LLMs) sono modelli avanzati di intelligenza artificiale progettati per comprendere, generare e interagire con il linguaggio umano a livelli di complessità senza precedenti, rappresentando l'apice dell'evoluzione dell'Intelligenza Artificiale (IA) e del Natural Language Processing (NLP).
 
-Un esempio emblematico è GPT-3, descritto nel paper "Language Models are Few-Shot Learners" di Brown et al. (2020). Con 175 miliardi di parametri, GPT-3 eccelle in compiti complessi come traduzioni, creazione di contenuti e scrittura di codice. Altri modelli di rilievo includono BERT, focalizzato sulla comprensione del contesto bidirezionale, e T5, che unifica diversi compiti NLP in un framework text-to-text.
+L'evoluzione degli LLM segue un percorso che affonda le radici negli anni '50, quando l'intelligenza artificiale era ancora agli inizi, con sistemi basati su regole simboliche che analizzavano il linguaggio tramite regole sintattiche prestabilite. Tuttavia, questi modelli erano limitati dalla rigidità, incapaci di adattarsi a contesti o dati non previsti.
 
-Gli LLM sono utilizzati in numerosi ambiti:
+Negli anni '80 e '90, l'introduzione del machine learning e dei modelli statistici ha portato a un significativo passo avanti, con tecniche come gli n-grammi e i modelli di Markov nascosti che permettevano una gestione probabilistica del linguaggio. Sebbene abbiano superato alcune limitazioni dei sistemi simbolici, restava una mancanza di comprensione semantica profonda del contesto linguistico.
+
+Con l'avvento delle reti neurali e del deep learning nei primi anni 2000, l'elaborazione del linguaggio naturale ha subito una trasformazione radicale. Le architetture come le reti neurali ricorrenti (RNN) e le Long Short-Term Memory (LSTM) hanno introdotto la capacità di gestire le dipendenze temporali e sequenziali, migliorando così l'efficacia dei modelli nella comprensione del testo.
+
+La vera rivoluzione è avvenuta nel 2017 con la pubblicazione del paper "Attention is All You Need" di Vaswani et al., che ha introdotto l'architettura Transformer. Questo modello ha superato le limitazioni delle RNN, consentendo di analizzare l'intero contesto di un testo grazie al meccanismo di attenzione multi-head. L'architettura Transformer è diventata la base per modelli come GPT, BERT e T5, che hanno segnato una vera svolta nell'elaborazione del linguaggio naturale.
+
+Oggi, modelli come GPT-3 e GPT-4 di OpenAI, con miliardi di parametri, rappresentano l'apice dell'evoluzione degli LLM, in grado di generare testi coerenti, tradurre lingue, scrivere codice e rispondere a domande complesse. Altri modelli, come BERT e T5, sono stati progettati per applicazioni specifiche, come la comprensione del contesto bidirezionale e la risoluzione di compiti NLP multi-task. In questo modo, gli LLM continuano a spingere i limiti di ciò che è possibile fare con il linguaggio naturale.
+
+\section{Caratteristiche Fondamentali degli LLM}
+
+Gli LLM si distinguono per la loro capacità di apprendere e rappresentare il linguaggio naturale in maniera sofisticata. Le loro caratteristiche principali includono:
 \begin{itemize}
-\item Generazione di testo: Creazione di articoli, riassunti e traduzioni.
-\item Chatbot: Assistenza virtuale e customer service.
-\item Analisi del linguaggio: Classificazione di testi e rilevamento del sentiment.
-\item Ricerca di informazioni: Risposte a domande complesse basate su grandi volumi di dati.
+\item Addestramento su larga scala
+\item Architettura Transformer
+\item Rappresentazione vettoriale del testo
 \end{itemize}
 
-Nonostante il loro successo, gli LLM presentano limiti significativi che ne ostacolano l'applicazione in scenari knowledge-intensive. Uno dei problemi principali è la mancanza di accesso a informazioni aggiornate in tempo reale. Gli LLM generano risposte basate esclusivamente sui dati di addestramento, che potrebbero essere obsoleti. Questo è particolarmente problematico in domini come medicina e diritto, dove l'accuratezza e l'attualità delle informazioni sono cruciali.
+Gli LLM vengono addestrati su vasti dataset che comprendono miliardi di parole provenienti da fonti diversificate, come libri, articoli scientifici, siti web e conversazioni online. Questo approccio consente loro di apprendere relazioni semantiche complesse, nonché di generalizzare conoscenze anche in contesti che non sono stati direttamente inclusi durante l'addestramento. La forza dei Transformer risiede nell'architettura encoder-decoder e nei meccanismi di attenzione multi-head, che permettono di assegnare un peso maggiore a parole o frasi rilevanti all'interno di un contesto, ottimizzando così l'elaborazione delle informazioni. Questo meccanismo è fondamentale per gestire efficacemente le dipendenze a lungo termine nei testi, un compito che sarebbe difficile da affrontare con approcci precedenti.
 
-Un altro limite è il fenomeno delle allucinazioni (hallucinations), dove i modelli generano risposte false o inventate. Ad esempio, se un utente richiede informazioni su un argomento emergente, un LLM potrebbe fornire dati inesatti. Inoltre, i bias presenti nei dati di addestramento possono influenzare negativamente le risposte, riducendo l'affidabilità del modello. La tecnica RAG è stata proposta da Lewis et al. nel 2020 nel paper "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks". Questo approccio ibrido combina la capacità di recupero delle informazioni con la generazione di testo, migliorando significativamente l'accuratezza e la pertinenza delle risposte.
+Un altro aspetto cruciale negli LLM è la tokenizzazione, ovvero il processo che suddivide il testo in unità più piccole, dette token. Algoritmi come Byte Pair Encoding (BPE) o WordPiece vengono utilizzati per questa operazione, permettendo al modello di trattare in modo efficiente anche dati complessi. Successivamente, questi token vengono trasformati in vettori numerici che rappresentano le relazioni semantiche tra le parole, facilitando così la comprensione e la generazione di linguaggio naturale in modo coerente e contestuale.
 
-Il funzionamento di RAG può essere spiegato in modo semplice e intuitivo. Immaginiamo di avere un assistente virtuale che deve rispondere a una domanda specifica, come "Quali sono le opzioni di spedizione disponibili?". Ecco come agisce il sistema RAG:
+\section{Applicazioni degli LLM}
+I Large Language Models (LLMs) hanno trasformato radicalmente il campo dell'intelligenza artificiale e dell'elaborazione del linguaggio naturale (NLP), aprendo nuove opportunità applicative in vari settori. Grazie alla loro capacità di comprendere e generare testo con una precisione senza precedenti, sono diventati strumenti essenziali in numerosi ambiti.
+
+Una delle applicazioni principali degli LLM è nei sistemi di assistenza virtuale. Tecnologie come Siri, Alexa e Google Assistant sfruttano gli LLM per interpretare il linguaggio naturale, comprendere il contesto e rispondere alle richieste degli utenti, eseguire comandi vocali, fornire informazioni in tempo reale e interagire con altre applicazioni, offrendo un'interazione fluida e naturale.
+
+Nel settore della generazione di contenuti, gli LLM vengono utilizzati per produrre testi automaticamente, come articoli di notizie, post sui social media, descrizioni di prodotti e persino opere creative come poesie o storie. Modelli come GPT-3 sono in grado di generare contenuti di alta qualità, quasi indistinguibili da quelli scritti da esseri umani, rendendo la creazione di contenuti più veloce ed accessibile.
+
+Gli LLM trovano anche ampio impiego nei sistemi di traduzione automatica. Servizi come Google Translate utilizzano questi modelli per tradurre testi da una lingua all'altra con una precisione crescente, grazie alla loro capacità di comprendere strutture linguistiche e relazioni semantiche, producendo traduzioni che rispettano il contesto e il significato originale.
+
+Nel campo dell'analisi del sentiment e del monitoraggio dei social media, gli LLM vengono utilizzati per analizzare grandi volumi di dati testuali, come post sui social media, recensioni e articoli di opinione. Questa analisi consente alle aziende di comprendere l'opinione pubblica e monitorare il sentiment riguardo a prodotti, marchi o eventi, supportando decisioni strategiche basate sui feedback raccolti.
+
+Un'altra applicazione emergente degli LLM è nel supporto alla scrittura e alla ricerca. Strumenti come quelli sviluppati da OpenAI assistono scrittori, ricercatori e studenti nella creazione di bozze, nel riassumere articoli, nel generare idee o nel formulare risposte a domande complesse. Questi modelli accelerano il processo creativo, migliorando la produttività e fornendo suggerimenti pertinenti in tempo reale.
+
+Infine, gli LLM sono utilizzati nel supporto decisionale aziendale. Analizzando dati testuali e documenti, questi modelli aiutano le aziende a estrarre informazioni critiche, fare previsioni basate su tendenze emergenti e prendere decisioni strategiche, con applicazioni particolarmente utili in ambiti come l'analisi di mercato, la gestione del rischio e la pianificazione aziendale.
+
+\section{Introduzione alla Retrieval-Augmented Generation (RAG)}
+La metodologia Retrieval-Augmented Generation (RAG) è una tecnica avanzata che combina le capacità generative degli LLM con il recupero di informazioni da fonti esterne. RAG è stata introdotta da Facebook AI Research (FAIR) nel 2020 come risposta alle limitazioni degli LLM tradizionali. Questa tecnica integra un sistema di recupero (retrieval) con un modello generativo per:
+
 \begin{itemize}
-\item Recupero:  L'assistente cerca nei suoi archivi le informazioni più pertinenti alla domanda. Questa ricerca avviene utilizzando tecniche avanzate, come l'indicizzazione vettoriale (es. FAISS), che rendono il processo rapido ed efficiente.
-\item Fusione: Una volta trovate le informazioni, queste vengono "fuse" con la domanda dell'utente per creare un contesto ricco e dettagliato. È un po' come avere una conversazione con un esperto che mette insieme pezzi di conoscenza per darti una risposta completa.
-\item Generazione:  Infine, il modello LLM interviene per trasformare tutto questo in una risposta ben articolata e naturale, che sembri davvero scritta da un essere umano.
+\item Garantire risposte contestuali e aggiornate.
+\item Superare le limitazioni dei dati statici di addestramento degli LLM.
 \end{itemize}
 
-L'approccio RAG offre diversi vantaggi significativi:
-
+Il processo si divide in tre fasi:
 \begin{itemize}
-\item Aggiornabilità: Poiché il sistema accede a database esterni, le informazioni sono sempre aggiornate, superando uno dei limiti principali degli LLM tradizionali.
-\item Riduzione delle allucinazioni: L'uso di fonti affidabili riduce drasticamente il rischio di risposte errate o inventate.
-\item Contestualizzazione:  Le risposte non sono generiche ma adattate al contesto specifico della domanda, rendendole estremamente utili in settori come il customer service e l'educazione.
+\item Recupero: Il modello cerca documenti rilevanti in un database esterno.
+\item Fusione: Le informazioni recuperate vengono integrate nel contesto della domanda.
+\item Generazione: L'LLM genera una risposta articolata basata sul contesto arricchito.
 \end{itemize}
 
-Torniamo all'esempio dell'assistente virtuale per il customer service. Con un sistema RAG, se un cliente chiede: "Quali sono le opzioni di spedizione disponibili?", il chatbot recupererà le informazioni più recenti dal database aziendale, le integrerà con i dettagli della domanda e risponderà in modo chiaro e preciso: "Le opzioni disponibili sono: standard (3-5 giorni), espresso (1-2 giorni) e ritiro in negozio." Questo non solo migliora l'esperienza dell'utente ma aumenta anche la fiducia nei confronti del sistema. Guardando al futuro, RAG ha il potenziale per evolversi ulteriormente. Una possibile direzione è l'integrazione di modelli multimodali, che combinano testo, immagini e video per offrire risposte ancora più ricche e interattive. Pensiamo, ad esempio, a un chatbot che non solo risponde a una domanda tecnica ma mostra anche un video tutorial o un'infografica. Inoltre, l'adozione di algoritmi di apprendimento attivo potrebbe rendere il sistema più robusto, riducendo bias e migliorando la trasparenza.
+La metodologia rag può essere applicata in svariati contesti quali la creazione di chatbot avanzati i quali rispondono a domande tecniche o forniscono supporto personalizzato in settori come il customer service, oppure fornendo informazioni cliniche aggiornate basandosi su database di articoli scientifici, o infine può essere utilizzata per offrire supporto legale nella consultazione di alcuni documenti complessi.
 
-Gli LLM hanno trasformato il panorama del NLP, ma le loro limitazioni richiedono approcci innovativi come RAG per superare le sfide attuali. La combinazione di generazione e recupero di informazioni consente di creare chatbot avanzati, capaci di offrire risposte accurate e contestualizzate. Studi come quelli di Lewis et al. (2020) e Izacard et al. (2021) evidenziano il potenziale di RAG in applicazioni knowledge-intensive. Con ulteriori sviluppi tecnologici, questa metodologia potrebbe rivoluzionare ulteriormente l'interazione uomo-macchina, aprendo nuove opportunità in settori strategici.
+Tra i vantaggi di questa metodologia troviamo l'aggiornabilità, in quanto si può accedere a dati aggiornati, superando in tal modo i limiti dei modelli pre-addestrati, un'elevata contestualizzazione, in quanto le risposte generate sono specifiche e rilevanti per il contesto dell'utente, e infine una precisione nelle risposte che vengono fornite all'utente.
 
 
 \chapter{Intrroduzione ai LLMs e ai servizi REST (Da eliminare, è stato diviso in due)}
