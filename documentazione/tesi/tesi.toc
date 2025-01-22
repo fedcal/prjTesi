@@ -7,17 +7,11 @@
 \contentsline {section}{\numberline {2.2}Caratteristiche Fondamentali degli LLM}{7}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Applicazioni degli LLM}{7}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Introduzione alla Retrieval-Augmented Generation (RAG)}{9}{section.2.4}%
-\contentsline {chapter}{\numberline {3}Intrroduzione ai LLMs e ai servizi REST (Da eliminare, è stato diviso in due)}{11}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Storia e caratteristiche degli LLMs}{12}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Applicazioni degli LLM}{14}{subsection.3.1.1}%
-\contentsline {section}{\numberline {3.2}Storia e caratteristiche dei servizi REST}{15}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Applicazioni dei servizi REST}{17}{subsection.3.2.1}%
-\contentsline {section}{\numberline {3.3}Servizi REST e LLMs}{18}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Analisi e progettazione}{21}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Architettura del Sistema}{22}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Applicazione}{24}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Creazione e addestramento dei chatbot}{29}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Progettazione del database}{34}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Creazione dei microservizi REST}{37}{subsection.4.2.3}%
-\contentsline {chapter}{\numberline {5}Risultati}{39}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusione}{41}{chapter.6}%
+\contentsline {chapter}{\numberline {3}Analisi e progettazione}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Architettura del Sistema}{12}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Applicazione}{14}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Creazione e addestramento dei chatbot}{19}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Progettazione del database}{24}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Creazione dei microservizi REST}{27}{subsection.3.2.3}%
+\contentsline {chapter}{\numberline {4}Risultati}{29}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Conclusione}{31}{chapter.5}%
