@@ -1,10 +1,15 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: Applicativo Ms Pazienti
+  description: Ms che contiene tutti i path per la gestione dei pazienti
+  contact:
+    name: Federico Calò (matricola 678191)
+    url: https://www.federicocalo.dev
+    email: f.calo29@studenti.uniba.it
+  version: 1.0.0
 servers:
   - url: http://localhost:8085
-    description: Generated server url
+    description: Ambiente locale
 tags:
   - name: MsPazienteController
     description: Gestione della chat
@@ -138,69 +143,6 @@ paths:
                 $ref: '#/components/schemas/GenericResponseDtoResponseMessagePdfDto'
 components:
   schemas:
-    CartellaClinica:
-      type: object
-      properties:
-        idCartellaClinica:
-          type: integer
-          format: int32
-        gruppoSanguigno:
-          type: string
-        diagnosi:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Diagnosi'
-        malattiaCartella:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/MalattiaCartella'
-        visitaMedicaCartella:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VisitaMedicaCartella'
-        operazioneCartella:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/OperazioneCartella'
-        medicinalePrescrizione:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/MedicinalePrescrizione'
-        visitaPrescrizione:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VisitaPrescrizione'
-        visitaSottoministrazioneMedico:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VisitaSottoministrazioneMedico'
-        visitaSottoministrazioneInfermiere:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VisitaSottoministrazioneInfermiere'
-        medicinaleCartella:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/MedicinaleCartella'
-        operazionePrescrizione:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/OperazionePrescrizione'
-        medicinaleSottoministrazione:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/MedicinaleSottoministrazione'
     CartellaClinicaDto:
       type: object
       properties:
@@ -271,18 +213,6 @@ components:
           type: string
         numeroCellulare:
           type: string
-    Diagnosi:
-      type: object
-      properties:
-        idDiagnosi:
-          type: integer
-          format: int32
-        tipoDiagnosi:
-          type: string
-        descrizione:
-          type: string
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinica'
     DiagnosiDto:
       type: object
       properties:
@@ -317,30 +247,6 @@ components:
           $ref: '#/components/schemas/Esito'
         payload:
           $ref: '#/components/schemas/PazienteDto'
-    Infermiere:
-      type: object
-      properties:
-        idInfermiere:
-          type: integer
-          format: int32
-        nomeInfermiere:
-          type: string
-        cognomeInfermiere:
-          type: string
-        turnoInfermiere:
-          type: string
-        reparto:
-          $ref: '#/components/schemas/Reparto'
-        medicinaleSottoministrazione:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/MedicinaleSottoministrazione'
-        visitaSottoministrazione:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VisitaSottoministrazioneInfermiere'
     InfermiereDto:
       type: object
       properties:
@@ -360,31 +266,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MedicinaleSottoministrazioneDto'
-    Malattia:
-      type: object
-      properties:
-        idMalattia:
-          type: integer
-          format: int32
-        nome:
-          type: string
-        descrizione:
-          type: string
-        cartelle:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/MalattiaCartella'
-    MalattiaCartella:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        malattia:
-          $ref: '#/components/schemas/Malattia'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinica'
     MalattiaCartellaDto:
       type: object
       properties:
@@ -405,26 +286,6 @@ components:
           type: string
         descrizione:
           type: string
-    Medicinale:
-      type: object
-      properties:
-        idMedicinale:
-          type: integer
-          format: int32
-        nomeMedicinale:
-          type: string
-        descrizioneMedicinale:
-          type: string
-    MedicinaleCartella:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        medicinale:
-          $ref: '#/components/schemas/Medicinale'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinica'
     MedicinaleCartellaDto:
       type: object
       properties:
@@ -445,18 +306,6 @@ components:
           type: string
         descrizioneMedicinale:
           type: string
-    MedicinalePrescrizione:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        medico:
-          $ref: '#/components/schemas/Medico'
-        medicinale:
-          $ref: '#/components/schemas/Medicinale'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinica'
     MedicinalePrescrizioneDto:
       type: object
       properties:
@@ -469,18 +318,6 @@ components:
           $ref: '#/components/schemas/MedicinaleDto'
         cartellaClinica:
           $ref: '#/components/schemas/CartellaClinicaDto'
-    MedicinaleSottoministrazione:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        infermiere:
-          $ref: '#/components/schemas/Infermiere'
-        medicinale:
-          $ref: '#/components/schemas/Medicinale'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinica'
     MedicinaleSottoministrazioneDto:
       type: object
       properties:
@@ -493,25 +330,6 @@ components:
           $ref: '#/components/schemas/MedicinaleDto'
         cartellaClinica:
           $ref: '#/components/schemas/CartellaClinicaDto'
-    Medico:
-      type: object
-      properties:
-        idMedico:
-          type: integer
-          format: int32
-        nomeMedico:
-          type: string
-        cognomeMedico:
-          type: string
-        turnoMedico:
-          type: string
-        reparto:
-          $ref: '#/components/schemas/Reparto'
-        medicinalePrescrizioneSet:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/MedicinalePrescrizione'
     MedicoDto:
       type: object
       properties:
@@ -547,18 +365,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Parametro'
-    OperazioneCartella:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        operazioneMedica:
-          $ref: '#/components/schemas/OperazioneMedica'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinica'
-        medico:
-          $ref: '#/components/schemas/Medico'
     OperazioneCartellaDto:
       type: object
       properties:
@@ -571,28 +377,6 @@ components:
           $ref: '#/components/schemas/CartellaClinicaDto'
         medico:
           $ref: '#/components/schemas/MedicoDto'
-    OperazioneMedica:
-      type: object
-      properties:
-        idOperazioneMedica:
-          type: integer
-          format: int32
-        nome:
-          type: string
-        descrizione:
-          type: string
-        tipologia:
-          type: string
-        operazioneCartella:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/OperazioneCartella'
-        operazionePrescrizione:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/OperazionePrescrizione'
     OperazioneMedicaDto:
       type: object
       properties:
@@ -610,18 +394,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OperazionePrescrizioneDto'
-    OperazionePrescrizione:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        operazioneMedica:
-          $ref: '#/components/schemas/OperazioneMedica'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinica'
-        medico:
-          $ref: '#/components/schemas/Medico'
     OperazionePrescrizioneDto:
       type: object
       properties:
@@ -663,7 +435,7 @@ components:
           $ref: '#/components/schemas/RepartoDto'
         cartellaClinica:
           $ref: '#/components/schemas/CartellaClinicaDto'
-    RefertoVisitaMedica:
+    RefertoVisitaMedicaDto:
       type: object
       properties:
         idReferto:
@@ -675,23 +447,6 @@ components:
           type: string
         dataReferto:
           type: string
-    Reparto:
-      type: object
-      properties:
-        idReparto:
-          type: integer
-          format: int32
-        nomeReparto:
-          type: string
-        descrizioneReparto:
-          type: string
-        capoReparto:
-          $ref: '#/components/schemas/Medico'
-        infermieri:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Infermiere'
     RepartoDto:
       type: object
       properties:
@@ -709,7 +464,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InfermiereDto'
-    VisitaMedica:
+    VisitaMedicaCartellaDto:
+      type: object
+      properties:
+        idRelazione:
+          type: integer
+          format: int32
+        cartellaClinica:
+          $ref: '#/components/schemas/CartellaClinicaDto'
+        visitaMedica:
+          $ref: '#/components/schemas/VisitaMedicaDto'
+        refertoVisitaMedica:
+          $ref: '#/components/schemas/RefertoVisitaMedicaDto'
+    VisitaMedicaDto:
       type: object
       properties:
         idVisitaMedica:
@@ -725,53 +492,7 @@ components:
           uniqueItems: true
           type: array
           items:
-            $ref: '#/components/schemas/VisitaPrescrizione'
-        visitaSottoministrazioneMedico:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VisitaSottoministrazioneMedico'
-        visitaSottoministrazioneInfermiere:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/VisitaSottoministrazioneInfermiere'
-    VisitaMedicaCartella:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinica'
-        visitaMedica:
-          $ref: '#/components/schemas/VisitaMedica'
-        refertoVisitaMedica:
-          $ref: '#/components/schemas/RefertoVisitaMedica'
-    VisitaMedicaCartellaDto:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinica'
-        visitaMedica:
-          $ref: '#/components/schemas/VisitaMedica'
-        refertoVisitaMedica:
-          $ref: '#/components/schemas/RefertoVisitaMedica'
-    VisitaMedicaDto:
-      type: object
-      properties:
-        idVisitaMedica:
-          type: integer
-          format: int32
-        nome:
-          type: string
-        tipologia:
-          type: string
-        descrizione:
-          type: string
+            $ref: '#/components/schemas/VisitaPrescrizioneDto'
         visitaSottoministrazioneMedico:
           uniqueItems: true
           type: array
@@ -782,18 +503,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/VisitaSottoministrazioneInfermiereDto'
-    VisitaPrescrizione:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        medico:
-          $ref: '#/components/schemas/Medico'
-        visitaMedica:
-          $ref: '#/components/schemas/VisitaMedica'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinica'
     VisitaPrescrizioneDto:
       type: object
       properties:
@@ -806,18 +515,6 @@ components:
           $ref: '#/components/schemas/VisitaMedicaDto'
         cartellaClinica:
           $ref: '#/components/schemas/CartellaClinicaDto'
-    VisitaSottoministrazioneInfermiere:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        infermiere:
-          $ref: '#/components/schemas/Infermiere'
-        visitaMedica:
-          $ref: '#/components/schemas/VisitaMedica'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinica'
     VisitaSottoministrazioneInfermiereDto:
       type: object
       properties:
@@ -830,18 +527,6 @@ components:
           $ref: '#/components/schemas/VisitaMedicaDto'
         cartellaClinica:
           $ref: '#/components/schemas/CartellaClinicaDto'
-    VisitaSottoministrazioneMedico:
-      type: object
-      properties:
-        idRelazione:
-          type: integer
-          format: int32
-        medico:
-          $ref: '#/components/schemas/Medico'
-        visitaMedica:
-          $ref: '#/components/schemas/VisitaMedica'
-        cartellaClinica:
-          $ref: '#/components/schemas/CartellaClinica'
     VisitaSottoministrazioneMedicoDto:
       type: object
       properties:

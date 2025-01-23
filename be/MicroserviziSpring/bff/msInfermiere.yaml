@@ -1,10 +1,15 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: Applicativo Ms Infermiere
+  description: Ms che contiene tutti i path per la gestione degli infermieri
+  contact:
+    name: Federico Calò (matricola 678191)
+    url: https://www.federicocalo.dev
+    email: f.calo29@studenti.uniba.it
+  version: 1.0.0
 servers:
   - url: http://localhost:8086
-    description: Generated server url
+    description: Ambiente locale
 tags:
   - name: MsInfermiereGestioneInfermiereController
     description: Gestione degli infermieri

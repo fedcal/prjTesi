@@ -30,8 +30,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/ms-inferimiere")
 @Validated
-@Tag(name = "Ms pazienti Controller",
-        description = "Ms pazienti")
+@Tag(name = "Ms Infermieri Controller",
+        description = "Ms infermieri")
 @AllArgsConstructor
 public class MsInfermiereController {
 
@@ -80,7 +80,7 @@ public class MsInfermiereController {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/all-infermieri", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponseDto<List<InfermiereDto>>> getAllInfermieri() {
         return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(msInfermiereService.getAllInfermieri()));
     }
