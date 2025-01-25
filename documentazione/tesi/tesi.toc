@@ -14,4 +14,6 @@
 \contentsline {subsection}{\numberline {3.2.2}Progettazione del database}{24}{subsection.3.2.2}%
 \contentsline {subsection}{\numberline {3.2.3}Creazione dei microservizi REST}{27}{subsection.3.2.3}%
 \contentsline {chapter}{\numberline {4}Risultati}{29}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Conclusione}{31}{chapter.5}%
+\contentsline {section}{\numberline {4.1}Interfaccia del BFF}{29}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Chatbot Alimentazione}{32}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Conclusione}{33}{chapter.5}%

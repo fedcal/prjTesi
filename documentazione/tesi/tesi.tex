@@ -569,7 +569,35 @@ Per facilitare l'interazione con gli endpoint esposti dai microservizi, è stato
 
 \chapter{Risultati}
 
-Risultati ed esempio di risposta
+In questo capitolo vengono presentati i risultati ottenuti durante l'implementazione del progetto, con un focus sull'interfaccia grafica realizzata tramite Swagger UI. Verranno illustrate le principali componenti sviluppate e verranno forniti esempi pratici di domande e risposte generate dal bot in risposta a specifiche richieste. L'analisi si concentra sull'efficacia delle funzionalità implementate e sull'esperienza utente offerta dalla piattaforma.
+
+\section{Interfaccia del BFF}
+
+Nel contesto dell’implementazione del BFF (Backend for Frontend), l’interfaccia Swagger UI consente di esporre in modo strutturato e intuitivo gli endpoint dei vari microservizi verso il front-end. Ogni endpoint è evidenziato con un colore specifico in base alla tipologia dell’operazione che rappresenta: verde per le operazioni di creazione (POST), azzurro per il recupero di informazioni (GET) e rosso per la rimozione di risorse (DELETE).
+
+Gli endpoint sono organizzati in controller tematici, ciascuno dedicato a una specifica area funzionale del sistema. Ad esempio, il Gestione delle cartelle Controller è focalizzato sulla gestione delle directory dei bot, mentre il Gestione bot rag Controller si occupa delle operazioni di registrazione, modifica, ricerca e cancellazione dei bot, oltre alla gestione delle cartelle di addestramento. Questo approccio modulare consente di migliorare la chiarezza e l’efficienza del sistema, facilitando il recupero degli endpoint rilevanti per una determinata area di interesse.
+
+La struttura organizzativa e l’utilizzo di colori distintivi rendono l’interfaccia Swagger UI uno strumento essenziale per interagire in modo efficace con il BFF, semplificando la comunicazione tra i microservizi e il front-end.
+
+\fbox{\includegraphics[width=0.9\textwidth, height=0.8\textheight, keepaspectratio]{immagini/bff.png}}
+
+Ogni endpoint è strutturato in modo dettagliato per garantire una documentazione chiara e completa. Le chiamate sono definite dal path specifico, con eventuali parametri di query (path param) indicati, come nel caso del parametro obbligatorio message evidenziato nell'esempio. Per le operazioni che richiedono un payload, come le chiamate POST, viene previsto un oggetto nel corpo della richiesta (body).
+
+La risposta è restituita in formato JSON, comprendendo informazioni dettagliate sullo stato dell'operazione. Nell’esempio riportato, per una chiamata andata a buon fine (200 - Operazione andata a buon fine), il JSON include un campo esito con i dettagli del codice di risposta, un messaggio esplicativo e i parametri associati. Inoltre, il payload restituito contiene informazioni come la query inviata, la similarità, i contenuti delle pagine e la fonte dei dati.
+
+La gestione degli errori è anch’essa ben definita, con codici di stato dedicati, come il 500 - Errore di sistema, per identificare e diagnosticare eventuali anomalie durante l’elaborazione della richiesta. Questa struttura standardizzata facilita la comprensione e l’uso degli endpoint, garantendo al tempo stesso trasparenza e precisione nella comunicazione tra i sistemi.
+
+\fbox{\includegraphics[width=0.9\textwidth, height=0.8\textheight, keepaspectratio]{immagini/swaggerGet.png}}
+
+In conclusione, il Backend For Frontend (BFF) rappresenta un microservizio modulare che funge da punto centrale per l'aggregazione e l'esposizione dei vari path provenienti dai microservizi sottostanti al frontend. Questo approccio permette di personalizzare le API in base alle esigenze specifiche del frontend, garantendo una maggiore coerenza nell'interazione con i vari sistemi e semplificando la logica di integrazione.
+
+La modularità del BFF non solo facilita la manutenibilità, ma rende anche possibile l'evoluzione continua del sistema: eventuali modifiche nei microservizi sottostanti possono essere gestite internamente senza impatti diretti sul client. Inoltre, consente di ottimizzare la sicurezza e ridurre la complessità del frontend, che può interagire con un'interfaccia consolidata e semplificata.
+
+Questo modello si adatta particolarmente bene alle architetture a microservizi, dove la crescente frammentazione dei servizi può complicare l'esposizione diretta al client. Il BFF permette di orchestrare questi servizi in modo centralizzato e scalabile, favorendo un'interazione più efficiente e mantenendo un elevato livello di flessibilità per l'aggiunta di nuove funzionalità. Le due immagini mostrate nella sezione evidenziano chiaramente come il BFF riesca a integrare i percorsi delle richieste e a fornire risposte strutturate e uniformi, dimostrando la validità di questa soluzione nell'ambito del progetto sviluppato.
+
+\section{Chatbot Alimentazione}
+
+Nel contesto dell’implementazione del BFF (Backend for Frontend)
 
 \chapter{Conclusione}
  riepilogo di tutto quello che hai fatto e commenta i risultati ottenuti in fase di sperimentazione
