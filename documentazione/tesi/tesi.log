@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.12.22)  25 JAN 2025 10:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.12.22)  26 JAN 2025 11:50
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -853,7 +853,7 @@ Package hyperref Info: Link coloring ON on input line 87.
 \@outlinefile=\write5
 \openout5 = `tesi.out'.
 
-<immagini/uniba.jpg, id=66, 1146.2825pt x 358.33875pt>
+<immagini/uniba.jpg, id=70, 1146.2825pt x 358.33875pt>
 File: immagini/uniba.jpg Graphic file (type jpg)
 <use immagini/uniba.jpg>
 Package pdftex.def Info: immagini/uniba.jpg  used on input line 92.
@@ -997,7 +997,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 288--291
 
 
 [16]
-<immagini/3.png, id=174, 397.485pt x 562.1pt>
+<immagini/3.png, id=179, 397.485pt x 562.1pt>
 File: immagini/3.png Graphic file (type png)
 <use immagini/3.png>
 Package pdftex.def Info: immagini/3.png  used on input line 307.
@@ -1005,7 +1005,7 @@ Package pdftex.def Info: immagini/3.png  used on input line 307.
 
 
 [17 <./immagini/3.png>]
-<immagini/2.png, id=181, 519.9425pt x 250.9375pt>
+<immagini/2.png, id=186, 519.9425pt x 250.9375pt>
 File: immagini/2.png Graphic file (type png)
 <use immagini/2.png>
 Package pdftex.def Info: immagini/2.png  used on input line 318.
@@ -1044,7 +1044,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 496--498
 
  []
 
-<immagini/Database bot.png, id=336, 584.1825pt x 162.6075pt>
+<immagini/Database bot.png, id=341, 584.1825pt x 162.6075pt>
 File: immagini/Database bot.png Graphic file (type png)
 <use immagini/Database bot.png>
 Package pdftex.def Info: immagini/Database bot.png  used on input line 499.
@@ -1072,7 +1072,7 @@ Underfull \vbox (badness 2027) has occurred while \output is active []
 [29
 
 ]
-<immagini/bff.png, id=363, 931.22906pt x 902.6222pt>
+<immagini/bff.png, id=368, 931.22906pt x 902.6222pt>
 File: immagini/bff.png Graphic file (type png)
 <use immagini/bff.png>
 Package pdftex.def Info: immagini/bff.png  used on input line 582.
@@ -1083,7 +1083,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [30 <./immagini/bff.png>]
-<immagini/swaggerGet.png, id=369, 1088.56688pt x 876.27374pt>
+<immagini/swaggerGet.png, id=374, 1088.56688pt x 876.27374pt>
 File: immagini/swaggerGet.png Graphic file (type png)
 <use immagini/swaggerGet.png>
 Package pdftex.def Info: immagini/swaggerGet.png  used on input line 590.
@@ -1094,15 +1094,43 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [31 <./immagini/swaggerGet.png>]
+<immagini/chatbotAlimentazione.png, id=380, 1352.05125pt x 219.82124pt>
+File: immagini/chatbotAlimentazione.png Graphic file (type png)
+<use immagini/chatbotAlimentazione.png>
+Package pdftex.def Info: immagini/chatbotAlimentazione.png  used on input line 
+600.
+(pdftex.def)             Requested size: 380.24284pt x 61.82121pt.
 
-[32]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[32 <./immagini/chatbotAlimentazione.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[33]
+
+[34]
+
+[35]
+
+[36]
+
+[37]
+
+[38
+
+]
 Capitolo 5.
+
+
+[39]
 No file tesi.bbl.
 
 
-[33
-
-]
+[40]
 \openout2 = `ringraziamenti.aux'.
 
 
@@ -1123,17 +1151,17 @@ Package rerunfilecheck Warning: File `tesi.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `tesi.out':
-(rerunfilecheck)             Before: 4F7A1FD3A5ACAE88BE4E0BEAC5FC3AC3;2993
-(rerunfilecheck)             After:  71FB675B464A616171D6FEBB1664F8F3;3156.
+(rerunfilecheck)             Before: C14E225C07B5153C47856E70B661B0F1;3255
+(rerunfilecheck)             After:  0FB7FB89FE8FCEB0279D8BED46E7CDA0;3416.
  ) 
 Here is how much of TeX's memory you used:
- 36515 strings out of 473650
- 820798 string characters out of 5727959
+ 36531 strings out of 473650
+ 821150 string characters out of 5727959
  1751825 words of memory out of 5000000
- 58866 multiletter control sequences out of 15000+600000
+ 58874 multiletter control sequences out of 15000+600000
  575281 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 138i,11n,135p,1132b,2187s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 138i,11n,135p,1517b,2187s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm
 1095.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
 0\ectt1000.pk> <C:\Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
@@ -1149,9 +1177,9 @@ AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\
 fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\
 Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk
 >
-Output written on tesi.pdf (37 pages, 507155 bytes).
+Output written on tesi.pdf (44 pages, 548371 bytes).
 PDF statistics:
- 905 PDF objects out of 1000 (max. 8388607)
- 176 named destinations out of 1000 (max. 500000)
- 163 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 950 PDF objects out of 1000 (max. 8388607)
+ 184 named destinations out of 1000 (max. 500000)
+ 176 words of extra memory for PDF output out of 10000 (max. 10000000)
 

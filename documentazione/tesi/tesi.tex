@@ -597,10 +597,84 @@ Questo modello si adatta particolarmente bene alle architetture a microservizi, 
 
 \section{Chatbot Alimentazione}
 
-Nel contesto dell’implementazione del BFF (Backend for Frontend)
+\fbox{\includegraphics[width=0.9\textwidth, height=0.8\textheight, keepaspectratio]{immagini/chatbotAlimentazione.png}}
 
-\chapter{Conclusione}
- riepilogo di tutto quello che hai fatto e commenta i risultati ottenuti in fase di sperimentazione
+Come anticipato, per ogni bot vengono esposti tre path principali. Nel caso specifico della chat addestrata, il relativo path interroga l'LLM (Large Language Model) addestrato utilizzando la tecnica RAG (Retrieval-Augmented Generation). Questo approccio consente di generare risposte in base al materiale fornito durante il processo di addestramento.
+
+Il path associato riceve in input il messaggio inviato dall'utente e restituisce una risposta generata dal modello, accompagnata dai file PDF utilizzati come riferimento per produrre tale risposta. Questa funzionalità non solo permette di ottenere risposte pertinenti e informate, ma offre anche una trasparenza fondamentale: possiamo verificare quali documenti hanno contribuito alla formulazione della risposta, garantendo un elevato livello di validazione e controllo.
+
+Questa integrazione consente di combinare l'efficienza di un modello di linguaggio avanzato con la tracciabilità dei dati, assicurando che le risposte fornite siano non solo utili ma anche verificabili, un aspetto cruciale in un sistema basato su informazioni specifiche e documentate.
+
+ttraverso alcune domande rappresentative, viene illustrato come il modello risponde alle richieste degli utenti, sfruttando i dati addestrati e la tecnica Retrieval-Augmented Generation (RAG). Questo approccio consente di generare risposte pertinenti e supportate da fonti documentali, garantendo trasparenza e affidabilità. Vengono riportate due interazioni emblematiche per evidenziare l'efficacia del sistema nel rispondere a quesiti complessi e specifici.
+
+\textbf{Prima domanda}: Cosa posso mangiare a cena visto che ho il diabete? \\
+\textbf{Risposta}:Sembra che tu abbia fornito uno schema dettagliato del piano alimentare per una dieta in stile italiano. Ecco una ripartizione del piano: Condimento del primo: il primo piatto dovrebbe essere un semplice piatto di pasta con salsa di pomodoro o altre opzioni come salsa all'arrabbiata, brodo vegetale o una salsa bianca con aglio e olio d'oliva. Come comporre il secondo: per il secondo piatto, ci sono diverse opzioni: 1. Carne: 120 g di carne bianca (pollo, tacchino o maiale) o 100 g di carne rossa (manzo, maiale o agnello), non più di una porzione a settimana. 2. Pesce: pesce fresco o congelato, fino a 150 g. 3. Uova: 2 uova come spuntino occasionale. 4. Legumi: fino a 240 g di legumi cotti (come fagioli, lenticchie o piselli) a porzione. 5. Formaggi: formaggi vari, tra cui mozzarella, parmigiano e ricotta, fino a un totale di 200 g a settimana. Il piano sottolinea l'importanza di bilanciare le fonti proteiche e di limitare il consumo di carne rossa a una volta a settimana. Inoltre, suggerisce di incorporare pesce, legumi, uova e formaggio come alternative o integratori alla carne. Abbinare al secondo: quando si abbina al secondo piatto, ci sono alcune linee guida generali: Pane: 120 g di pane integrale, ridotto a 100 g se abbinato ai legumi. Pasta: 80 g di pasta o altri cereali come riso, farro o mais. Crackers: 30 g di cracker o grissini. Il piano incoraggia l'uso di olio d'oliva e suggerisce di limitare il consumo di carni lavorate.
+
+Inoltre possiamo vedere i file pdf da cui ha estratto le informazioni per generare le informazioni. Per generare questa risposta il bot ha utilizzato il contenuto presente nei pdf:
+\begin{itemize}
+\item 2
+\item 4
+\item 5
+\item 7
+\item 9
+\item 10
+\item 13
+\item 14
+\item 15
+\item 16
+\item 17
+\item 18
+\item 19
+\item 21
+\item 22
+\end{itemize}
+
+\textbf{Seconda domanda}: Quale alimentazione mi consigli per 1500 kcal e circa 70 80 grammi di proteine per colazione, pranzo e cena? \\
+\textbf{Risposta}:Condimento del primo: il primo piatto dovrebbe essere un semplice piatto di pasta con salsa di pomodoro o altre opzioni come salsa all'arrabbiata, brodo vegetale o una salsa bianca con aglio e olio d'oliva. Come comporre il secondo: per il secondo piatto, ci sono diverse opzioni: 1. Carne: 120 g di carne bianca (pollo, tacchino o maiale) o 100 g di carne rossa (manzo, maiale o agnello), non più di una porzione a settimana. 2. Pesce: pesce fresco o congelato, fino a 150 g. 3. Uova: 2 uova come spuntino occasionale. 4. Legumi: fino a 240 g di legumi cotti (come fagioli, lenticchie o piselli) a porzione. 5. Formaggi: formaggi vari, tra cui mozzarella, parmigiano e ricotta, fino a un totale di 200 g a settimana. Il piano sottolinea l'importanza di bilanciare le fonti proteiche e di limitare il consumo di carne rossa a una volta a settimana. Inoltre, suggerisce di incorporare pesce, legumi, uova e formaggio come alternative o integratori alla carne. Abbinare al secondo: quando si abbina al secondo piatto, ci sono alcune linee guida generali: Pane: 120 g di pane integrale, ridotto a 100 g se abbinato ai legumi. Pasta: 80 g di pasta o altri cereali come riso, farro o mais. Crackers: 30 g di cracker o grissini. Il piano incoraggia l'uso di olio d'oliva e suggerisce di limitare il consumo di carni lavorate.
+
+Inoltre possiamo vedere i file pdf da cui ha estratto le informazioni per generare le informazioni. Per generare questa risposta il bot ha utilizzato il contenuto presente nei pdf:
+\begin{itemize}
+\item 2
+\item 3
+\item 4
+\item 5
+\item 7
+\item 8
+\item 9
+\item 10
+\item 11
+\item 12
+\item 13
+\item 14
+\item 15
+\item 17
+\item 18
+\item 19
+\item 22
+\end{itemize}
+
+I risultati dimostrano come il chatbot sia in grado di integrare le informazioni estratte da documenti PDF per fornire risposte esaustive e ben strutturate. La capacità di associare ogni risposta ai documenti di riferimento rappresenta un valore aggiunto in termini di verificabilità e fiducia nelle risposte generate. Questo evidenzia la potenza e la versatilità dell'approccio RAG nell'ottimizzare l'interazione uomo-macchina. Complessivamente, l'implementazione raggiunge l'obiettivo di fornire uno strumento pratico e altamente personalizzabile, ponendo solide basi per ulteriori sviluppi e applicazioni future.
+
+\section{Vantaggi e svantaggi}
+Il sistema sviluppato rappresenta un esempio concreto di applicazione avanzata dell'intelligenza artificiale, con vantaggi significativi in contesti reali. Grazie all'utilizzo della tecnica Retrieval-Augmented Generation (RAG), il chatbot può fornire risposte pertinenti e supportate da dati documentali verificabili, rendendolo particolarmente utile in settori critici come quello sanitario, la consulenza medica o il supporto legale. Un punto di forza fondamentale è l'architettura scalabile basata su microservizi e REST API, che consente una facile integrazione del chatbot in ecosistemi già esistenti. Questa modularità permette inoltre di espandere il sistema con nuovi chatbot dedicati a domini diversi, mantenendo una gestione centralizzata ed efficiente.
+
+Tuttavia, il sistema presenta anche alcune limitazioni. La dipendenza da una base di documenti ben strutturata è un aspetto cruciale: i risultati generati sono direttamente correlati alla qualità e alla quantità delle informazioni disponibili nei documenti utilizzati per l'addestramento. In contesti con documenti non standardizzati o di qualità insufficiente, l'efficacia del chatbot potrebbe risultare compromessa. Un'altra limitazione riguarda i requisiti computazionali, poiché l'uso di modelli di linguaggio avanzati e tecniche di retrieval può richiedere risorse hardware significative, specialmente in ambienti con carichi elevati o richieste in tempo reale.
+
+Per superare queste sfide, una direzione promettente potrebbe essere l'integrazione di una memoria strutturata e persistente, che consenta al chatbot di arricchire le sue risposte attingendo non solo dai documenti di addestramento, ma anche dalle interazioni passate con gli utenti. Inoltre, l'adozione della tecnica Cache-Augmented Generation (CAG) potrebbe ridurre i tempi di latenza e migliorare l'efficienza computazionale, memorizzando risposte precedenti per richieste simili.
+
+L'architettura modulare del sistema apre la strada a molteplici scenari di espansione. Ad esempio, chatbot dedicati alla gestione di richieste tecniche, consulenze finanziarie o educazione personalizzata potrebbero essere sviluppati utilizzando lo stesso framework, semplicemente adattando il set di documenti di addestramento e le configurazioni esistenti. Questa flessibilità rende il sistema altamente adattabile e potenzialmente scalabile per applicazioni future, aumentando il suo valore pratico e la rilevanza in diversi ambiti operativi.
+ 
+\chapter{Conclusione e sviluppi futuri}
+In questa tesi abbiamo dimostrato un'applicazione concreta di un chatbot avanzato, addestrato utilizzando la tecnica Retrieval-Augmented Generation (RAG), applicato a un caso reale nell'ambito sanitario. In particolare, il chatbot è stato addestrato su file relativi all'alimentazione, dimostrando la capacità di generare risposte pertinenti, basate su informazioni strutturate e verificabili. L'integrazione del bot in un sistema di REST API ha evidenziato la flessibilità e l'interoperabilità del sistema, permettendo al chatbot di interagire agevolmente sia con altri sistemi backend sia con un frontend per l'interazione utente. Questo lavoro apre la strada a numerose direzioni di sviluppo future. Tra le principali:
+\begin{itemize}
+\item \textbf{Memoria persistente per i chatbot}: L'aggiunta di una memoria strutturata per ogni bot rappresenta un passo cruciale per migliorare le interazioni. Tale memoria consentirebbe al bot di generare risposte basandosi non solo sull'addestramento RAG, ma anche sulle conversazioni e interazioni passate, offrendo risposte più contestualizzate e personalizzate. Questo approccio garantirebbe una maggiore continuità nel dialogo e un'esperienza utente più naturale.
+\item \textbf{Confronto tra tecniche RAG e CAG}: Un'altra direzione promettente consiste nel confronto tra le prestazioni di chatbot addestrati con tecnica RAG e quelli che utilizzano la tecnica Cache-Augmented Generation (CAG). Quest'ultima, sfruttando una cache per il recupero rapido di risposte già generate, potrebbe ridurre i tempi di latenza e ottimizzare l'uso delle risorse computazionali, mantenendo al contempo un elevato livello di coerenza nelle risposte.
+\item \textbf{Interfaccia utente intuitiva e accessibile}: Sebbene il focus di questo progetto sia stato sul backend e sull'addestramento dei modelli, l'implementazione di un'interfaccia utente user-friendly è fondamentale per rendere il sistema accessibile a un pubblico più ampio. Un'interfaccia ben progettata, con elementi visivi chiari e controlli intuitivi, migliorerebbe significativamente l'esperienza d'uso, consentendo agli utenti di interagire facilmente con il chatbot e sfruttarne appieno le funzionalità.
+\end{itemize}
+
+Il lavoro svolto dimostra il potenziale dell'approccio RAG per l'addestramento di chatbot in grado di affrontare compiti complessi e fornire risposte basate su dati verificabili. L'integrazione in un ecosistema REST, unita alle prospettive di miglioramento delineate, rende questa soluzione particolarmente adatta a contesti reali, come quello sanitario. Guardando al futuro, l'implementazione di sistemi più sofisticati, dotati di memoria e ottimizzati tramite tecniche innovative come la CAG, potrà ulteriormente ampliare l'ambito di applicazione e l'impatto di queste tecnologie.
+
+Concludendo, la combinazione di chatbot intelligenti, architetture scalabili e interfacce intuitive offre un esempio tangibile di come l'intelligenza artificiale possa trasformare le interazioni uomo-macchina, migliorando l'efficienza e la qualità dei servizi in diversi settori.
 
 \bibliographystyle{plain}  
 \bibliography{bibliografia}
