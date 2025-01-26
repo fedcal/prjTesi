@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.12.22)  26 JAN 2025 11:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.12.22)  26 JAN 2025 12:12
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -777,7 +777,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 83.
 
-(tesi.aux (ringraziamenti.aux))
+(tesi.aux)
 \openout1 = `tesi.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
@@ -800,8 +800,7 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 87.
 LaTeX Font Info:    ... okay on input line 87.
 LaTeX Info: Redefining \it@ocap on input line 87.
 LaTeX Info: Redefining \it@ccap on input line 87.
-
-(C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+ (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count338
 \scratchdimen=\dimen288
@@ -1129,19 +1128,17 @@ Capitolo 5.
 [39
 
 ]
-No file tesi.bbl.
-
 
 [40]
-\openout2 = `ringraziamenti.aux'.
-
-
-No file ringraziamenti.tex.
 
 Package caption Warning: Unused \captionsetup[listing] on input line 12.
 See the caption package documentation for explanation.
 
-(tesi.aux (ringraziamenti.aux))
+
+
+[41
+
+] (tesi.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
@@ -1150,10 +1147,10 @@ Package rerunfilecheck Info: File `tesi.out' has not changed.
 (rerunfilecheck)             Checksum: 0FB7FB89FE8FCEB0279D8BED46E7CDA0;3416.
  ) 
 Here is how much of TeX's memory you used:
- 36532 strings out of 473650
- 821163 string characters out of 5727959
- 1751825 words of memory out of 5000000
- 58875 multiletter control sequences out of 15000+600000
+ 36511 strings out of 473650
+ 820464 string characters out of 5727959
+ 1751337 words of memory out of 5000000
+ 58857 multiletter control sequences out of 15000+600000
  575281 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  138i,11n,135p,1517b,2187s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1172,9 +1169,9 @@ AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\
 fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\
 Users\fedca\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk
 >
-Output written on tesi.pdf (44 pages, 551844 bytes).
+Output written on tesi.pdf (45 pages, 553646 bytes).
 PDF statistics:
- 954 PDF objects out of 1000 (max. 8388607)
- 184 named destinations out of 1000 (max. 500000)
+ 958 PDF objects out of 1000 (max. 8388607)
+ 185 named destinations out of 1000 (max. 500000)
  184 words of extra memory for PDF output out of 10000 (max. 10000000)
 
