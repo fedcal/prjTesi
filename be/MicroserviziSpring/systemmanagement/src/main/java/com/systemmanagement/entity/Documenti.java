@@ -10,7 +10,8 @@ import lombok.Setter;
 @Setter
 public class Documenti {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "documenti_seq")
+    @SequenceGenerator(name = "documenti_seq", sequenceName = "documenti_seq", allocationSize = 500)
     @Column(name = "id_documento")
     private Long idDocumento;
 
