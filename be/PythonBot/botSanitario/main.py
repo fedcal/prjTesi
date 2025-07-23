@@ -1,6 +1,7 @@
 from flask import Flask, request
 from langchain_community.vectorstores import Chroma
 from langchain_community.llms import Ollama
+from langchain_together import ChatTogether
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
 from langchain_community.document_loaders import PDFPlumberLoader
@@ -36,7 +37,12 @@ logger.addHandler(handler)
 
 app = Flask(__name__)
 
-llm = Ollama(model="llama3")
+# TogetherAI requires an API key to be set via the TOGETHER_API_KEY environment variable
+# A free trial API key can be obtained here: https://api.together.ai/
+together_llm = ChatTogether(model="meta-llama/Llama-4-Scout-17B-16E-Instruct")
+
+# Use Ollama by default and fallback to TogetherAI when Ollama is not available
+llm = Ollama(model="llama3").with_fallbacks([together_llm])
 
 embedding = FastEmbedEmbeddings()
 
