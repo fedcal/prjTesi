@@ -37,12 +37,19 @@ logger.addHandler(handler)
 
 app = Flask(__name__)
 
-# TogetherAI requires an API key to be set via the TOGETHER_API_KEY environment variable
-# A free trial API key can be obtained here: https://api.together.ai/
-together_llm = ChatTogether(model="meta-llama/Llama-4-Scout-17B-16E-Instruct")
+#Si gestisce la presenza della key trimite un try cathc impostando la variabile llm a ollama in locale
+llm = Ollama(model="llama3")
 
-# Use Ollama by default and fallback to TogetherAI when Ollama is not available
-llm = Ollama(model="llama3").with_fallbacks([together_llm])
+try:
+    # TogetherAI requires an API key to be set via the TOGETHER_API_KEY environment variable
+    # A free trial API key can be obtained here: https://api.together.ai/
+    together_llm = ChatTogether(model="meta-llama/Llama-4-Scout-17B-16E-Instruct")
+
+    # Use Ollama by default and fallback to TogetherAI when Ollama is not available
+    llm = Ollama(model="llama3").with_fallbacks([together_llm])
+except Exception as e:
+    print(e)
+
 
 embedding = FastEmbedEmbeddings()
 
