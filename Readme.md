@@ -11,6 +11,8 @@ Per generare la chiave di OpenApi per sfruttare i model di ChatGpt, accedere al 
 
 Per il database Astra DB, accedere al seguente link https://astra.datastax.com/c7c8ed45-f197-4c45-8220-7aed116279c3. Creare un database e generare un token.
 
+Per utilizzare together.ai impostare l'api key e seguire questo sito: https://api.toether.ai/
+
 ## Stop and run OLLAMA ubuntu
 
 ps aux | grep ollama
@@ -26,3 +28,13 @@ dbmdz/bert-base-italian-cased: Un modello BERT addestrato su un corpus italiano.
 Musixmatch/umberto-commoncrawl-cased-v1: Modello BERT ottimizzato per l'italiano.
 sentence-transformers/all-MiniLM-L6-v2: Modello di embeddings versatile che funziona bene con lingue diverse, inclusa l'italiano.
 xlm-roberta-base: Modello multilingue che funziona bene con diverse lingue, tra cui l'italiano.
+
+## Bot Python
+
+Ho convertito i bot da Flask a FastApi per futuri sviluppi. Per avviare un bot basta eseguire da terminale un comand ad esempio:
+
+```
+uvicorn main:app --host 127.0.0.1 --port 5002 --reload
+```
+
+Oppure basta configurare una run configuration di python impostando come script ```uvicorn``` e inserendo come parametri ```main:app --host 127.0.0.1 --port 5002 --reload```

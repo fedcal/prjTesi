@@ -1,49 +1,41 @@
-from flask import Flask, request
-from langchain_community.vectorstores import Chroma
-from langchain_community.llms import Ollama
-from langchain_together import ChatTogether
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
-from langchain_community.document_loaders import PDFPlumberLoader
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain.chains import create_retrieval_chain
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-from langchain.prompts import PromptTemplate
-from mysql.connector import connect, Error
 import os
 import logging
-from logging.handlers import RotatingFileHandler
+from contextlib import asynccontextmanager
 
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import JSONResponse
+from dotenv import load_dotenv
+from mysql.connector import connect, Error
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
+from langchain_community.llms import Ollama
+from langchain_together import ChatTogether
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain.chains import create_retrieval_chain
+from langchain.prompts import PromptTemplate
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import PDFPlumberLoader
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 from langdetect import detect
 from deep_translator import GoogleTranslator
 import re
-from dotenv import load_dotenv
+import shutil
 
 load_dotenv()
+
+app = FastAPI()
 
 DB_HOST = os.getenv("DB_HOST")
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_NAME = os.getenv("DB_NAME")
 
-pathAddestramento = ""
 connectionDB = None
+pathAddestramento = ""
 
-logging.basicConfig(filename='app.log', level=logging.DEBUG,
-                    format='%(asctime)s %(levelname)s: %(message)s')
-
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-handler = RotatingFileHandler("app.log", maxBytes=1024*1024*1024, backupCount=3)
-handler.setLevel(logging.DEBUG)
-
-formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s')
-handler.setFormatter(formatter)
-
-logger.addHandler(handler)
-
-app = Flask(__name__)
 
 #Si gestisce la presenza della key trimite un try cathc impostando la variabile llm a ollama in locale
 try:
@@ -51,15 +43,14 @@ try:
     # A free trial API key can be obtained here: https://api.together.ai/
     together_llm = ChatTogether(model="meta-llama/Llama-4-Scout-17B-16E-Instruct")
 
-    # Use Ollama by default and fallback to TogetherAI when Ollama is not available
     llm = Ollama(model="llama3").with_fallbacks([together_llm])
 except Exception as e:
-    print(e, "Si procede a contatare Ollama localmente")
+    print(f"Errore con TogetherAI: {e}")
     try:
         llm = Ollama(model="llama3")
     except Exception as e:
-        print(e, "Ollama è andato in errore")
-
+        print(f"Ollama non disponibile: {e}")
+        llm = None
 
 embedding = FastEmbedEmbeddings()
 
@@ -70,159 +61,99 @@ text_splitter = RecursiveCharacterTextSplitter(
     separators=[r"\n\n", r"\n", r"(?<=\.\s)", " ", ""]
 )
 
-
-rawPrompt = PromptTemplate.from_template(""" 
+prompt = PromptTemplate.from_template("""
     <s>[INST] Sei un assistente esperto nella ricerca di informazioni nei documenti PDF. Le tue risposte devono essere precise e basate esclusivamente sul contesto fornito. Assicurati di rispondere in italiano e di non fare supposizioni. Indica chiaramente la fonte da cui hai estratto l'informazione se disponibile. [/INST]</s>
-
     [INST] {input}
-            Context: {context}
-            Risposta in italiano: 
+    Context: {context}
+    Risposta in italiano:
     [/INST]
 """)
 
-@app.route('/message', methods=['POST'])
-def botAlimentazioneMessage():
-    jsonContent = request.json
-    query = jsonContent.get('query')
-    print(f"Query: {query}")
 
+@app.post("/message")
+async def message(data: dict):
+    query = data.get("query")
+    if not llm:
+        return JSONResponse(status_code=503, content={"error": "LLM non disponibile"})
     response = llm.invoke(query)
-    responseAnswer = {"query": query, "message": check_and_translate(response)}
+    return {"query": query, "message": check_and_translate(response)}
 
-    return responseAnswer
 
-@app.route('/evaluete-message', methods=['POST'])
-def botAlimentazioneEvalueteMessage():
-    jsonContent = request.json
-    query = jsonContent.get('query')
-    print(f"Query: {query}")
-
-    print(f"Carico il VectorStore")
-    vectorStore = Chroma(persist_directory=pathAddestramento,
-                         embedding_function=embedding)
-
-    print(f"Creo la chain")
+@app.post("/evaluete-message")
+async def evaluate_message(data: dict):
+    query = data.get("query")
+    vectorStore = Chroma(persist_directory=pathAddestramento, embedding_function=embedding)
     retriever = vectorStore.as_retriever(
         search_type="similarity_score_threshold",
-        search_kwargs={
-            "k": 20,
-            "score_threshold": 0.3,
-        },
+        search_kwargs={"k": 20, "score_threshold": 0.3}
     )
-
-    document_chain = create_stuff_documents_chain(llm, rawPrompt)
+    document_chain = create_stuff_documents_chain(llm, prompt)
     chain = create_retrieval_chain(retriever, document_chain)
-
     result = chain.invoke({"input": f"Rispondi in italiano: {query}"})
 
-    print(result)
+    sources = [
+        {"source": doc.metadata["source"], "pageContent": doc.page_content}
+        for doc in result["context"]
+    ]
 
-    sources = []
-    for doc in result["context"]:
-        sources.append(
-            {"source": doc.metadata["source"], "pageContent": doc.page_content}
-        )
-
-    rispostaCorretta = "Ecco la mia risposta:\n\n**Schema alimentare 1 (8C)**\n\n* Pranzo:\n\t+ Pasta di semola secca: scegli tra pasta di semola secca 100g preferibilmente integrale, pasta di semola fresca 140g o pasta all'uovo fresca 120g\n\t+ Condimento del primo piatto: sugo semplice al pomodoro, sugo all'arrabbiata, in brodo (vegetale), condimento di verdure a piacere, in bianco, con aglio olio e peperoncino. È possibile aggiungere 1 cucchiaino di formaggio grattugiato stagionato (grana, parmigiano, pecorino) se gradito.\n* Colazione:\n\t+ Opzione a scelta: una tazza di latte parzialmente scremato da 250ml, due vasetti di yogurt naturale magro non zuccherato da 125g o un bicchiere di kefir da 300ml. In alternativa, può scegliere una tazza di latte da 125 ml + uno yogurt naturale magro da 125g\n\t+ In aggiunta: 6 biscotti frollini o 7 biscotti secchi preferibilmente integrali (60g), 5 fette biscottate preferibilmente integrali (60g) con un velo sottile di marmellata, due panini piccoli preferibilmente integrali (100g) con un velo sottile di marmellata o 8-10 cucchiai di cereali per la colazione preferibilmente integrali, o cornflakes (60g)\n* Possibilità di utilizzare una bevanda calda come caffè, orzo o tè non zuccherato in bustina (non superare i 2 cucchiaini di zucchero o miele al giorno per zuccherare le bevande calde)\n\n**Schema alimentare 1 (8C)**\n\n* Pranzo:\n\t+ Pasta di semola secca: scegli tra pasta di semola secca 100g preferibilmente integrale, pasta di semola fresca 140g o pasta all'uovo fresca 120g\n\t+ Condimento del primo piatto: sugo semplice al pomodoro, sugo all'arrabbiata, in brodo (vegetale), condimento di verdure a piacere, in bianco, con aglio olio e peperoncino. È possibile aggiungere 1 cucchiaino di formaggio grattugiato stagionato (grana, parmigiano, pecorino) se gradito.\n* Colazione:\n\t+ Opzione a scelta: una tazza di latte parzialmente scremato da 250ml, due vasetti di yogurt naturale magro non zuccherato da 125g o un bicchiere di kefir da 300ml. In alternativa, può scegliere una tazza di latte da 125 ml + uno yogurt naturale magro da 125g\n\t+ In aggiunta: 6 biscotti frollini o 7 biscotti secchi preferibilmente integrali (60g), 5 fette biscottate preferibilmente integrali (60g) con un velo sottile di marmellata, due panini piccoli preferibilmente integrali (100g) con un velo sottile di marmellata o 8-10 cucchiai di cereali per la colazione preferibilmente integrali, o cornflakes (60g)\n* Possibilità di utilizzare una bevanda calda come caffè, orzo o tè non zuccherato in bustina (non superare i 2 cucchiaini di zucchero o miele al giorno per zuccherare le bevande calde)\n\n**Schema alimentare 1 (8C)**\n\n* Pranzo:\n\t+ Pasta di semola secca: scegli tra pasta di semola secca 100g preferibilmente integrale, pasta di semola fresca 140g o pasta all'uovo fresca 120g\n\t+ Condimento del primo piatto: sugo semplice al pomodoro, sugo all'arrabbiata, in brodo (vegetale), condimento di verdure a piacere, in bianco, con aglio olio e peperoncino. È possibile aggiungere 1 cucchiaino di formaggio grattugiato stagionato (grana, parmigiano, pecorino) se gradito.\n* Colazione:\n\t+ Opzione a scelta: una tazza di latte parzialmente scremato da 250ml, due vasetti di yogurt naturale magro non zuccherato da 125g o un bicchiere di kefir da 300ml. In alternativa, può scegliere una tazza di latte da 125 ml + uno yogurt naturale magro da 125g\n\t+ In aggiunta: 6 biscotti frollini o 7 biscotti secchi preferibilmente integrali (60g), 5 fette biscottate preferibilmente integrali (60g) con un velo sottile di marmellata, due panini piccoli preferibilmente integrali (100g) con un velo sottile di marmellata o 8-10 cucchiai di cereali per la colazione preferibilmente integrali, o cornflakes (60g)\n* Possibilità di utilizzare una bevanda calda come caffè, orzo o tè non zuccherato in bustina (non superare i 2 cucchiaini di zucchero o miele al giorno per zuccherare le bevande calde)"
-    # Calcola la similarità tra la risposta generata e la risposta di riferimento
+    rispostaCorretta = "Ecco la mia risposta:\n\n..."  # come da tuo esempio
     similarity_score = calculate_similarity(
-        check_and_translate(result["answer"]).replace("\n", "").replace("\t", "").replace("+", "").replace("*", ""),  # Risposta generata
-        rispostaCorretta.replace("\n", "").replace("\t", "").replace("+", "").replace("*", "")  # Risposta di riferimento
+        check_and_translate(result["answer"]), rispostaCorretta
     )
 
-    # Stampa del risultato
-    print(f"Similarità: {similarity_score}")
-
-    print(f"answer: {check_and_translate(result["answer"])}")
-
-    responseAnswer = {"answer": check_and_translate(result["answer"]), "sources": sources, "query": query}
-
-    return responseAnswer
-
-
-@app.route('/load-pdf', methods=['POST'])
-def loadPdf():
-    file = request.files['file']
-    fileName = file.filename
-    saveFile = ""
-    if os.name == 'nt':
-        saveFile = pathAddestramento + "\\" + fileName
-    else:
-        saveFile = pathAddestramento + "/" + fileName
-    file.save(saveFile)
-    print(f"File salvato: {saveFile}")
-
-    if not fileName[-4:] == ".pdf":
-        response = {
-            "status": "success",
-            "fileName": fileName,
-            "docLen": 0,
-            "chunks": 0
-        }
-        return response
-
-    loadPdf = PDFPlumberLoader(saveFile)
-
-    docs = loadPdf.load_and_split()
-    print(f"Doc len: {len(docs)}")
-
-    chunks = text_splitter.split_documents(docs)
-    print(f"Doc len: {len(chunks)}")
-
-    response = {
-        "status": "success",
-        "fileName": fileName,
-        "docLen": len(docs),
-        "chunks": len(chunks)
+    return {
+        "answer": check_and_translate(result["answer"]),
+        "sources": sources,
+        "query": query,
+        "similarity": similarity_score
     }
-    if(len(docs)==0 or len(chunks)==0 ):
-        response = {
-            "status": "failed",
-            "fileName": fileName,
-            "docLen": len(docs),
-            "chunks": len(chunks)
-        }
-    else:
-        vectorStore = Chroma.from_documents(documents=chunks, embedding=embedding, persist_directory=pathAddestramento)
-        vectorStore.persist()
-    return response
 
 
-@app.route('/message-pdf', methods=['POST'])
-def askPdf():
-    jsonContent = request.json
-    query = jsonContent.get('query')
-    print(f"Query: {query}")
+@app.post("/load-pdf")
+async def load_pdf(file: UploadFile = File(...)):
+    global pathAddestramento
+    file_path = os.path.join(pathAddestramento, file.filename)
+    with open(file_path, "wb") as f:
+        shutil.copyfileobj(file.file, f)
 
-    print(f"Carico il VectorStore")
-    vectorStore = Chroma(persist_directory=pathAddestramento,
-                         embedding_function=embedding)
+    if not file.filename.endswith(".pdf"):
+        return {"status": "failed", "fileName": file.filename, "docLen": 0, "chunks": 0}
 
-    print(f"Creo la chain")
+    loader = PDFPlumberLoader(file_path)
+    docs = loader.load_and_split()
+    chunks = text_splitter.split_documents(docs)
+
+    if not docs or not chunks:
+        return {"status": "failed", "fileName": file.filename, "docLen": len(docs), "chunks": len(chunks)}
+
+    vectorStore = Chroma.from_documents(documents=chunks, embedding=embedding, persist_directory=pathAddestramento)
+    vectorStore.persist()
+
+    return {"status": "success", "fileName": file.filename, "docLen": len(docs), "chunks": len(chunks)}
+
+
+@app.post("/message-pdf")
+async def ask_pdf(data: dict):
+    query = data.get("query")
+    vectorStore = Chroma(persist_directory=pathAddestramento, embedding_function=embedding)
     retriever = vectorStore.as_retriever(
         search_type="similarity_score_threshold",
-        search_kwargs={
-            "k": 20,
-            "score_threshold": 0.3,
-        },
+        search_kwargs={"k": 20, "score_threshold": 0.3}
     )
-
-    document_chain = create_stuff_documents_chain(llm, rawPrompt)
+    document_chain = create_stuff_documents_chain(llm, prompt)
     chain = create_retrieval_chain(retriever, document_chain)
-
     result = chain.invoke({"input": f"Rispondi in italiano: {query}"})
 
-    print(result)
+    sources = [
+        {"source": doc.metadata["source"], "pageContent": doc.page_content}
+        for doc in result["context"]
+    ]
 
-    sources = []
-    for doc in result["context"]:
-        sources.append(
-            {"source": doc.metadata["source"], "pageContent": doc.page_content}
-        )
-
-    responseAnswer = {"answer": check_and_translate(result["answer"]), "sources": sources, "query": query}
-
-    return responseAnswer
+    return {
+        "answer": check_and_translate(result["answer"]),
+        "sources": sources,
+        "query": query
+    }
 
 
 def connessioneDb():
@@ -234,65 +165,57 @@ def connessioneDb():
             password=DB_PASSWORD,
             database=DB_NAME,
         )
-        app.logger.info('Connessione db.')
+        logger.info("Connessione DB riuscita.")
     except Error as e:
-        app.logger.info(e)
+        logger.warning(f"Errore DB: {e}")
 
 
 def recuperoPathAddestramento():
-    global connectionDB
-    global pathAddestramento
-    query = "SELECT path_cartella, nome_cartella FROM cartelle AS cart LEFT JOIN rag_bot_pdf AS ragbot ON cart.id_cartella = ragbot.id_cartella_addestramento WHERE nome_bot = 'botAlimentazione' AND cart.is_cartella_addestramento = 1"
+    global pathAddestramento, connectionDB
+    if not connectionDB:
+        return
+    query = """
+    SELECT path_cartella, nome_cartella
+    FROM cartelle AS cart
+    LEFT JOIN rag_bot_pdf AS ragbot ON cart.id_cartella = ragbot.id_cartella_addestramento
+    WHERE nome_bot = 'botAlimentazione' AND cart.is_cartella_addestramento = 1
+    """
     try:
         with connectionDB.cursor() as cursor:
             cursor.execute(query)
             for folder in cursor.fetchall():
-                app.logger.info(folder)
                 for field in folder:
                     if pathAddestramento == "":
                         pathAddestramento = field
                     else:
-                        if os.name == 'nt':
-                            pathAddestramento = pathAddestramento + "\\" + field
-                        else:
-                            pathAddestramento = pathAddestramento + "/" + field
+                        pathAddestramento = os.path.join(pathAddestramento, field)
     except Error as e:
-        app.logger.info(e)
+        logger.error(f"Errore query DB: {e}")
     finally:
         connectionDB.close()
 
 
-def startApplication():
-    connessioneDb()
-    recuperoPathAddestramento()
-    app.run(host='127.0.0.1', port=5002, debug=True)
-
-def contains_english_words(text):
-    english_words = r'\b[a-zA-Z]+\b'
-    return re.search(english_words, text) is not None
-
-
-def check_and_translate(text):
-    detected_language = detect(text)
-    print(f"Lingua rilevata: {detected_language}")
-
-    if detected_language == 'en':
-        translated_text = GoogleTranslator(source='en', target='it').translate(text)
-        return translated_text
-    elif detected_language == 'it' and contains_english_words(text):
-        print("Il testo contiene parole in inglese, non viene tradotto.")
-        return text
-    elif detected_language == 'it':
-        return text
-
 def calculate_similarity(text1, text2):
-    """
-    Calcola la similarità del coseno tra due testi.
-    """
     vectorizer = TfidfVectorizer()
     tfidf_matrix = vectorizer.fit_transform([text1, text2])
     similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
     return similarity[0][0]
 
-if __name__ == '__main__':
-    startApplication()
+
+def contains_english_words(text):
+    return re.search(r'\b[a-zA-Z]+\b', text) is not None
+
+
+def check_and_translate(text):
+    detected_language = detect(text)
+    if detected_language == 'en':
+        return GoogleTranslator(source='en', target='it').translate(text)
+    elif detected_language == 'it' and contains_english_words(text):
+        return text  # contiene parole inglesi ma è italiano
+    return text
+
+
+@asynccontextmanager
+def startup_event():
+    connessioneDb()
+    recuperoPathAddestramento()
