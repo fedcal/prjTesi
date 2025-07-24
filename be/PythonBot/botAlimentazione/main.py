@@ -18,6 +18,14 @@ from logging.handlers import RotatingFileHandler
 from langdetect import detect
 from deep_translator import GoogleTranslator
 import re
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DB_HOST = os.getenv("DB_HOST")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_NAME = os.getenv("DB_NAME")
 
 pathAddestramento = ""
 connectionDB = None
@@ -38,8 +46,6 @@ logger.addHandler(handler)
 app = Flask(__name__)
 
 #Si gestisce la presenza della key trimite un try cathc impostando la variabile llm a ollama in locale
-llm = Ollama(model="llama3")
-
 try:
     # TogetherAI requires an API key to be set via the TOGETHER_API_KEY environment variable
     # A free trial API key can be obtained here: https://api.together.ai/
@@ -48,7 +54,11 @@ try:
     # Use Ollama by default and fallback to TogetherAI when Ollama is not available
     llm = Ollama(model="llama3").with_fallbacks([together_llm])
 except Exception as e:
-    print(e)
+    print(e, "Si procede a contatare Ollama localmente")
+    try:
+        llm = Ollama(model="llama3")
+    except Exception as e:
+        print(e, "Ollama è andato in errore")
 
 
 embedding = FastEmbedEmbeddings()
@@ -219,10 +229,10 @@ def connessioneDb():
     global connectionDB
     try:
         connectionDB = connect(
-            host="localhost",
-            user="root",
-            password="root",
-            database="botrag",
+            host=DB_HOST,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            database=DB_NAME,
         )
         app.logger.info('Connessione db.')
     except Error as e:
