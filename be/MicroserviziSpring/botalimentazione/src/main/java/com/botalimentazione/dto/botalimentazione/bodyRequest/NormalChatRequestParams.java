@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class NormalChatRequestParams {
     private String query;
+    private Integer idUtente;
 }

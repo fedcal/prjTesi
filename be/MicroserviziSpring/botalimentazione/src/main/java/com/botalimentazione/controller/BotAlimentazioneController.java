@@ -1,5 +1,6 @@
 package com.botalimentazione.controller;
 
+import com.botalimentazione.dto.botalimentazione.bodyRequest.NormalChatRequestParams;
 import com.botalimentazione.dto.botalimentazione.responseRequest.ResponseEvalueteNormalChatDto;
 import com.botalimentazione.dto.botalimentazione.responseRequest.ResponseMessagePdfDto;
 import com.botalimentazione.dto.botalimentazione.responseRequest.ResponseNormalMessageDto;
@@ -33,9 +34,9 @@ public class BotAlimentazioneController {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value = "/normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<ResponseNormalMessageDto>> normalChat(@RequestParam String messagge) {
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.normalChat(messagge)));
+    @PostMapping(value = "/normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<ResponseNormalMessageDto>> normalChat(@RequestParam NormalChatRequestParams normalChatRequestParams) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.normalChat(normalChatRequestParams)));
     }
 
     @Operation(summary = "Chat addestrata",
@@ -44,9 +45,9 @@ public class BotAlimentazioneController {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value = "/chat-addestrata", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<ResponseMessagePdfDto>> chatAddestrata(@RequestParam String messagge) {
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.chatAddestrata(messagge)));
+    @PostMapping(value = "/chat-addestrata", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<ResponseMessagePdfDto>> chatAddestrata(@RequestParam NormalChatRequestParams normalChatRequestParams) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.chatAddestrata(normalChatRequestParams)));
     }
 
     @Operation(summary = "Chat Valutazione pdf",
@@ -55,8 +56,8 @@ public class BotAlimentazioneController {
             @ApiResponse(responseCode = "200", description = "Operazione andata a buon fine"),
             @ApiResponse(responseCode = "500", description = "Errore di sistema")
     })
-    @GetMapping(value = "/evaluete-normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponseDto<ResponseEvalueteNormalChatDto>> evalueteNormalChat(@RequestParam String messagge) {
-        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.evalueteNormalChat(messagge)));
+    @PostMapping(value = "/evaluete-normal-chat", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponseDto<ResponseEvalueteNormalChatDto>> evalueteNormalChat(@RequestParam NormalChatRequestParams normalChatRequestParams) {
+        return ResponseEntity.ok(esitoMessaggiRequestContextHolder.buildGenericResponse(chatService.evalueteNormalChat(normalChatRequestParams)));
     }
 }

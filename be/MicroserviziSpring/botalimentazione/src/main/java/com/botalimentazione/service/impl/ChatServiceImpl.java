@@ -24,12 +24,9 @@ public class ChatServiceImpl implements ChatService {
 
 
     @Override
-    public ResponseNormalMessageDto normalChat(String messagge) {
+    public ResponseNormalMessageDto normalChat(NormalChatRequestParams normalChatRequestParams) {
         esitoMessaggiRequestContextHolder.setOperationId("normalChat");
         String url = BotAlimentazionePyUrl.NORMAL_MESSAGE;
-
-        NormalChatRequestParams normalChatRequestParams = new NormalChatRequestParams();
-        normalChatRequestParams.setQuery(messagge);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -61,12 +58,9 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public ResponseMessagePdfDto chatAddestrata(String messagge) {
+    public ResponseMessagePdfDto chatAddestrata(NormalChatRequestParams normalChatRequestParams) {
         esitoMessaggiRequestContextHolder.setOperationId("chatAddestrata");
         String url = BotAlimentazionePyUrl.MESSAGE_PDF;
-
-        NormalChatRequestParams normalChatRequestParams = new NormalChatRequestParams();
-        normalChatRequestParams.setQuery(messagge);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -98,12 +92,9 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public ResponseEvalueteNormalChatDto evalueteNormalChat(String messagge) {
+    public ResponseEvalueteNormalChatDto evalueteNormalChat(NormalChatRequestParams normalChatRequestParams) {
         esitoMessaggiRequestContextHolder.setOperationId("evalueteNormalChat");
         String url = BotAlimentazionePyUrl.EVALUETE_NORMAL_MESSAGE;
-
-        NormalChatRequestParams normalChatRequestParams = new NormalChatRequestParams();
-        normalChatRequestParams.setQuery(messagge);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
