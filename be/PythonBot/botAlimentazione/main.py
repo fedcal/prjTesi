@@ -1,11 +1,14 @@
 import os
 import logging
+import re
+import shutil
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 from mysql.connector import connect, Error
+
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
 from langchain_community.llms import Ollama
@@ -15,12 +18,11 @@ from langchain.chains import create_retrieval_chain
 from langchain.prompts import PromptTemplate
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PDFPlumberLoader
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from langdetect import detect
 from deep_translator import GoogleTranslator
-import re
-import shutil
 
 load_dotenv()
 
@@ -37,12 +39,8 @@ pathAddestramento = ""
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-#Si gestisce la presenza della key trimite un try cathc impostando la variabile llm a ollama in locale
 try:
-    # TogetherAI requires an API key to be set via the TOGETHER_API_KEY environment variable
-    # A free trial API key can be obtained here: https://api.together.ai/
     together_llm = ChatTogether(model="meta-llama/Llama-4-Scout-17B-16E-Instruct")
-
     llm = Ollama(model="llama3").with_fallbacks([together_llm])
 except Exception as e:
     print(f"Errore con TogetherAI: {e}")
@@ -73,36 +71,67 @@ prompt = PromptTemplate.from_template("""
 @app.post("/message")
 async def message(data: dict):
     query = data.get("query")
+    utente_id = 0  # In futuro sarà dinamico
+
     if not llm:
         return JSONResponse(status_code=503, content={"error": "LLM non disponibile"})
-    response = llm.invoke(query)
-    return {"query": query, "message": check_and_translate(response)}
+
+    # Recupera memoria conversazionale recente (ultimi 5 messaggi)
+    cronologia = recupera_memoria_conversazionale(utente_id, n=5)
+    contesto = "\n".join([f"Utente: {d}\nBot: {r}" for d, r in reversed(cronologia)])
+
+    # Costruisci il prompt con la cronologia
+    prompt_contestuale = f"{contesto}\nUtente: {query}\nBot:"
+
+    # Genera la risposta
+    response = llm.invoke(prompt_contestuale)
+    risposta = check_and_translate(response)
+
+    # Salva nuova conversazione
+    salva_conversazione(utente_id, query, risposta)
+
+    return {"query": query, "message": risposta}
 
 
-@app.post("/evaluete-message")
+@app.post("/evaluate-message")
 async def evaluate_message(data: dict):
     query = data.get("query")
+    utente_id = 0  # Da rendere dinamico in futuro
+
+    # 1. Recupero memoria da MySQL
+    cronologia = recupera_memoria_conversazionale(utente_id, n=5)
+    contesto_memoria = "\n".join([f"Utente: {q}\nBot: {a}" for q, a in reversed(cronologia)])
+
+    # 2. Retrieval da Chroma DB
     vectorStore = Chroma(persist_directory=pathAddestramento, embedding_function=embedding)
     retriever = vectorStore.as_retriever(
         search_type="similarity_score_threshold",
         search_kwargs={"k": 20, "score_threshold": 0.3}
     )
+
     document_chain = create_stuff_documents_chain(llm, prompt)
     chain = create_retrieval_chain(retriever, document_chain)
     result = chain.invoke({"input": f"Rispondi in italiano: {query}"})
 
+    # 3. Risposta LLM basata su memoria + documenti
+    risposta_documentale = result["answer"]
+    risposta = check_and_translate(risposta_documentale)
+
+    # 4. Salva la conversazione in MySQL
+    salva_conversazione(utente_id, query, risposta)
+
+    # 5. Fonti documentali
     sources = [
-        {"source": doc.metadata["source"], "pageContent": doc.page_content}
-        for doc in result["context"]
+        {"source": doc.metadata.get("source", ""), "pageContent": doc.page_content}
+        for doc in result.get("context", [])
     ]
 
-    rispostaCorretta = "Ecco la mia risposta:\n\n..."  # come da tuo esempio
-    similarity_score = calculate_similarity(
-        check_and_translate(result["answer"]), rispostaCorretta
-    )
+    # 6. Similarità con una risposta attesa (mockata qui)
+    rispostaCorretta = "Ecco la mia risposta:\n\n..."
+    similarity_score = calculate_similarity(risposta, rispostaCorretta)
 
     return {
-        "answer": check_and_translate(result["answer"]),
+        "answer": risposta,
         "sources": sources,
         "query": query,
         "similarity": similarity_score
@@ -135,22 +164,44 @@ async def load_pdf(file: UploadFile = File(...)):
 @app.post("/message-pdf")
 async def ask_pdf(data: dict):
     query = data.get("query")
+    utente_id = 0  # Provvisorio, in futuro gestire utente reale
+
+    # 1. Recupero memoria utente da MySQL
+    cronologia = recupera_memoria_conversazionale(utente_id, n=5)
+    contesto_memoria = "\n".join([f"Utente: {q}\nBot: {a}" for q, a in reversed(cronologia)])
+
+    # 2. Retrieval semantico con Chroma
     vectorStore = Chroma(persist_directory=pathAddestramento, embedding_function=embedding)
     retriever = vectorStore.as_retriever(
         search_type="similarity_score_threshold",
         search_kwargs={"k": 20, "score_threshold": 0.3}
     )
+
+    # 3. Prompt combinato: memoria + domanda
+    input_finale = f"""Usa il seguente contesto della conversazione con l'utente, se utile, per rispondere in modo coerente.
+
+Cronologia recente:
+{contesto_memoria}
+
+Domanda attuale:
+{query}
+"""
+
     document_chain = create_stuff_documents_chain(llm, prompt)
     chain = create_retrieval_chain(retriever, document_chain)
-    result = chain.invoke({"input": f"Rispondi in italiano: {query}"})
+    result = chain.invoke({"input": input_finale})
+
+    # 4. Traduzione, salvataggio, fonti
+    risposta = check_and_translate(result["answer"])
+    salva_conversazione(utente_id, query, risposta)
 
     sources = [
-        {"source": doc.metadata["source"], "pageContent": doc.page_content}
-        for doc in result["context"]
+        {"source": doc.metadata.get("source", ""), "pageContent": doc.page_content}
+        for doc in result.get("context", [])
     ]
 
     return {
-        "answer": check_and_translate(result["answer"]),
+        "answer": risposta,
         "sources": sources,
         "query": query
     }
@@ -211,8 +262,37 @@ def check_and_translate(text):
     if detected_language == 'en':
         return GoogleTranslator(source='en', target='it').translate(text)
     elif detected_language == 'it' and contains_english_words(text):
-        return text  # contiene parole inglesi ma è italiano
+        return text
     return text
+
+
+def salva_conversazione(utente_id, domanda, risposta):
+    try:
+        with connectionDB.cursor() as cursor:
+            query = """
+            INSERT INTO conversazioni (utente_id, domanda, risposta)
+            VALUES (%s, %s, %s)
+            """
+            cursor.execute(query, (utente_id, domanda, risposta))
+        connectionDB.commit()
+    except Error as e:
+        logger.error(f"Errore salvataggio conversazione: {e}")
+
+def recupera_memoria_conversazionale(utente_id, n=5):
+    try:
+        with connectionDB.cursor() as cursor:
+            query = """
+            SELECT domanda, risposta
+            FROM conversazioni
+            WHERE utente_id = %s
+            ORDER BY id DESC
+            LIMIT %s
+            """
+            cursor.execute(query, (utente_id, n))
+            return cursor.fetchall()
+    except Error as e:
+        logger.error(f"Errore recupero memoria: {e}")
+        return []
 
 
 @asynccontextmanager
